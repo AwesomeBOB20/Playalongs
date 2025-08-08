@@ -1,0 +1,833 @@
+/* Import Ubuntu Font */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1c;
+    color: #ffffff;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.sheet-music {
+    margin: 20px 0;
+}
+
+.sheet-music-img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #000;
+}
+
+/* Ensure Ubuntu font on all new dropdowns */
+.category-container,
+.playlist-container,
+.playlist-queue-container,
+.exercise-container,
+.exercise-list li,
+.category-list li,
+.playlist-list li,
+.playlist-queue-list li {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+}
+
+/* Input Fields (previously selectors) */
+.selector {
+    width: 10rem;
+    max-width: 100%;
+    padding: 5px 8px;
+    font-size: 0.9rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    text-align: left;
+    color: #fff;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.selector::placeholder {
+    color: rgb(255 255 255); /* white-ish placeholder suited for dark backgrounds */
+    opacity: 1; /* Firefox */
+}
+
+/* Category (Orange), Exercise (Orange), Playlist (Purple), Playlist Queue backgrounds */
+.category-container #categorySearch.selector {
+    background-color: #d35400;
+}
+.category-container #categorySearch.selector:focus {
+    background-color: #c25227;
+}
+.category-container #categorySearch.selector:hover {
+    background-color: #c25227;
+}
+
+.playlist-container #playlistSearch.selector {
+    background-color: #96318d;
+}
+.playlist-container #playlistSearch.selector:focus {
+    background-color: #81227a;
+}
+.playlist-container #playlistSearch.selector:hover {
+    background-color: #81227a;
+}
+
+/* PlaylistQueueSearch color logic */
+.playlist-queue-container #playlistQueueSearch.selector {
+    background-color: #752070; /* darker purple by default (not in playlist mode) */
+}
+body.playlist-mode #playlistQueueSearch.selector {
+    background-color: #96318d; /* normal purple in playlist mode */
+}
+.playlist-queue-container #playlistQueueSearch.selector:focus {
+    background-color: #81227a;
+}
+.playlist-queue-container #playlistQueueSearch.selector:hover {
+    background-color: #752070;
+}
+
+/* Exercise (Orange by default) */
+.exercise-container #exerciseSearch.selector {
+    background-color: #d35400;
+}
+.exercise-container #exerciseSearch.selector:focus {
+    background-color: #c25227;
+}
+.exercise-container #exerciseSearch.selector:hover {
+    background-color: #c25227;
+}
+
+/* Disabled state for playlistQueueSearch */
+#playlistQueueSearch:disabled {
+    background-color: #752070;
+    cursor: not-allowed;
+}
+
+/* Buttons */
+.play-btn,
+#randomExerciseBtn {
+    background-color: #d35400;
+    border: 2px solid #000000;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#randomTempoBtn {
+    border-radius: 0px;
+}
+
+.play-btn:hover,
+#randomExerciseBtn:hover {
+    background-color: #c25227;
+}
+
+/* Stop Playlist Button */
+#stopPlaylistBtn {
+    background-color: #96318d;
+    border: 2px solid #000000;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#stopPlaylistBtn:hover {
+    background-color: #81227a;
+}
+
+.play-btn.playlist-mode {
+    background-color: #96318d;
+}
+
+.play-btn.playlist-mode:hover {
+    background-color: #81227a;
+}
+
+/* Random Container */
+.random-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 5px;
+    background-color: #d35400;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.random-container:hover {
+    background-color: #c25227;
+}
+
+
+button#randomTempoBtn {
+    background-color: #d35400;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+button#randomTempoBtn:hover {
+    background-color: #c25227;
+}
+
+/* Random Tempo button disabled state in playlist mode */
+#randomTempoBtn:disabled {
+    background-color: #a84300;
+    cursor: not-allowed;
+}
+#randomTempoBtn:disabled:hover {
+    background-color: #a84300;
+}
+
+.vertical-divider {
+    width: 2px;
+    background-color: #000;
+    align-self: stretch;
+    margin: 0;
+}
+
+.auto-label {
+    align-items: center;
+    background-color: #d35400;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.auto-label:hover {
+    background-color: #c25227;
+}
+
+.auto-label input[type="checkbox"] {
+    margin-right: 10px;
+    margin-left: 0px;
+    accent-color: #96318d;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* Sliders */
+.volume-slider,
+.tempo-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 75%;
+    max-width: 600px;
+    height: 12px;
+    border-radius: 5px;
+    outline: none;
+    display: block;
+    margin: 20px auto;
+    box-shadow: inset 0 0 0 2px #000;
+    background: #ddd;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb,
+.tempo-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -4px;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
+
+.volume-slider::-moz-range-thumb,
+.tempo-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
+
+.volume-slider::-ms-thumb,
+.tempo-slider::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
+
+.volume-slider::-webkit-slider-runnable-track,
+.tempo-slider::-webkit-slider-runnable-track,
+.volume-slider::-moz-range-track,
+.tempo-slider::-moz-range-track,
+.volume-slider::-ms-track,
+.tempo-slider::-ms-track {
+    background: transparent;
+    border: none;
+}
+
+/* Control Container */
+.control-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7.5px;
+    margin: 15px auto;
+    flex-wrap: wrap;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.control-container input,
+.control-container button {
+    margin: 5px;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.tempo-input {
+    width: 6.4rem;
+    padding: 6px;
+    font-size: 1rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: normal;
+    background: #fff;
+    color: #000;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Reps/Min/Max BPM disabled style - slightly dimmer */
+#repsPerTempo:disabled,
+#minTempo:disabled,
+#maxTempo:disabled {
+    background-color: #f0f0f0;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Disabled Styles */
+.play-btn:disabled,
+#randomExerciseBtn:disabled,
+#tempoSlider:disabled,
+.auto-label.disabled,
+.random-container.disabled button,
+.random-container.disabled .auto-label {
+    background-color: #a84300;
+    cursor: not-allowed;
+}
+
+.random-container.disabled {
+    background-color: #a84300;
+    cursor: not-allowed;
+}
+
+#stopPlaylistBtn:disabled {
+    background-color: #752070;
+    cursor: not-allowed;
+}
+
+/* Prev/Next Buttons */
+#prevPlaylistItemBtn,
+#nextPlaylistItemBtn,
+#prevExerciseBtn,
+#nextExerciseBtn {
+    width: 45px;
+    font-size: 1.2rem;
+    text-align: center;
+    flex-shrink: 0;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #d35400;
+    border: 2px solid #000;
+    color: #fff;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+
+#prevExerciseBtn:hover,
+#nextExerciseBtn:hover {
+    background-color: #c25227;
+}
+
+#prevExerciseBtn:disabled,
+#nextExerciseBtn:disabled {
+    background-color: #a84300;
+    cursor: not-allowed;
+}
+
+/* Playlist prev/next in purple */
+#prevPlaylistItemBtn,
+#nextPlaylistItemBtn {
+    background-color: #96318d;
+}
+
+#prevPlaylistItemBtn:hover,
+#nextPlaylistItemBtn:hover {
+    background-color: #81227a;
+}
+
+#prevPlaylistItemBtn:disabled,
+#nextPlaylistItemBtn:disabled {
+    background-color: #752070;
+    cursor: not-allowed;
+}
+
+/* Exercise and Playlist Groups (center elements) */
+.exercise-group,
+.playlist-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7.5px;
+}
+
+/* Fixed width for exerciseSearch and playlistQueueSearch to help center between buttons */
+#exerciseSearch.selector,
+#playlistQueueSearch.selector {
+    width: 150px;
+}
+
+/* Make sure containers are position: relative; so lists align under them */
+.exercise-container,
+.category-container,
+.playlist-container,
+.playlist-queue-container {
+    position: relative;
+    padding: 0;
+}
+
+/* Icon Buttons */
+.icon-btn {
+    border: 2px solid #000;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Volume and Tempo Controls */
+.volume-control,
+.tempo-control {
+    margin: 25px 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.volume-control label,
+.tempo-control label,
+.volume-control span,
+.tempo-control span {
+    color: #fff;
+    font-weight: normal;
+}
+
+/* Progress Bars */
+.progress-container {
+    width: 75%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.progress-bar {
+    position: relative;
+    height: 40px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 0;
+    overflow: hidden;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background-color: #d35400;
+}
+
+.time-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: #000;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Playlist Progress Bar */
+.playlist-progress-container {
+    width: 75%;
+    max-width: 600px;
+    margin: 20px auto;
+    display: none;
+}
+
+.playlist-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.playlist-progress {
+    width: 0%;
+    height: 100%;
+    background-color: #96318d;
+    transition: width 0.2s linear;
+}
+
+.playlist-time-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: #000;
+    font-weight: normal;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2c2c2c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #96318d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e67e22;
+}
+
+/* List styling */
+/* By default, lists appear directly under their parent search element, left aligned */
+.exercise-list,
+.category-list,
+.playlist-list,
+.playlist-queue-list {
+    position: absolute;
+    top: calc(100% - 5px); /* Adjust vertical offset as desired */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #808080;
+    border-radius: 3px;
+    list-style-type: none;
+    margin: 0;
+    padding: 3px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    display: none;
+    z-index: 999;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: left;
+
+    /* Let the list size to its contents */
+    width: auto;
+    min-width: fit-content;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+/* Background colors for lists */
+.exercise-list {
+    background-color: #d35400;
+}
+
+.category-list {
+    background-color: #d35400;
+}
+
+.playlist-list {
+    background-color: #96318d;
+}
+
+.playlist-queue-list {
+    background-color: #96318d;
+}
+
+/* Hover states and active-option styles for all lists */
+.exercise-list li,
+.category-list li,
+.playlist-list li,
+.playlist-queue-list li {
+    padding: 5px 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.exercise-list li:hover,
+.category-list li:hover,
+.playlist-list li:hover,
+.playlist-queue-list li:hover {
+    background-color: #53525d;
+    color: #ffffff;
+    margin: 0px;
+    border-radius: 1.25px;
+}
+
+.exercise-list li.active-option,
+.category-list li.active-option,
+.playlist-list li.active-option,
+.playlist-queue-list li.active-option {
+    background-color: #ffffff;
+    color: #d35400;
+    margin: 0px;
+    border-radius: 1.25px;
+}
+
+.playlist-queue-list li.active-option {
+    color: #96318d !important;
+}
+
+.playlist-list li.active-option {
+    color: #96318d;
+}
+
+/* When NOT in playlist mode, don't change color on hover for playlist queue items */
+body:not(.playlist-mode) .playlist-queue-list li:hover {
+    background-color: inherit;
+    cursor: default;
+}
+
+/* On mobile, center lists under their parent element */
+@media (max-width: 600px) and (orientation: portrait) {
+    body {
+        font-size: 0.95rem;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Allow control-container to remain flex; just ensure full width inside if needed */
+    .control-container > * {
+        width: 100%;
+    }
+
+    .sheet-music-img {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .progress-container, 
+    .playlist-progress-container {
+        width: 100%;
+        margin: 25px auto;
+    }
+
+    /* Make all selectors and inputs full width and uniform in mobile */
+    #exerciseSearch.selector,
+    #playlistQueueSearch.selector,
+    #categorySearch.selector,
+    #playlistSearch.selector,
+    #repsPerTempo, 
+    #minTempo, 
+    #maxTempo, 
+    .selector {
+        width: 100%;
+        margin: 10px auto;
+        display: block;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+
+    .volume-control, .tempo-control {
+        width: 100%;
+        margin: 20px auto;
+        display: block;
+    }
+
+    /* Main action buttons full width, large font */
+    #playPauseBtn, 
+    #stopPlaylistBtn, 
+    #randomExerciseBtn, 
+    #randomTempoBtn,
+    .random-container button {
+        font-size: 1.2rem;
+        padding: 10px 14px;
+        border-radius: 5px;
+        border: 2px solid #000;
+        width: 100%; 
+        margin: 10px 0; 
+    }
+
+    /* Random container with no padding */
+    .random-container {
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+        padding: 0;
+    }
+
+    /* Square prev/next buttons */
+    #prevExerciseBtn, #nextExerciseBtn,
+    #prevPlaylistItemBtn, #nextPlaylistItemBtn {
+        font-size: 1.2rem;
+        border-radius: 5px;
+        border: 2px solid #000;
+        margin: 10px 0;
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Exercise and playlist groups as a 3-column grid */
+    .exercise-group,
+    .playlist-group {
+        width: 100%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 20px; /* spacing between buttons and search input */
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .auto-label {
+        padding: 8px 12px;
+        font-size: 1.2rem;
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+        display: block;
+    }
+
+    #repsPerTempo, 
+    #minTempo, 
+    #maxTempo {
+        display: inline-block;
+        width: 29%;       
+        min-width: 80px; 
+        margin: 5px 1%;   
+        box-sizing: border-box;
+    }
+
+    .control-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Adjust the position of the lists in mobile view */
+    .exercise-list,
+    .category-list,
+    .playlist-list,
+    .playlist-queue-list {
+        top: calc(100% - 10px); /* Move the list 10px up to close the gap */
+        width: 100%;
+    }
+}
+
+/* Playlist Mode Purple Theme for Exercises */
+body.playlist-mode #exerciseSearch.selector {
+    background-color: #96318d;
+    color: #fff;
+}
+body.playlist-mode #exerciseSearch.selector:focus {
+    background-color: #81227a;
+}
+body.playlist-mode #exerciseSearch.selector:hover {
+    background-color: #81227a;
+}
+
+body.playlist-mode .exercise-list {
+    background-color: #96318d;
+    border: 1px solid #808080;
+}
+
+body.playlist-mode .exercise-list li {
+    color: #fff;
+}
+
+body.playlist-mode .exercise-list li:hover {
+    background-color: #53525d;
+    color: #fff;
+}
+
+body.playlist-mode .exercise-list li.active-option {
+    background-color: #ffffff;
+    color: #96318d;
+}
+
+body.playlist-mode #prevExerciseBtn,
+body.playlist-mode #nextExerciseBtn {
+    background-color: #96318d;
+    border: 2px solid #000;
+}
+
+body.playlist-mode #prevExerciseBtn:hover,
+body.playlist-mode #nextExerciseBtn:hover {
+    background-color: #81227a;
+}
+
+/* In playlist mode, disable category selector */
+body.playlist-mode .category-container #categorySearch.selector {
+   background-color: #a84300;
+   cursor: not-allowed;
+}
+body.playlist-mode .category-container #categorySearch.selector:focus,
+body.playlist-mode .category-container #categorySearch.selector:hover {
+   background-color: #a84300;
+}
+
+
+

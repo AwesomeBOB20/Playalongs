@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Page</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+
+    <!-- Playlist Controls (Purple) -->
+    <div class="control-container">
+
+        <!-- Playlist Selector (Purple) -->
+        <div class="playlist-container">
+            <input type="text" id="playlistSearch" class="selector" placeholder="Select a Playlist" autocomplete="off">
+            <ul id="playlistList" class="playlist-list"></ul>
+        </div>
+
+        <div class="playlist-group">
+            <button id="prevPlaylistItemBtn" class="icon-btn">-</button>
+
+            <!-- Playlist Queue (Purple) -->
+            <div class="playlist-queue-container">
+                <input type="text" id="playlistQueueSearch" class="selector" placeholder="Playlist Queue" autocomplete="off">
+                <ul id="playlistQueueList" class="playlist-queue-list"></ul>
+            </div>
+
+            <button id="nextPlaylistItemBtn" class="icon-btn">+</button>
+        </div>
+
+        <button id="stopPlaylistBtn" class="play-btn">Stop Playlist</button>
+    </div>
+
+    <!-- Exercise Controls -->
+    <div class="control-container">
+
+        <!-- Category Selector (Orange) -->
+        <div class="category-container">
+            <input type="text" id="categorySearch" class="selector" placeholder="All Categories" autocomplete="off">
+            <ul id="categoryList" class="category-list"></ul>
+        </div>
+
+        <div class="exercise-group">
+            <button id="prevExerciseBtn" class="icon-btn">-</button>
+            <div class="exercise-container">
+                <input type="text" id="exerciseSearch" class="selector" placeholder="Search exercises..." autocomplete="off">
+                <ul id="exerciseList" class="exercise-list"></ul>
+            </div>
+            <button id="nextExerciseBtn" class="icon-btn">+</button>
+        </div>
+
+        <button id="randomExerciseBtn" class="play-btn">Randomize Exercise</button>
+    </div>
+
+    <!-- Sheet Music Image -->
+    <div class="sheet-music">
+        <img src="" alt="Sheet Music" class="sheet-music-img">
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="audio" src="" preload="auto"></audio>
+
+    <!-- Playback, Random Tempo, Auto Toggle, Reps -->
+    <div class="control-container">
+        <!-- Play/Pause button -->
+        <button id="playPauseBtn" class="play-btn">Play</button>
+        
+        <!-- Random Tempo and Auto Toggle -->
+        <div class="random-container">
+            <button id="randomTempoBtn" class="play-btn random-btn">Randomize Tempo</button>
+            <div class="vertical-divider"></div>
+            <label for="autoRandomizeToggle" class="auto-label">
+                <input type="checkbox" id="autoRandomizeToggle">
+                Auto
+            </label>
+        </div>
+
+        <!-- Reps, Min, Max Tempo Inputs -->
+        <input type="number" id="repsPerTempo" class="tempo-input" min="1" placeholder="Reps">
+        <input type="number" id="minTempo" class="tempo-input" min="1" max="999" placeholder="Min BPM">
+        <input type="number" id="maxTempo" class="tempo-input" min="1" max="999" placeholder="Max BPM">
+    </div>
+
+    <!-- Volume Control -->
+    <div class="volume-control">
+        <label for="volumeSlider">Volume: <span id="volumePercentage">100%</span></label>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <!-- Tempo Control -->
+    <div class="tempo-control">
+        <label for="tempoSlider">Tempo: <span id="tempoLabel">BPM: 160</span></label>
+        <input type="range" id="tempoSlider" class="tempo-slider" min="80" max="320" step="1" value="160">
+    </div>
+
+    <!-- Main Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+            <div class="time-overlay">
+                <span id="currentTime" class="time">0:00</span>
+                <span class="slash"> / </span>
+                <span id="totalTime" class="time">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist Progress Bar -->
+    <div class="playlist-progress-container" style="display: none;">
+        <div class="playlist-progress-bar">
+            <div class="playlist-progress" id="playlistProgress"></div>
+            <div class="playlist-time-overlay">
+                <span id="playlistProgressPercentage">0%</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
