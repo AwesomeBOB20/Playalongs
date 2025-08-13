@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // audio defaults
   if (audio) {
-    audio.loop = false; // we control it via applyLoopMode()
+    audio.loop = false; // we control via applyLoopMode()
     // keep pitch constant while changing playbackRate
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
@@ -107,6 +107,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Loop only when NOT in playlist mode and NOT randomizing
     audio.loop = !isPlayingPlaylist && !isRandomizeEnabled;
   }
+
+  // --- Reset inputs on refresh / back-forward cache ---
+  function resetPracticeControls() {
+    if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
+    if (repsPerTempoInput)   repsPerTempoInput.value = '';
+    if (minTempoInput)       minTempoInput.value = '';
+    if (maxTempoInput)       maxTempoInput.value = '';
+
+    isRandomizeEnabled = false;
+    repsBeforeChange   = 1;
+    currentRepCount    = 0;
+
+    applyLoopMode();
+  }
+  // Reset immediately on load
+  resetPracticeControls();
+  // Reset when page is restored from bfcache (iOS Safari/back button)
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) resetPracticeControls();
+  });
 
   // --- Initialize ---
   initializeCategoryList();
@@ -195,7 +215,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // Randomize OFF → native audio.loop handles repeat (no action needed)
-      // Fallback UI sync if loop somehow disabled:
       if (!audio.loop) {
         if (playPauseBtn) playPauseBtn.textContent = 'Play';
         resetProgressBar();
