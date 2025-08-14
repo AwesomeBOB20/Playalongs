@@ -37,6 +37,25 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput      = document.getElementById('playlistQueueSearch');
   const playlistQueueList             = document.getElementById('playlistQueueList');
 
+  // --- iOS detection + style normalization for dim buttons ---
+  const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (IS_IOS) {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Force identical opacity on iOS for these controls */
+      #playlistQueueSearch,
+      .icon-btn,
+      button.icon-btn,
+      input.icon-btn { opacity: 1 !important; }
+      /* Only appear dim when truly disabled */
+      #playlistQueueSearch:disabled,
+      .icon-btn:disabled,
+      button.icon-btn:disabled,
+      input.icon-btn:disabled { opacity: .4 !important; }
+    `;
+    document.head.appendChild(style);
+  }
+
   // --- State ---
   let isDragging = false;
   if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = true;
@@ -59,11 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentSelectedExercise    = null;
   let prevTempo                  = null;
 
-  // tempo + randomize guards
+  // tempo/randomize guards
   let currentOriginalTempo       = null;
-  let userIsAdjustingTempo       = false;   // blocks randomize while dragging
-  let randomizeBusy              = false;   // prevents concurrent randomize runs
-  let suppressTempoInput         = false;   // stops slider 'input' re-entry
+  let userIsAdjustingTempo       = false;
+  let randomizeBusy              = false;
+  let suppressTempoInput         = false;
+  let inEndedCycle               = false;       // iOS: prevent rapid re-entry
+  let lastRandomizeAt            = 0;           // throttle randomize
 
   // categories
   let displayedCategories = [
@@ -95,8 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // audio defaults
   if (audio) {
-    audio.loop = false; // we control via applyLoopMode()
-    // keep pitch constant while changing playbackRate
+    audio.loop = false; // controlled by applyLoopMode()
+    // Keep pitch constant with tempo changes
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
@@ -104,29 +125,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function applyLoopMode() {
     if (!audio) return;
-    // Loop only when NOT in playlist mode and NOT randomizing
     audio.loop = !isPlayingPlaylist && !isRandomizeEnabled;
   }
 
-  // --- Reset inputs on refresh / back-forward cache ---
+  // --- Reset inputs on refresh / bfcache (iOS back) ---
   function resetPracticeControls() {
     if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
     if (repsPerTempoInput)   repsPerTempoInput.value = '';
     if (minTempoInput)       minTempoInput.value = '';
     if (maxTempoInput)       maxTempoInput.value = '';
-
     isRandomizeEnabled = false;
     repsBeforeChange   = 1;
     currentRepCount    = 0;
-
     applyLoopMode();
   }
-  // Reset immediately on load
   resetPracticeControls();
-  // Reset when page is restored from bfcache (iOS Safari/back button)
-  window.addEventListener('pageshow', (e) => {
-    if (e.persisted) resetPracticeControls();
-  });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
   // --- Initialize ---
   initializeCategoryList();
@@ -147,9 +161,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (exerciseSearchInput) exerciseSearchInput.placeholder = "Search Exercises...";
   }
 
+  // --- Prevent button clicks from bubbling into other handlers (iOS) ---
+  [playPauseBtn, randomExerciseBtn, randomTempoBtn, prevExerciseBtn, nextExerciseBtn,
+   stopPlaylistBtn, prevPlaylistItemBtn, nextPlaylistItemBtn].forEach(btn => {
+    btn && btn.addEventListener('click', (e) => e.stopPropagation(), true); // capture
+  });
+
   // --- Randomize toggle/count ---
   if (autoRandomizeToggle) {
-    autoRandomizeToggle.addEventListener('change', function () {
+    autoRandomizeToggle.addEventListener('change', function (e) {
+      e.stopPropagation(); // iOS labels
       isRandomizeEnabled = this.checked;
       currentRepCount = 0;
       applyLoopMode();
@@ -178,7 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   if (playPauseBtn && audio) {
-    playPauseBtn.addEventListener('click', function () {
+    playPauseBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
       if (audio.paused) {
         if (audio.readyState < 3) audio.load();
         audio.play().then(() => {
@@ -196,28 +218,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Ended behavior ---
+  // --- Ended behavior (guard re-entry) ---
   if (audio) {
     audio.addEventListener('ended', function () {
       if (isPlayingPlaylist) return;
-
-      if (isRandomizeEnabled && currentSelectedExercise) {
-        currentRepCount++;
-        if (currentRepCount >= repsBeforeChange) {
-          currentRepCount = 0;
-          pickRandomTempo();
+      if (inEndedCycle) return;      // iOS rapid-fire guard
+      inEndedCycle = true;
+      try {
+        if (isRandomizeEnabled && currentSelectedExercise) {
+          currentRepCount++;
+          if (currentRepCount >= repsBeforeChange) {
+            currentRepCount = 0;
+            pickRandomTempo();
+          }
+          audio.currentTime = 0;
+          // slight delay helps Safari/iOS settle before replay
+          setTimeout(() => { audio.play(); }, 0);
+          if (playPauseBtn) playPauseBtn.textContent = 'Pause';
+          updateProgressBarSmoothly();
+          return;
         }
-        audio.currentTime = 0;
-        audio.play();
-        if (playPauseBtn) playPauseBtn.textContent = 'Pause';
-        updateProgressBarSmoothly();
-        return;
-      }
-
-      // Randomize OFF → native audio.loop handles repeat (no action needed)
-      if (!audio.loop) {
-        if (playPauseBtn) playPauseBtn.textContent = 'Play';
-        resetProgressBar();
+        // Randomize OFF → native loop
+        if (!audio.loop) {
+          if (playPauseBtn) playPauseBtn.textContent = 'Play';
+          resetProgressBar();
+        }
+      } finally {
+        // release in a macrotask to avoid same-tick re-entry
+        setTimeout(() => { inEndedCycle = false; }, 0);
       }
     });
 
@@ -234,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
   tempoSlider?.addEventListener('input', function () {
-    if (suppressTempoInput) return; // ignore programmatic sets
+    if (suppressTempoInput) return; // ignore programmatic sets (iOS can fire input)
     updatePlaybackRate();
     updateSliderBackground(this, '#96318d', '#ffffff');
   });
@@ -336,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.preload = 'auto';
     audio.load();
 
-    // keep pitch constant (important if a new <audio> context is used)
+    // Keep pitch constant
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
@@ -401,23 +429,25 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateTotalTime() {
-    if (audio && totalTimeDisplay && audio.duration) {
-      const duration = audio.duration / audio.playbackRate;
-      totalTimeDisplay.textContent = formatTime(duration);
-    }
+    if (!audio || !totalTimeDisplay) return;
+    if (!isFinite(audio.duration) || audio.duration <= 0) return;
+    const duration = audio.duration / (audio.playbackRate || 1);
+    totalTimeDisplay.textContent = formatTime(duration);
   }
 
   function updateCurrentTime() {
     if (!audio || !currentTimeDisplay) return;
-    const currentTime = audio.currentTime / audio.playbackRate;
-    currentTimeDisplay.textContent = formatTime(currentTime);
+    const rate = audio.playbackRate || 1;
+    const current = (audio.currentTime || 0) / rate;
+    currentTimeDisplay.textContent = formatTime(current);
   }
 
   function updateProgressBarSmoothly() {
     if (!audio || !progress || !currentTimeDisplay) return;
     if (!audio.paused) {
-      const progressPercent = (audio.currentTime / audio.duration) * 100;
-      progress.style.width = progressPercent + '%';
+      const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
+      const progressPercent = (audio.currentTime / dur) * 100;
+      progress.style.width = Math.max(0, Math.min(100, progressPercent)) + '%';
       updateCurrentTime();
       requestAnimationFrame(updateProgressBarSmoothly);
     }
@@ -445,12 +475,13 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       x = (e.clientX ?? 0) - rect.left;
     }
-    const width = progressContainer.clientWidth;
+    const width = progressContainer.clientWidth || 1;
     let clickedValue = x / width;
     clickedValue = Math.min(1, Math.max(0, clickedValue));
-    audio.currentTime = clickedValue * audio.duration;
-    const progressPercent = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = progressPercent + '%';
+    const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
+    audio.currentTime = clickedValue * dur;
+    const progressPercent = (audio.currentTime / dur) * 100;
+    progress.style.width = Math.max(0, Math.min(100, progressPercent)) + '%';
     updateCurrentTime();
   }
 
@@ -485,6 +516,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function pickRandomTempo() {
     if (!currentSelectedExercise || !tempoSlider) return;
+
+    // throttle: max once every 250ms
+    const now = performance.now ? performance.now() : Date.now();
+    if (now - lastRandomizeAt < 250) return;
+    lastRandomizeAt = now;
+
     if (userIsAdjustingTempo || randomizeBusy) return;
 
     randomizeBusy = true;
@@ -765,7 +802,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
     if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
     if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
-    if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = false;
+    if (playlistQueueSearchInput) {
+      playlistQueueSearchInput.disabled = false;
+      playlistQueueSearchInput.removeAttribute('disabled'); // iOS force visual enable
+      playlistQueueSearchInput.style.opacity = '1';         // iOS visual parity
+    }
     if (playlistProgressContainer) playlistProgressContainer.style.display = 'flex';
 
     displayedExercises = filterExercisesForMode();
@@ -878,7 +919,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.body.classList.remove('playlist-mode');
-    if (playlistQueueSearchInput) playlistQueueSearchInput.placeholder = 'Playlist Queue';
+    if (playlistQueueSearchInput) {
+      playlistQueueSearchInput.placeholder = 'Playlist Queue';
+      playlistQueueSearchInput.disabled = true;
+      playlistQueueSearchInput.setAttribute('disabled','');
+    }
 
     applyLoopMode();
   }
