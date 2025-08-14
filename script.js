@@ -220,47 +220,40 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider (iOS implicit pointer-capture fix, desktop-safe) ---
+// --- Tempo slider (release implicit capture; don't disable) ---
 if (tempoSlider) {
-  const UA = navigator.userAgent || "";
-  const IS_IOS =
-    /iPad|iPhone|iPod/.test(UA) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const NEEDS_IOS_HACK = IS_IOS; // limit the hard blur/disable to iOS only
+  let activePointerId = null;
+
+  const beginTempoDrag = (e) => {
+    userIsAdjustingTempo = true;
+    activePointerId = (e && typeof e.pointerId === 'number') ? e.pointerId : null;
+  };
 
   const endTempoDrag = () => {
     userIsAdjustingTempo = false;
-    if (NEEDS_IOS_HACK) {
-      // Break Safari's implicit capture
-      tempoSlider.blur();
-      const wasDisabled = tempoSlider.disabled;
-      tempoSlider.disabled = true;
-      setTimeout(() => { tempoSlider.disabled = wasDisabled; }, 0);
+    if (activePointerId !== null) {
+      try { tempoSlider.releasePointerCapture(activePointerId); } catch {}
+      activePointerId = null;
     }
+    // Break Safari's focus on the range input so other controls get events
+    tempoSlider.blur();
   };
-
-  const beginTempoDrag = () => { userIsAdjustingTempo = true; };
 
   // Start tracking
   tempoSlider.addEventListener('pointerdown', beginTempoDrag, { passive: true });
   tempoSlider.addEventListener('touchstart',  beginTempoDrag, { passive: true });
   tempoSlider.addEventListener('mousedown',   beginTempoDrag);
 
-  // End tracking (no mouseleave here; that was causing premature ends on desktop)
+  // End/cancel anywhere
   ['pointerup','pointercancel','touchend','touchcancel','mouseup']
     .forEach(evt => window.addEventListener(evt, endTempoDrag, { passive: true }));
 
-  // Kill a stuck capture when tapping anywhere else (iOS only)
-  if (NEEDS_IOS_HACK) {
-    document.addEventListener('pointerdown', (e) => {
-      if (e.target !== tempoSlider) endTempoDrag();
-    }, { capture: true, passive: true });
-    document.addEventListener('click', (e) => {
-      if (e.target !== tempoSlider) endTempoDrag();
-    }, { capture: true });
-  }
+  // If you tap any other control, also end the slider drag first (capture runs first)
+  document.addEventListener('pointerdown', (e) => {
+    if (e.target !== tempoSlider) endTempoDrag();
+  }, { capture: true, passive: true });
 
-  // Slider changes
+  // Normal slider behavior
   tempoSlider.addEventListener('input', function () {
     if (suppressTempoInput) return;
     updatePlaybackRate();
