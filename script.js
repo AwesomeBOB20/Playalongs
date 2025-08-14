@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const tempoLabel                 = document.getElementById('tempoLabel');
   const sheetMusicImg              = document.querySelector('.sheet-music img');
 
-  // FIX: progress container now points to the new .bar element
+  // Progress bar elements
   const progressContainer          = document.querySelector('.progress-container .bar');
-  const progress                   = document.getElementById('progress');
+  const progress                   = document.getElementById('progress'); // should be .bar__fill
 
   const randomExerciseBtn          = document.getElementById('randomExerciseBtn');
   const randomTempoBtn             = document.getElementById('randomTempoBtn');
@@ -42,19 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // --- iOS-only: ensure ONLY the Playlist Queue input uses normal opacity when enabled
-  const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  if (IS_IOS) {
-    const style = document.createElement('style');
-    style.textContent = `
-      #playlistQueueSearch { opacity: 1 !important; }
-      #playlistQueueSearch:disabled { opacity: .4 !important; }
-    `;
-    document.head.appendChild(style);
-  }
-
   // --- State ---
-  let isDragging = false;
+  let isDragging = false; // progress bar drag
   if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = true;
   if (stopPlaylistBtn)          stopPlaylistBtn.disabled          = true;
   if (prevPlaylistItemBtn)      prevPlaylistItemBtn.disabled      = true;
@@ -78,10 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // tempo/randomize guards
   let currentOriginalTempo = null;
   let userIsAdjustingTempo = false;
-  let randomizeBusy        = false;
   let suppressTempoInput   = false;
   let inEndedCycle         = false;
-  let lastRandomizeAt      = 0;
 
   // categories
   let displayedCategories = [
@@ -100,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // audio defaults
   if (audio) {
     audio.loop = false; // controlled by applyLoopMode()
-    // Keep pitch constant while changing tempo
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
@@ -166,24 +152,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   randomTempoBtn?.addEventListener('click', function () {
-  if (isPlayingPlaylist) return; // already disabled in UI; guard anyway
-  const wasPlaying = audio && !audio.paused;
-  quietRandomize();
-  pickRandomTempo();    // updates playbackRate immediately
-  if (wasPlaying) updateProgressBarSmoothly(); // keep playing; refresh bar
-});
+    if (isPlayingPlaylist) return;
+    const wasPlaying = audio && !audio.paused;
+    quietRandomize();
+    pickRandomTempo();
+    if (wasPlaying) startProgressTicker();
+  });
 
   if (playPauseBtn && audio) {
     playPauseBtn.addEventListener('click', function () {
-      // If track is at end, rewind first (Safari sometimes reports ended immediately)
       if (audio.ended || (isFinite(audio.duration) && audio.currentTime >= audio.duration)) {
         audio.currentTime = 0;
+        resetProgressBarInstant();
       }
       if (audio.paused) {
         if (audio.readyState < 3) audio.load();
         audio.play().then(() => {
           this.textContent = 'Pause';
-          updateProgressBarSmoothly();
+          startProgressTicker();
         }).catch((error) => {
           console.error('Error playing audio:', error);
           alert('Audio is not ready yet. Please wait a moment.');
@@ -199,26 +185,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // --- Ended behavior (guard re-entry) ---
   if (audio) {
     audio.addEventListener('ended', function () {
+      stopProgressTicker();
       if (isPlayingPlaylist) return;
-      if (inEndedCycle) return; // iOS rapid-fire guard
+      if (inEndedCycle) return;
       inEndedCycle = true;
       try {
         if (isRandomizeEnabled && currentSelectedExercise) {
           currentRepCount++;
           if (currentRepCount >= repsBeforeChange) {
             currentRepCount = 0;
-            pickRandomTempo();
+            pickRandomTempo(); // set before play for smoother reset
           }
           audio.currentTime = 0;
-          setTimeout(() => { audio.play(); }, 0);
+          resetProgressBarInstant();
+          Promise.resolve().then(() => audio.play().catch(()=>{}));
           if (playPauseBtn) playPauseBtn.textContent = 'Pause';
-          updateProgressBarSmoothly();
+          startProgressTicker();
           return;
         }
-        // Randomize OFF → native loop handles it; if loop off, just reset UI
         if (!audio.loop) {
           if (playPauseBtn) playPauseBtn.textContent = 'Play';
-          resetProgressBar();
+          resetProgressBarInstant();
         }
       } finally {
         setTimeout(() => { inEndedCycle = false; }, 0);
@@ -228,20 +215,33 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('loadedmetadata', updateTotalTime);
     audio.addEventListener('ratechange',     updateTotalTime);
     audio.addEventListener('ratechange',     updateCurrentTime);
+    audio.addEventListener('pause',          stopProgressTicker);
+    audio.addEventListener('play',           startProgressTicker);
+    audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider guards + handler ---
-  tempoSlider?.addEventListener('mousedown', () => userIsAdjustingTempo = true);
-  tempoSlider?.addEventListener('touchstart', () => { userIsAdjustingTempo = true; }, { passive: true });
-  ['mouseup','touchend','mouseleave'].forEach(evt =>
-    document.addEventListener(evt, () => { userIsAdjustingTempo = false; }, { passive: true })
-  );
+  // --- Tempo slider: Pointer Events to prevent stuck drag state ---
+  if (tempoSlider) {
+    tempoSlider.addEventListener('pointerdown', (e) => {
+      userIsAdjustingTempo = true;
+      try { tempoSlider.setPointerCapture(e.pointerId); } catch {}
+    }, { passive: true });
 
-  tempoSlider?.addEventListener('input', function () {
-    if (suppressTempoInput) return; // ignore programmatic sets
-    updatePlaybackRate();
-    updateSliderBackground(this, '#96318d', '#ffffff');
-  });
+    const endTempoDrag = (e) => {
+      userIsAdjustingTempo = false;
+      try { tempoSlider.releasePointerCapture(e.pointerId); } catch {}
+    };
+    tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
+    tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
+    window.addEventListener('pointerup',   () => { userIsAdjustingTempo = false; }, { passive: true });
+    window.addEventListener('pointercancel', () => { userIsAdjustingTempo = false; }, { passive: true });
+
+    tempoSlider.addEventListener('input', function () {
+      if (suppressTempoInput) return;
+      updatePlaybackRate();
+      updateSliderBackground(this, '#96318d', '#ffffff');
+    });
+  }
 
   // --- Progress bar drag (iOS-friendly) ---
   if (progressContainer) {
@@ -292,10 +292,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Close dropdowns on outside click ---
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.exercise-container')    && exerciseList)        exerciseList.style.display = 'none';
-    if (!e.target.closest('.category-container')    && categoryList)        categoryList.style.display = 'none';
-    if (!e.target.closest('.playlist-container')    && playlistList)        playlistList.style.display = 'none';
-    if (!e.target.closest('.playlist-queue-container') && playlistQueueList) playlistQueueList.style.display = 'none';
+    if (!e.target.closest('.exercise-container')       && exerciseList)        exerciseList.style.display = 'none';
+    if (!e.target.closest('.category-container')       && categoryList)        categoryList.style.display = 'none';
+    if (!e.target.closest('.playlist-container')       && playlistList)        playlistList.style.display = 'none';
+    if (!e.target.closest('.playlist-queue-container') && playlistQueueList)   playlistQueueList.style.display = 'none';
   });
 
   // --- Open/populate dropdowns ---
@@ -335,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.preload = 'auto';
     audio.load();
 
-    // keep pitch constant
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
@@ -377,12 +376,36 @@ document.addEventListener('DOMContentLoaded', function () {
     requestAnimationFrame(() => { suppressTempoInput = false; });
   }
 
-  function resetProgressBar() {
-    if (progress && currentTimeDisplay && audio) {
-      progress.style.width = '0%';
-      currentTimeDisplay.textContent = '0:00';
-      audio.currentTime = 0;
-    }
+  // --- Progress ticker (iOS-smooth) ---
+  let progressRafId = null;
+  if (progress) {
+    progress.style.transformOrigin = 'left center';
+    progress.style.transform = 'scaleX(0)';
+  }
+  function resetProgressBarInstant() {
+    if (!progress) return;
+    progress.style.transform = 'scaleX(0)';
+    void progress.offsetWidth; // force repaint on Safari
+    if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
+  }
+  function startProgressTicker() {
+    if (!audio || !progress) return;
+    cancelAnimationFrame(progressRafId);
+    const tick = () => {
+      if (!audio || !progress) return;
+      const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
+      const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
+      progress.style.transform = `scaleX(${pct})`;
+      updateCurrentTime();
+      if (!audio.paused && !audio.ended) {
+        progressRafId = requestAnimationFrame(tick);
+      }
+    };
+    progressRafId = requestAnimationFrame(tick);
+  }
+  function stopProgressTicker() {
+    cancelAnimationFrame(progressRafId);
+    progressRafId = null;
   }
 
   function updateSliderBackground(slider, c1, c2) {
@@ -412,17 +435,6 @@ document.addEventListener('DOMContentLoaded', function () {
     currentTimeDisplay.textContent = formatTime(current);
   }
 
-  function updateProgressBarSmoothly() {
-    if (!audio || !progress || !currentTimeDisplay) return;
-    if (!audio.paused) {
-      const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
-      const pct = (audio.currentTime / dur) * 100;
-      progress.style.width = Math.max(0, Math.min(100, pct)) + '%';
-      updateCurrentTime();
-      requestAnimationFrame(updateProgressBarSmoothly);
-    }
-  }
-
   function startDragging(e) { isDragging = true; updateProgress(e); }
   function dragProgress(e)  { if (isDragging) updateProgress(e); }
   function stopDragging()   { isDragging = false; }
@@ -436,8 +448,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let clickedValue = Math.min(1, Math.max(0, x / width));
     const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
     audio.currentTime = clickedValue * dur;
-    const pct = (audio.currentTime / dur) * 100;
-    progress.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
+    progress.style.transform = `scaleX(${pct})`;
     updateCurrentTime();
   }
 
@@ -449,35 +461,19 @@ document.addEventListener('DOMContentLoaded', function () {
     currentSelectedExercise = filtered[idx];
     if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; }
     initializeExercise(currentSelectedExercise);
-    if (audio) { audio.pause(); resetProgressBar(); }
+    if (audio) { audio.pause(); resetProgressBarInstant(); }
     if (playPauseBtn) playPauseBtn.textContent = 'Play';
 
     if (isPlayingPlaylist && currentPlaylist) {
-      const pIdx = currentPlaylist.items.findIndex(i => i.exerciseId === currentSelectedExercise.id);
-      if (pIdx !== -1) {
-        currentPlaylistItemIndex = pIdx;
-        currentTempoIndex = 0;
-        currentRepetition = 0;
-        updatePlaylistQueueDisplay();
-        updatePlaylistProgressBar();
-        playCurrentPlaylistItem();
-      }
+      syncPlaylistIndexToExercise(currentSelectedExercise.id);
+      playCurrentPlaylistItem();
     }
   }
 
   function pickRandomTempo() {
-  if (!currentSelectedExercise || !tempoSlider) return;
+    if (!currentSelectedExercise || !tempoSlider) return;
+    if (userIsAdjustingTempo) return;
 
-  // REMOVE these lines:
-// const now = performance.now ? performance.now() : Date.now();
-// if (now - lastRandomizeAt < 250) return;
-// lastRandomizeAt = now;
-// if (userIsAdjustingTempo || randomizeBusy) return;
-// randomizeBusy = true;
-
-  if (userIsAdjustingTempo) return; // keep this one
-
-  try {
     let minTempo = parseInt(minTempoInput?.value, 10);
     let maxTempo = parseInt(maxTempoInput?.value, 10);
     const defMin = Math.floor(currentSelectedExercise.originalTempo / 2);
@@ -497,12 +493,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     prevTempo = randomTempo;
     setTempoSilently(randomTempo);
-  } finally {
-    // REMOVE the 50ms unlock:
-//   setTimeout(() => { randomizeBusy = false; }, 50);
   }
-}
-
 
   function navigateExercise(step) {
     displayedExercises = filterExercisesForMode();
@@ -515,25 +506,23 @@ document.addEventListener('DOMContentLoaded', function () {
     if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; }
 
     initializeExercise(currentSelectedExercise);
-    if (audio) { audio.pause(); resetProgressBar(); if (playPauseBtn) playPauseBtn.textContent = 'Play'; }
+    if (audio) { audio.pause(); resetProgressBarInstant(); if (playPauseBtn) playPauseBtn.textContent = 'Play'; }
 
     if (isPlayingPlaylist && currentPlaylist) {
-      const idx = currentPlaylist.items.findIndex(i => i.exerciseId === currentSelectedExercise.id);
-      if (idx !== -1) {
-        currentPlaylistItemIndex = idx;
-        currentTempoIndex = 0;
-        currentRepetition = 0;
-        updatePlaylistQueueDisplay?.();
-        updatePlaylistProgressBar?.();
-        playCurrentPlaylistItem?.();
-      }
+      syncPlaylistIndexToExercise(currentSelectedExercise.id);
+      updatePlaylistQueueDisplay?.();
+      updatePlaylistProgressBar?.();
+      playCurrentPlaylistItem?.();
     }
   }
 
+  // Only show exercise list when the search input is focused
   function populateExerciseList(filter = '') {
     if (!exerciseList) return;
 
-    const searchResults = filterExercisesForMode().filter(ex => ex.name.toLowerCase().includes(filter.toLowerCase()));
+    const searchResults = filterExercisesForMode()
+      .filter(ex => ex.name.toLowerCase().includes(filter.toLowerCase()));
+
     exerciseList.innerHTML = '';
     searchResults.forEach((exercise) => {
       const li = document.createElement('li');
@@ -545,12 +534,21 @@ document.addEventListener('DOMContentLoaded', function () {
         displayedExercises      = filterExercisesForMode();
         currentExerciseIndex    = displayedExercises.findIndex(ex => ex.id === exercise.id);
         initializeExercise(exercise);
-        exerciseSearchInput.value = '';
+        if (exerciseSearchInput) exerciseSearchInput.value = '';
         exerciseList.style.display = 'none';
+
+        if (isPlayingPlaylist && currentPlaylist) {
+          syncPlaylistIndexToExercise(exercise.id);
+          updatePlaylistQueueDisplay();
+          updatePlaylistProgressBar();
+          playCurrentPlaylistItem();
+        }
       });
       exerciseList.appendChild(li);
     });
-    exerciseList.style.display = searchResults.length ? 'block' : 'none';
+
+    const focused = (document.activeElement === exerciseSearchInput);
+    exerciseList.style.display = (searchResults.length && focused) ? 'block' : 'none';
   }
 
   function initializeCategoryList() {
@@ -577,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function () {
           currentSelectedExercise = filtered[currentExerciseIndex];
           initializeExercise(currentSelectedExercise);
           if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; }
-          if (audio) { audio.pause(); resetProgressBar(); }
+          if (audio) { audio.pause(); resetProgressBarInstant(); }
           if (playPauseBtn) playPauseBtn.textContent = 'Play';
         } else {
           currentSelectedExercise = null;
@@ -682,11 +680,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
     if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
     if (playlistQueueSearchInput) {
-      playlistQueueSearchInput.disabled = false; // ensure visible/enabled on iOS
+      playlistQueueSearchInput.disabled = false;
       playlistQueueSearchInput.removeAttribute('disabled');
       playlistQueueSearchInput.style.opacity = '1';
     }
     if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
+
+    if (exerciseList) exerciseList.style.display = 'none'; // ensure closed
 
     displayedExercises = filterExercisesForMode();
     if (displayedExercises.length > 0) {
@@ -731,7 +731,7 @@ document.addEventListener('DOMContentLoaded', function () {
         audio.onended = null;
         audio.play();
         if (playPauseBtn) playPauseBtn.textContent = 'Pause';
-        updateProgressBarSmoothly();
+        startProgressTicker();
 
         audio.onended = function () {
           currentRepetition++;
@@ -766,7 +766,7 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPlaylist   = null;
     if (playPauseBtn) playPauseBtn.textContent = 'Play';
     resetPlaylistControls();
-    resetProgressBar();
+    resetProgressBarInstant();
     displayedExercises = filterExercisesForMode();
     populateExerciseList();
 
@@ -797,6 +797,9 @@ document.addEventListener('DOMContentLoaded', function () {
       playlistQueueSearchInput.disabled = true;
       playlistQueueSearchInput.setAttribute('disabled','');
     }
+
+    if (exerciseList) exerciseList.style.display = 'none'; // keep closed
+
     applyLoopMode();
   }
 
@@ -858,6 +861,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressPercent = ((currentIndex + 1) / totalItems) * 100;
     playlistProgress.style.width = progressPercent + '%';
     playlistProgressPercentage.textContent = Math.floor(progressPercent) + '%';
+  }
+
+  function syncPlaylistIndexToExercise(exerciseId) {
+    if (!currentPlaylist || !Array.isArray(currentPlaylist.items)) return;
+    const idx = currentPlaylist.items.findIndex(i => i.exerciseId === exerciseId);
+    if (idx >= 0) {
+      currentPlaylistItemIndex = idx;
+      currentTempoIndex = 0;
+      currentRepetition = 0;
+      updatePlaylistQueueDisplay();
+      updatePlaylistProgressBar();
+    }
   }
 
   function quietRandomize() {
