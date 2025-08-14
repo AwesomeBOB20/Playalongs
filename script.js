@@ -220,30 +220,55 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider (NO pointer capture; clear state aggressively) ---
-  if (tempoSlider) {
-    const endTempoDrag = () => { userIsAdjustingTempo = false; };
+  // --- Tempo slider (iOS implicit pointer-capture fix, desktop-safe) ---
+if (tempoSlider) {
+  const UA = navigator.userAgent || "";
+  const IS_IOS =
+    /iPad|iPhone|iPod/.test(UA) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const NEEDS_IOS_HACK = IS_IOS; // limit the hard blur/disable to iOS only
 
-    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive: true });
-    tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
-    tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
-    tempoSlider.addEventListener('pointerleave', endTempoDrag, { passive: true });
-    window.addEventListener('pointerup', endTempoDrag, { passive: true });
-    window.addEventListener('pointercancel', endTempoDrag, { passive: true });
+  const endTempoDrag = () => {
+    userIsAdjustingTempo = false;
+    if (NEEDS_IOS_HACK) {
+      // Break Safari's implicit capture
+      tempoSlider.blur();
+      const wasDisabled = tempoSlider.disabled;
+      tempoSlider.disabled = true;
+      setTimeout(() => { tempoSlider.disabled = wasDisabled; }, 0);
+    }
+  };
 
-    // any click on other controls should kill a stuck drag state
-    [
-      playPauseBtn, randomExerciseBtn, randomTempoBtn,
-      prevExerciseBtn, nextExerciseBtn,
-      prevPlaylistItemBtn, nextPlaylistItemBtn, stopPlaylistBtn
-    ].forEach(el => el?.addEventListener('pointerdown', endTempoDrag, { passive: true }));
+  const beginTempoDrag = () => { userIsAdjustingTempo = true; };
 
-    tempoSlider.addEventListener('input', function () {
-      if (suppressTempoInput) return;
-      updatePlaybackRate();
-      updateSliderBackground(this, '#96318d', '#ffffff');
-    });
+  // Start tracking
+  tempoSlider.addEventListener('pointerdown', beginTempoDrag, { passive: true });
+  tempoSlider.addEventListener('touchstart',  beginTempoDrag, { passive: true });
+  tempoSlider.addEventListener('mousedown',   beginTempoDrag);
+
+  // End tracking (no mouseleave here; that was causing premature ends on desktop)
+  ['pointerup','pointercancel','touchend','touchcancel','mouseup']
+    .forEach(evt => window.addEventListener(evt, endTempoDrag, { passive: true }));
+
+  // Kill a stuck capture when tapping anywhere else (iOS only)
+  if (NEEDS_IOS_HACK) {
+    document.addEventListener('pointerdown', (e) => {
+      if (e.target !== tempoSlider) endTempoDrag();
+    }, { capture: true, passive: true });
+    document.addEventListener('click', (e) => {
+      if (e.target !== tempoSlider) endTempoDrag();
+    }, { capture: true });
   }
+
+  // Slider changes
+  tempoSlider.addEventListener('input', function () {
+    if (suppressTempoInput) return;
+    updatePlaybackRate();
+    updateSliderBackground(this, '#96318d', '#ffffff');
+  });
+}
+
+
 
   // --- Progress bar drag (iOS-friendly) ---
   if (progressContainer) {
