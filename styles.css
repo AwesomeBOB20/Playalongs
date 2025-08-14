@@ -10,7 +10,7 @@
 }
 
 /* ===== Global ===== */
-*{box-sizing:border-box}
+*{ box-sizing:border-box; }
 html, body { font-family:'Ubuntu',sans-serif; font-weight:400; }
 *, *::before, *::after { font-family:inherit; }
 input, button, select, textarea { font:inherit; }
@@ -32,15 +32,28 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 }
 .selector::placeholder{ color:var(--white); opacity:1; }
 
-.selector:disabled{ background:var(--orange-dim); cursor:not-allowed; }
-.selector:disabled:hover,.selector:disabled:focus{ background:var(--orange-dim); }
+/* Disabled selectors — EXACT match to disabled buttons */
+.selector:disabled{
+  background:var(--orange-dim) !important;
+  color:#fff !important;
+  border-color:var(--black) !important;
+  cursor:not-allowed !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#fff !important; /* iOS */
+  filter:brightness(.85) saturate(.95) !important; /* match .btn:disabled */
+}
 
+/* Variants */
 .selector--orange{ background:var(--orange); }
 .selector--orange:hover,.selector--orange:focus{ background:var(--orange-d); }
 .selector--purple{ background:var(--purple); }
 .selector--purple:hover,.selector--purple:focus{ background:var(--purple-d); }
 
-#playlistQueueSearch:disabled{ background:var(--purple-dim); cursor:not-allowed; }
+/* Playlist Queue disabled stays purple */
+#playlistQueueSearch.selector:disabled{
+  background:var(--purple-dim) !important;
+  filter:brightness(.9) saturate(.95) !important;
+}
 
 /* Tempo utility inputs */
 .tempo-input{
@@ -49,8 +62,16 @@ body{ margin:0; background:var(--bg); color:var(--white); }
   border:2px solid var(--black); border-radius:5px;
   background:#fff; color:#000;
 }
-#repsPerTempo:disabled,#minTempo:disabled,#maxTempo:disabled{
-  background:#f0f0f0; color:#666; cursor:not-allowed;
+/* Slightly darker disabled Reps/Min/Max */
+#repsPerTempo:disabled,
+#minTempo:disabled,
+#maxTempo:disabled{
+  background:#d9d9d9;
+  color:#444;
+  border-color:var(--black);
+  cursor:not-allowed;
+  opacity:1;
+  -webkit-text-fill-color:currentColor;
 }
 
 /* ===== Buttons ===== */
@@ -63,8 +84,12 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .btn--orange:hover{ background:var(--orange-d); }
 .btn--purple{ background:var(--purple); }
 .btn--purple:hover{ background:var(--purple-d); }
-.btn:disabled{ background:var(--orange-dim); cursor:not-allowed; }
-.btn--purple:disabled{ background:var(--purple-dim); }
+.btn:disabled{
+  background:var(--orange-dim);
+  cursor:not-allowed;
+  opacity:1; filter:brightness(.85) saturate(.95);
+}
+.btn--purple:disabled{ background:var(--purple-dim); opacity:1; filter:brightness(.9) saturate(.95); }
 .btn-square{ width:45px; }
 
 /* ===== Random container ===== */
@@ -77,6 +102,7 @@ body{ margin:0; background:var(--bg); color:var(--white); }
   margin:0; height:40px; display:inline-flex; align-items:center; justify-content:center;
 }
 .random-container .btn{ border:0; }
+/* Avoid double-darkening when disabled */
 .random-container.disabled{ background:var(--orange-dim); cursor:not-allowed; }
 .random-container.disabled .btn{ background:var(--orange-dim); cursor:not-allowed; }
 
@@ -108,6 +134,11 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .volume-slider::-webkit-slider-runnable-track, .tempo-slider::-webkit-slider-runnable-track,
 .volume-slider::-moz-range-track,              .tempo-slider::-moz-range-track{ background:transparent; border:none; }
 
+/* Disabled range visuals (Safari) */
+input[type="range"]:disabled{ opacity:1; }
+input[type="range"]:disabled::-webkit-slider-runnable-track{ background:#c7b8c5; }
+input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
+
 /* ===== Layout (40px section spacing) ===== */
 .control-container{
   display:flex; justify-content:center; align-items:center;
@@ -134,8 +165,13 @@ body{ margin:0; background:var(--bg); color:var(--white); }
   position:relative; height:40px; background:var(--white);
   border:2px solid var(--black); overflow:hidden; margin:0 auto;
 }
-.bar__fill{ width:0%; height:100%; background:var(--orange); }
+/* Transform-based fill for smooth iOS paints */
+.bar__fill{
+  width:100%; height:100%; background:var(--orange);
+  transform-origin:left center; transform:scaleX(0); will-change:transform;
+}
 .bar--playlist .bar__fill{ background:var(--purple); transition:width .2s linear; }
+
 .time-overlay, .playlist-time-overlay{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   font-size:1rem; color:var(--black); pointer-events:none;
@@ -161,12 +197,10 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 body:not(.playlist-mode) #playlistQueueList li:hover{ background:inherit; cursor:default; }
 
 /* ===== Playlist mode locks ===== */
-body.playlist-mode #categorySearch.selector{ background:var(--orange-dim) !important; cursor:not-allowed !important; }
-body.playlist-mode #categorySearch.selector:hover, body.playlist-mode #categorySearch.selector:focus{ background:var(--orange-dim) !important; }
 body.playlist-mode #categoryList{ display:none !important; }
-
 body.playlist-mode #exerciseSearch.selector{ background:var(--purple); }
-body.playlist-mode #exerciseSearch.selector:hover, body.playlist-mode #exerciseSearch.selector:focus{ background:var(--purple-d); }
+body.playlist-mode #exerciseSearch.selector:hover,
+body.playlist-mode #exerciseSearch.selector:focus{ background:var(--purple-d); }
 body.playlist-mode #exerciseList.menu{ background:var(--purple); border:1px solid var(--gray-2); }
 body.playlist-mode .btn-square{ background:var(--purple); border:2px solid var(--black); }
 body.playlist-mode .btn-square:hover{ background:var(--purple-d); }
@@ -184,7 +218,6 @@ body.playlist-mode #exerciseList li.active-option{ color:var(--purple) !importan
 @media (max-width:600px){
   body{ font-size:.95rem; }
 
-  /* stack sections */
   .control-container{
     flex-direction:column;
     align-items:stretch;
@@ -192,7 +225,6 @@ body.playlist-mode #exerciseList li.active-option{ color:var(--purple) !importan
     margin:40px auto;
   }
 
-  /* prev | search | next (40×40) with flexible middle */
   .exercise-group,
   .playlist-group{
     width:100%;
@@ -203,18 +235,15 @@ body.playlist-mode #exerciseList li.active-option{ color:var(--purple) !importan
   }
   .btn-square{ width:40px; height:40px; }
 
-  /* let the middle column expand cleanly */
   .exercise-container,
   .playlist-queue-container{ min-width:0; }
   #exerciseSearch.selector,
   #playlistQueueSearch.selector{ width:100% !important; min-width:0; }
 
-  /* full-width 40px controls */
   .selector{ width:100%; height:40px; }
   .btn{ width:100%; height:40px; }
   .tempo-input{ width:100%; height:40px; }
 
-  /* Identify the transport row by its Play button (CSS :has) */
   .control-container:has(#playPauseBtn){
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
@@ -222,27 +251,50 @@ body.playlist-mode #exerciseList li.active-option{ color:var(--purple) !importan
     gap:20px;
   }
 
-  /* Full-width rows for Play and Random container */
   #playPauseBtn{ grid-column:1 / 4; }
   .random-container{ grid-column:1 / 4; }
 
-  /* Randomize Tempo + Auto in one row, ~70/30 split */
   .random-container{ flex-direction:row; }
   .random-container .btn{ flex:7; min-width:0; }
   .random-container .auto-label{ flex:3; min-width:0; }
   .vertical-divider{ display:block; height:40px; }
 
-  /* Reps / Min / Max each take one column */
   #repsPerTempo{ grid-column:1 / 2; }
   #minTempo{     grid-column:2 / 3; }
   #maxTempo{     grid-column:3 / 4; }
 
-  /* Stretch other blocks */
   .tempo-control{ width:100%; max-width:600px; margin:40px auto; }
   .progress-container, .playlist-progress-container{ width:100%; margin:40px auto; }
 
-  /* Dropdowns match input width */
   .menu{ top:calc(100% - 10px); width:100%; left:0; transform:none; }
+}
+
+/* ===== Accessibility & disabled parity (no iOS fade) ===== */
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled{
+  opacity:1;
+  filter:brightness(.85) saturate(.95);
+  cursor:not-allowed;
+}
+/* Generic disabled input styling — don't override .selector */
+select:disabled:not(.selector),
+input[type="text"]:disabled:not(.selector),
+input[type="search"]:disabled:not(.selector),
+input[type="number"]:disabled{
+  opacity:1;
+  background:#efefef;
+  color:#555;
+  border-color:var(--black);
+  -webkit-text-fill-color:currentColor;
+}
+
+/* aria-disabled/.disabled parity */
+[aria-disabled="true"],
+.disabled{
+  opacity:1 !important;
+  filter:brightness(.9) saturate(.95);
+  cursor:not-allowed;
 }
 
 /* --- Webflow typography guard (keep at end) --- */
