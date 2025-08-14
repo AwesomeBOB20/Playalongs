@@ -244,3 +244,16 @@ body.playlist-mode #exerciseList li.active-option{ color:var(--purple) !importan
   /* Dropdowns match input width */
   .menu{ top:calc(100% - 10px); width:100%; left:0; transform:none; }
 }
+
+/* --- Webflow typography guard (keep at end) --- */
+.container .auto-label,
+.container .auto-label *,
+.container .tempo-control label,
+.container .tempo-control label *,
+.container #tempoLabel{
+  font-weight:400 !important;
+  font-style:normal !important;
+  text-transform:none !important;
+  letter-spacing:normal !important;
+  font-family:'Ubuntu',sans-serif !important;
+}
