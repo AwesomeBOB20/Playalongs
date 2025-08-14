@@ -220,21 +220,23 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider: Pointer Events to prevent stuck drag state ---
+  // --- Tempo slider (NO pointer capture; clear state aggressively) ---
   if (tempoSlider) {
-    tempoSlider.addEventListener('pointerdown', (e) => {
-      userIsAdjustingTempo = true;
-      try { tempoSlider.setPointerCapture(e.pointerId); } catch {}
-    }, { passive: true });
+    const endTempoDrag = () => { userIsAdjustingTempo = false; };
 
-    const endTempoDrag = (e) => {
-      userIsAdjustingTempo = false;
-      try { tempoSlider.releasePointerCapture(e.pointerId); } catch {}
-    };
+    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive: true });
     tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
     tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
-    window.addEventListener('pointerup',   () => { userIsAdjustingTempo = false; }, { passive: true });
-    window.addEventListener('pointercancel', () => { userIsAdjustingTempo = false; }, { passive: true });
+    tempoSlider.addEventListener('pointerleave', endTempoDrag, { passive: true });
+    window.addEventListener('pointerup', endTempoDrag, { passive: true });
+    window.addEventListener('pointercancel', endTempoDrag, { passive: true });
+
+    // any click on other controls should kill a stuck drag state
+    [
+      playPauseBtn, randomExerciseBtn, randomTempoBtn,
+      prevExerciseBtn, nextExerciseBtn,
+      prevPlaylistItemBtn, nextPlaylistItemBtn, stopPlaylistBtn
+    ].forEach(el => el?.addEventListener('pointerdown', endTempoDrag, { passive: true }));
 
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
@@ -799,7 +801,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (exerciseList) exerciseList.style.display = 'none'; // keep closed
-
     applyLoopMode();
   }
 
