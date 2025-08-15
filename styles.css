@@ -32,7 +32,7 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 }
 .selector::placeholder{ color:var(--white); opacity:1; }
 
-/* Disabled selectors — EXACT match to disabled buttons */
+/* Disabled selectors — EXACT match to disabled buttons (no iOS fade) */
 .selector:disabled{
   background:var(--orange-dim) !important;
   color:#fff !important;
@@ -49,7 +49,7 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .selector--purple{ background:var(--purple); }
 .selector--purple:hover,.selector--purple:focus{ background:var(--purple-d); }
 
-/* Playlist Queue disabled stays purple */
+/* Playlist Queue disabled stays purple, matching purple buttons */
 #playlistQueueSearch.selector:disabled{
   background:var(--purple-dim) !important;
   filter:brightness(.9) saturate(.95) !important;
