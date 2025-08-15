@@ -309,7 +309,7 @@ input[type="number"]:disabled{
   cursor:not-allowed;
 }
 
-/* --- Webflow typography guard (keep at end) --- */
+/* --- Webflow typography guard (keep at end) -- */
 .container .auto-label,
 .container .auto-label *,
 .container .tempo-control label,
@@ -321,3 +321,4 @@ input[type="number"]:disabled{
   letter-spacing:normal !important;
   font-family:'Ubuntu',sans-serif !important;
 }
+
