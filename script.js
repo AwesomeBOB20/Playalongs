@@ -43,6 +43,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
+  // ---- iOS guard + Auto debounce (NEW) ----
+  let autoChangeCooldown = false;
+  function defocusSlider() {
+    if (tempoSlider && document.activeElement === tempoSlider) tempoSlider.blur();
+    userIsAdjustingTempo = false;
+  }
+  // Blur the slider whenever you touch anything that is NOT the slider
+  document.addEventListener('pointerdown', (e) => {
+    if (!tempoSlider) return;
+    if (e.target !== tempoSlider) defocusSlider();
+  }, { capture: true, passive: true });
+  // When enabling Auto, defocus immediately so taps don’t route to the slider
+  if (autoRandomizeToggle) {
+    autoRandomizeToggle.addEventListener('change', () => {
+      if (autoRandomizeToggle.checked) defocusSlider();
+    });
+  }
+
   // State
   let isDragging = false; // progress bar drag
   if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = true;
@@ -172,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isPlayingPlaylist) return;
     const wasPlaying = audio && !audio.paused;
     quietRandomize();
-    pickRandomTempo();
+    pickRandomTempo(); // will blur slider after programmatic change
     if (wasPlaying) startProgressTicker();
   });
 
@@ -211,7 +229,12 @@ document.addEventListener('DOMContentLoaded', function () {
           currentRepCount++;
           if (currentRepCount >= repsBeforeChange) {
             currentRepCount = 0;
-            pickRandomTempo();
+            // Debounce so tempo changes once per finished rep on iOS
+            if (!autoChangeCooldown) {
+              autoChangeCooldown = true;
+              pickRandomTempo(); // moves knob + blurs slider
+              setTimeout(() => { autoChangeCooldown = false; }, 200);
+            }
           }
           audio.currentTime = 0;
           resetProgressBarInstant();
@@ -237,13 +260,13 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // Tempo slider without pointer capture
+  // Tempo slider without pointer capture + defocus on end (NEW)
   if (tempoSlider) {
     tempoSlider.addEventListener('pointerdown', () => {
       userIsAdjustingTempo = true;
     }, { passive: true });
 
-    const endTempoDrag = () => { userIsAdjustingTempo = false; };
+    const endTempoDrag = () => { defocusSlider(); };
     tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
     tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
     window.addEventListener('pointerup', endTempoDrag, { passive: true });
@@ -263,6 +286,8 @@ document.addEventListener('DOMContentLoaded', function () {
       isDragging = true;
       try { progressContainer.setPointerCapture(e.pointerId); } catch {}
       updateProgress(e);
+      // touching the bar should also defocus the slider on iOS
+      defocusSlider();
     });
     progressContainer.addEventListener('pointermove', (e) => {
       if (!isDragging) return;
@@ -391,13 +416,17 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCurrentTime();
   }
 
-  function setTempoSilently(bpm) {
+  // (UPDATED) supports optional blur after programmatic change
+  function setTempoSilently(bpm, { blur = false } = {}) {
     if (!tempoSlider) return;
     suppressTempoInput = true;
     tempoSlider.value = String(bpm);
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
-    requestAnimationFrame(() => { suppressTempoInput = false; });
+    requestAnimationFrame(() => {
+      suppressTempoInput = false;
+      if (blur) tempoSlider.blur();
+    });
   }
 
   // Progress ticker
@@ -512,7 +541,8 @@ document.addEventListener('DOMContentLoaded', function () {
     } while (prevTempo !== null && (Math.abs(randomTempo - prevTempo) < 8 || Math.abs(randomTempo - prevTempo) > 90));
 
     prevTempo = randomTempo;
-    setTempoSilently(randomTempo);
+    // blur after programmatic change so buttons stay independent on iOS
+    setTempoSilently(randomTempo, { blur: true });
   }
 
   function navigateExercise(step) {
@@ -731,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeExercise(exercise);
 
     const tempo = item.tempos[currentTempoIndex];
-    setTempoSilently(tempo);
+    setTempoSilently(tempo); // playlist already disables the slider, so blur not needed
 
     if (playlistQueueSearchInput) {
       playlistQueueSearchInput.placeholder = exercise.name + " at " + tempo + " BPM";
@@ -892,7 +922,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updatePlaylistQueueDisplay();
       updatePlaylistProgressBar();
     }
-    }
+  }
 
   function quietRandomize() {
     currentRepCount = 0;
