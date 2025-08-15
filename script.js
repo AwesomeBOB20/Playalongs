@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const totalTimeDisplay           = document.getElementById('totalTime');
   const currentTimeDisplay         = document.getElementById('currentTime');
   const playPauseBtn               = document.getElementById('playPauseBtn');
-  let   tempoSlider                = document.getElementById('tempoSlider'); // <-- let so we can replace it
+  const tempoSlider                = document.getElementById('tempoSlider');
   const tempoLabel                 = document.getElementById('tempoLabel');
   const sheetMusicImg              = document.querySelector('.sheet-music img');
 
@@ -41,14 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistList               = document.getElementById('playlistList');
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
-
-  // --- UA detection (tight, iOS Safari only) ---
-  const UA = navigator.userAgent || "";
-  const IS_IOS =
-    /iPad|iPhone|iPod/.test(UA) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const IS_SAFARI = /^((?!chrome|android).)*safari/i.test(UA);
-  const NEEDS_IOS_HACK = IS_IOS && IS_SAFARI;
 
   // --- State ---
   let isDragging = false; // progress bar drag
@@ -228,79 +220,22 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // ===================== iOS slider bug workaround =====================
+  // --- Tempo slider: Pointer Events to prevent stuck drag state ---
+  if (tempoSlider) {
+    tempoSlider.addEventListener('pointerdown', (e) => {
+      userIsAdjustingTempo = true;
+      try { tempoSlider.setPointerCapture(e.pointerId); } catch {}
+    }, { passive: true });
 
-  // Clone+replace the slider to purge Safari's hidden capture/focus state.
-  function recreateTempoSlider() {
-    if (!NEEDS_IOS_HACK || !tempoSlider) return;
-
-    const old = tempoSlider;
-    const parent = old.parentNode;
-    if (!parent) return;
-
-    // Snapshot state
-    const value    = old.value;
-    const min      = old.min;
-    const max      = old.max;
-    const step     = old.step;
-    const disabled = old.disabled;
-    const id       = old.id;
-    const className= old.className;
-
-    // Create fresh node (no children/handlers)
-    const fresh = old.cloneNode(false);
-    fresh.id = id;
-    fresh.className = className;
-    if (min)  fresh.min  = min;
-    if (max)  fresh.max  = max;
-    if (step) fresh.step = step;
-    fresh.value    = value;
-    fresh.disabled = disabled;
-    fresh.style.touchAction = 'none'; // reduce iOS gesture interference
-
-    // Replace in DOM
-    parent.replaceChild(fresh, old);
-
-    // Point our variable to the new element and rewire handlers
-    tempoSlider = fresh;
-    wireTempoSliderHandlers();         // reattach events
-    updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
-  }
-
-  function wireTempoSliderHandlers() {
-    if (!tempoSlider) return;
-
-    // Ensure slider is usable everywhere
-    tempoSlider.style.touchAction = 'none';
-
-    // Clean previous listeners by recreating element (we already do),
-    // so we only attach the current set:
-
-    // Track drag state
-    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive: true });
-    tempoSlider.addEventListener('touchstart',  () => { userIsAdjustingTempo = true; }, { passive: true });
-    tempoSlider.addEventListener('mousedown',   () => { userIsAdjustingTempo = true; });
-
-    const endDrag = () => {
+    const endTempoDrag = (e) => {
       userIsAdjustingTempo = false;
-      // On iOS Safari, fully reset the slider to drop implicit capture
-      if (NEEDS_IOS_HACK) setTimeout(recreateTempoSlider, 0);
+      try { tempoSlider.releasePointerCapture(e.pointerId); } catch {}
     };
+    tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
+    tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
+    window.addEventListener('pointerup',   () => { userIsAdjustingTempo = false; }, { passive: true });
+    window.addEventListener('pointercancel', () => { userIsAdjustingTempo = false; }, { passive: true });
 
-    ['pointerup','pointercancel','touchend','touchcancel','mouseup']
-      .forEach(evt => window.addEventListener(evt, endDrag, { passive: true }));
-
-    // If you tap anything else, reset slider first (capture = run before targets)
-    if (NEEDS_IOS_HACK) {
-      document.addEventListener('pointerdown', (e) => {
-        if (e.target !== tempoSlider) recreateTempoSlider();
-      }, { capture: true, passive: true });
-      document.addEventListener('click', (e) => {
-        if (e.target !== tempoSlider) recreateTempoSlider();
-      }, { capture: true });
-    }
-
-    // Normal slider behavior
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
       updatePlaybackRate();
@@ -308,10 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Wire once on load
-  wireTempoSliderHandlers();
-
-  // ===================== Progress bar drag (iOS-friendly) =====================
+  // --- Progress bar drag (iOS-friendly) ---
   if (progressContainer) {
     progressContainer.addEventListener('mousedown', startDragging);
     progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
@@ -867,6 +799,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (exerciseList) exerciseList.style.display = 'none'; // keep closed
+
     applyLoopMode();
   }
 
