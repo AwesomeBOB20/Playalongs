@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // ---- iOS guard + Auto debounce (NEW) ----
+  // ---- iOS focus guard + Auto debounce (NEW) ----
   let autoChangeCooldown = false;
   function defocusSlider() {
     if (tempoSlider && document.activeElement === tempoSlider) tempoSlider.blur();
@@ -51,15 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // Blur the slider whenever you touch anything that is NOT the slider
   document.addEventListener('pointerdown', (e) => {
-    if (!tempoSlider) return;
     if (e.target !== tempoSlider) defocusSlider();
   }, { capture: true, passive: true });
-  // When enabling Auto, defocus immediately so taps don’t route to the slider
-  if (autoRandomizeToggle) {
-    autoRandomizeToggle.addEventListener('change', () => {
-      if (autoRandomizeToggle.checked) defocusSlider();
-    });
-  }
 
   // State
   let isDragging = false; // progress bar drag
@@ -170,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
       isRandomizeEnabled = this.checked;
       currentRepCount = 0;
       applyLoopMode();
+      if (isRandomizeEnabled) defocusSlider();
     });
   }
   if (repsPerTempoInput) {
@@ -260,18 +254,40 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // Tempo slider without pointer capture + defocus on end (NEW)
+  // --- Tempo slider: detect track taps, defocus appropriately (NEW) ---
   if (tempoSlider) {
-    tempoSlider.addEventListener('pointerdown', () => {
+    let trackTap = false;
+
+    tempoSlider.addEventListener('pointerdown', (e) => {
       userIsAdjustingTempo = true;
+
+      // detect track tap vs. knob drag
+      const rect = tempoSlider.getBoundingClientRect();
+      const min  = Number(tempoSlider.min), max = Number(tempoSlider.max);
+      const pct  = (Number(tempoSlider.value) - min) / (max - min || 1);
+      const knobX = rect.left + pct * rect.width;
+      const x = (e.clientX != null) ? e.clientX : (e.touches?.[0]?.clientX ?? knobX);
+      trackTap = Math.abs(x - knobX) > 24; // ≈ thumb radius
     }, { passive: true });
 
-    const endTempoDrag = () => { defocusSlider(); };
+    const endTempoDrag = () => {
+      if (trackTap) {
+        // If it was a track tap, immediately blur so Safari won’t keep routing taps
+        defocusSlider();
+      } else {
+        userIsAdjustingTempo = false;
+      }
+      trackTap = false;
+    };
+
     tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
     tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
     window.addEventListener('pointerup', endTempoDrag, { passive: true });
     window.addEventListener('pointercancel', endTempoDrag, { passive: true });
     document.addEventListener('visibilitychange', () => { if (document.hidden) userIsAdjustingTempo = false; });
+
+    // On value commit, also blur (extra safety on iOS after track taps)
+    tempoSlider.addEventListener('change', defocusSlider);
 
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
@@ -280,13 +296,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Progress bar with pointer capture
+  // Progress bar with pointer capture (also defocus slider on touch)
   if (progressContainer) {
     progressContainer.addEventListener('pointerdown', (e) => {
       isDragging = true;
       try { progressContainer.setPointerCapture(e.pointerId); } catch {}
       updateProgress(e);
-      // touching the bar should also defocus the slider on iOS
       defocusSlider();
     });
     progressContainer.addEventListener('pointermove', (e) => {
@@ -416,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCurrentTime();
   }
 
-  // (UPDATED) supports optional blur after programmatic change
+  // supports optional blur after programmatic change
   function setTempoSilently(bpm, { blur = false } = {}) {
     if (!tempoSlider) return;
     suppressTempoInput = true;
