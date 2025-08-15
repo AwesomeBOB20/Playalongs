@@ -20,11 +20,15 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .container{ width:90%; max-width:1000px; margin:20px auto; text-align:center; }
 
 /* iOS interaction guards */
-.bar, .tempo-slider{
+.bar{
   touch-action:none;
   -webkit-user-select:none; user-select:none;
   -webkit-tap-highlight-color:transparent;
   overscroll-behavior:contain;
+}
+.tempo-slider{
+  touch-action:manipulation;            /* key change */
+  -webkit-tap-highlight-color:transparent;
 }
 .bar__fill{ pointer-events:none; }
 #tempoLabel, .tempo-control label{ pointer-events:none; }
@@ -309,7 +313,7 @@ input[type="number"]:disabled{
   cursor:not-allowed;
 }
 
-/* --- Webflow typography guard (keep at end) -- */
+/* --- Webflow typography guard (keep at end) --- */
 .container .auto-label,
 .container .auto-label *,
 .container .tempo-control label,
@@ -321,4 +325,3 @@ input[type="number"]:disabled{
   letter-spacing:normal !important;
   font-family:'Ubuntu',sans-serif !important;
 }
-
