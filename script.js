@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // iOS fix: use Pointer Events with capture for progress and tempo slider
+  // prevent stuck drag, stop event bleed into buttons, and disable label clicks
+
   // --- Data from data.js ---
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
   const playlists  = Array.isArray(window.PLAYLISTS)  ? window.PLAYLISTS  : [];
@@ -14,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Progress bar elements
   const progressContainer          = document.querySelector('.progress-container .bar');
-  const progress                   = document.getElementById('progress'); // should be .bar__fill
+  let   progress                   = document.getElementById('progress') || document.querySelector('.bar__fill');
 
   const randomExerciseBtn          = document.getElementById('randomExerciseBtn');
   const randomTempoBtn             = document.getElementById('randomTempoBtn');
@@ -43,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
   // --- State ---
-  let isDragging = false; // progress bar drag
+  let isDragging = false; // progress bar drag (via Pointer Events)
   if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = true;
   if (stopPlaylistBtn)          stopPlaylistBtn.disabled          = true;
   if (prevPlaylistItemBtn)      prevPlaylistItemBtn.disabled      = true;
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.loop = !isPlayingPlaylist && !isRandomizeEnabled;
   }
 
-  // --- Reset inputs on refresh / bfcache (iOS back) ---
+  // --- Reset inputs on refresh and bfcache (iOS back) ---
   function resetPracticeControls() {
     if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
     if (repsPerTempoInput)   repsPerTempoInput.value = '';
@@ -111,6 +114,26 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
   // --- Initialize ---
+  // Safe defaults for touch intent to reduce iOS gesture coercion
+  if (tempoSlider) tempoSlider.style.touchAction = 'none';
+  if (progressContainer) progressContainer.style.touchAction = 'none';
+  if (tempoLabel) tempoLabel.style.pointerEvents = 'none';
+
+  const clickableIds = [
+    'playPauseBtn','randomExerciseBtn','randomTempoBtn',
+    'prevExerciseBtn','nextExerciseBtn',
+    'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn'
+  ];
+  clickableIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    try { el.type = 'button'; } catch {}
+    el.style.touchAction = 'manipulation';
+    const stop = (e) => e.stopPropagation();
+    el.addEventListener('pointerdown', stop, { passive: true });
+    el.addEventListener('click', stop);
+  });
+
   initializeCategoryList();
   initializePlaylistList();
   populateExerciseList();
@@ -243,15 +266,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Progress bar drag (iOS-friendly) ---
+  // --- Progress bar drag (Pointer Events with capture, no document handlers) ---
   if (progressContainer) {
-    progressContainer.addEventListener('mousedown', startDragging);
-    progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
+    progressContainer.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      try { progressContainer.setPointerCapture(e.pointerId); } catch {}
+      updateProgress(e);
+    });
+    progressContainer.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      updateProgress(e);
+    });
+    const endProgressDrag = (e) => {
+      isDragging = false;
+      try { progressContainer.releasePointerCapture(e.pointerId); } catch {}
+    };
+    progressContainer.addEventListener('pointerup', endProgressDrag, { passive: true });
+    progressContainer.addEventListener('pointercancel', endProgressDrag, { passive: true });
+    window.addEventListener('pointerup',   () => { isDragging = false; }, { passive: true });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) isDragging = false; });
   }
-  document.addEventListener('mousemove', dragProgress);
-  document.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); dragProgress(e); } }, { passive: false });
-  document.addEventListener('mouseup',   stopDragging);
-  document.addEventListener('touchend',  stopDragging, { passive: true });
 
   // --- Exercise nav buttons ---
   prevExerciseBtn?.addEventListener('click', () => { quietRandomize(); navigateExercise(-1); });
@@ -376,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function () {
     requestAnimationFrame(() => { suppressTempoInput = false; });
   }
 
-  // --- Progress ticker (iOS-smooth) ---
+  // --- Progress ticker ---
   let progressRafId = null;
   if (progress) {
     progress.style.transformOrigin = 'left center';
@@ -435,14 +469,10 @@ document.addEventListener('DOMContentLoaded', function () {
     currentTimeDisplay.textContent = formatTime(current);
   }
 
-  function startDragging(e) { isDragging = true; updateProgress(e); }
-  function dragProgress(e)  { if (isDragging) updateProgress(e); }
-  function stopDragging()   { isDragging = false; }
-
   function updateProgress(e) {
     if (!audio || !progressContainer || !progress) return;
     const rect = progressContainer.getBoundingClientRect();
-    let clientX = e.touches?.[0]?.clientX ?? e.clientX ?? 0;
+    const clientX = (e.clientX != null) ? e.clientX : (e.touches?.[0]?.clientX ?? 0);
     let x = clientX - rect.left;
     const width = rect.width || 1;
     let clickedValue = Math.min(1, Math.max(0, x / width));
