@@ -263,31 +263,103 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- TEMPO SLIDER ---
-  // A) On TOUCH devices, disable tap-to-jump on the TRACK (thumb drag still works)
-  if (tempoSlider && isTouchDevice) {
-    tempoSlider.addEventListener('touchstart', (e) => {
-      // detect track tap vs. thumb press
-      const t = e.touches[0];
+  // iOS-only shield: block track taps; allow thumb drag via custom handling (prevents button hijack)
+  (function () {
+    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (!isiOS || !tempoSlider) return;
+
+    // Wrap slider so we can position a shield above it
+    const wrap = document.createElement('div');
+    wrap.style.position = 'relative';
+    wrap.style.display  = 'block';
+    wrap.style.width    = '100%';
+    tempoSlider.parentNode.insertBefore(wrap, tempoSlider);
+    wrap.appendChild(tempoSlider);
+
+    // Transparent shield that intercepts taps
+    const shield = document.createElement('div');
+    Object.assign(shield.style, {
+      position: 'absolute',
+      inset: '0',
+      background: 'transparent',
+      zIndex: '5',
+      touchAction: 'none'
+    });
+    wrap.appendChild(shield);
+
+    const THUMB_RADIUS = 24;
+    let dragging = false;
+
+    function thumbCenterX() {
       const rect = tempoSlider.getBoundingClientRect();
       const min  = Number(tempoSlider.min) || 0;
       const max  = Number(tempoSlider.max) || 100;
-      const pct  = (Number(tempoSlider.value) - min) / (max - min || 1);
-      const knobX = rect.left + pct * rect.width;
-      const isTrackTap = Math.abs(t.clientX - knobX) > 24; // ~thumb radius
+      const v    = Number(tempoSlider.value);
+      const pct  = (v - min) / (max - min || 1);
+      return rect.left + pct * rect.width;
+    }
 
-      if (isTrackTap) {
-        // Block native jump-to-tap and clear focus so buttons don’t get hijacked.
+    function setFromClientX(clientX) {
+      const rect = tempoSlider.getBoundingClientRect();
+      const x    = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+      const min  = Number(tempoSlider.min) || 0;
+      const max  = Number(tempoSlider.max) || 100;
+      const val  = Math.round(min + (x / (rect.width || 1)) * (max - min));
+      // Manual UI update (don’t rely on native input event)
+      tempoSlider.value = String(val);
+      updatePlaybackRate();
+      updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
+    }
+
+    function start(e) {
+      const t = e.touches ? e.touches[0] : e;
+      const onThumb = Math.abs(t.clientX - thumbCenterX()) <= THUMB_RADIUS;
+
+      if (!onThumb) {
+        // Block track taps completely (no jump; no sticky focus)
         e.preventDefault();
         e.stopPropagation();
         defocusSlider();
-      } else {
-        userIsAdjustingTempo = true;
+        return;
       }
-    }, { passive: false });
 
-    tempoSlider.addEventListener('touchend', () => { userIsAdjustingTempo = false; }, { passive: true });
-    tempoSlider.addEventListener('touchcancel', () => { userIsAdjustingTempo = false; }, { passive: true });
-  }
+      // Begin custom drag
+      dragging = true;
+      userIsAdjustingTempo = true;
+      e.preventDefault();
+      e.stopPropagation();
+      try { tempoSlider.focus({ preventScroll: true }); } catch {}
+      move(e);
+
+      // Attach move/end listeners to window so drag keeps working if finger leaves shield
+      window.addEventListener('pointermove', move, { passive: false });
+      window.addEventListener('pointerup',   end,  { passive: true, once: true });
+      window.addEventListener('pointercancel', end, { passive: true, once: true });
+      window.addEventListener('touchmove',   move, { passive: false });
+      window.addEventListener('touchend',    end,  { passive: true, once: true });
+      window.addEventListener('touchcancel', end,  { passive: true, once: true });
+    }
+
+    function move(e) {
+      if (!dragging) return;
+      const t = e.touches ? e.touches[0] : e;
+      setFromClientX(t.clientX);
+      e.preventDefault();
+    }
+
+    function end() {
+      if (!dragging) return;
+      dragging = false;
+      userIsAdjustingTempo = false;
+      defocusSlider();
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('touchmove',   move);
+    }
+
+    shield.addEventListener('pointerdown', start, { passive: false });
+    shield.addEventListener('touchstart',  start, { passive: false });
+  })();
 
   // B) Pointer fallback (mouse / stylus): allow normal behavior
   if (tempoSlider) {
