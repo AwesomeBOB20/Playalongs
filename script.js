@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const totalTimeDisplay           = document.getElementById('totalTime');
   const currentTimeDisplay         = document.getElementById('currentTime');
   const playPauseBtn               = document.getElementById('playPauseBtn');
-  let   tempoSlider                = document.getElementById('tempoSlider'); // <-- let so we can replace it
+  let   tempoSlider                = document.getElementById('tempoSlider'); // let: used by iOS custom slider
   const tempoLabel                 = document.getElementById('tempoLabel');
   const sheetMusicImg              = document.querySelector('.sheet-music img');
 
   // Progress bar elements
   const progressContainer          = document.querySelector('.progress-container .bar');
-  const progress                   = document.getElementById('progress'); // should be .bar__fill
+  const progress                   = document.getElementById('progress'); // .bar__fill
 
   const randomExerciseBtn          = document.getElementById('randomExerciseBtn');
   const randomTempoBtn             = document.getElementById('randomTempoBtn');
@@ -42,13 +42,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // --- UA detection (tight, iOS Safari only) ---
+  // --- iOS-specific style to keep playlistQueueSearch visible ---
+  (function ensureIOSPlaylistQueueOpacity(){
+    const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (!IS_IOS) return;
+    const style = document.createElement('style');
+    style.textContent = `
+      #playlistQueueSearch{opacity:1!important}
+      #playlistQueueSearch:disabled{opacity:.4!important}
+    `;
+    document.head.appendChild(style);
+  })();
+
+  // --- UA detection for iOS Safari custom slider ---
   const UA = navigator.userAgent || "";
-  const IS_IOS =
-    /iPad|iPhone|iPod/.test(UA) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const IS_IOS = /iPad|iPhone|iPod/.test(UA) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const IS_SAFARI = /^((?!chrome|android).)*safari/i.test(UA);
-  const NEEDS_IOS_HACK = IS_IOS && IS_SAFARI;
+  const USE_IOS_CUSTOM_SLIDER = IS_IOS && IS_SAFARI;
 
   // --- State ---
   let isDragging = false; // progress bar drag
@@ -228,79 +239,122 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // ===================== iOS slider bug workaround =====================
+  // ===================== Tempo Slider (native on desktop / custom on iOS Safari) =====================
 
-  // Clone+replace the slider to purge Safari's hidden capture/focus state.
-  function recreateTempoSlider() {
-    if (!NEEDS_IOS_HACK || !tempoSlider) return;
+  // Custom slider state (iOS Safari only)
+  let customTempo = null; // {root, fill, thumb, dragging, min, max}
 
-    const old = tempoSlider;
-    const parent = old.parentNode;
-    if (!parent) return;
-
-    // Snapshot state
-    const value    = old.value;
-    const min      = old.min;
-    const max      = old.max;
-    const step     = old.step;
-    const disabled = old.disabled;
-    const id       = old.id;
-    const className= old.className;
-
-    // Create fresh node (no children/handlers)
-    const fresh = old.cloneNode(false);
-    fresh.id = id;
-    fresh.className = className;
-    if (min)  fresh.min  = min;
-    if (max)  fresh.max  = max;
-    if (step) fresh.step = step;
-    fresh.value    = value;
-    fresh.disabled = disabled;
-    fresh.style.touchAction = 'none'; // reduce iOS gesture interference
-
-    // Replace in DOM
-    parent.replaceChild(fresh, old);
-
-    // Point our variable to the new element and rewire handlers
-    tempoSlider = fresh;
-    wireTempoSliderHandlers();         // reattach events
-    updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
+  function injectCustomTempoStyles(){
+    if (!USE_IOS_CUSTOM_SLIDER) return;
+    if (document.getElementById('custom-tempo-css')) return;
+    const css = `
+    .tempo-slider-custom{position:relative;width:100%;max-width:100%;height:12px;border-radius:5px;
+      box-shadow:inset 0 0 0 2px #000;background:#ddd;touch-action:none;user-select:none}
+    .tempo-slider-custom .tempo-fill{position:absolute;left:0;top:0;height:100%;width:0%;
+      background:#96318d;border-radius:5px 0 0 5px}
+    .tempo-slider-custom .tempo-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);
+      width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #000;pointer-events:none}
+    .tempo-slider-custom.is-disabled{filter:grayscale(.2) brightness(.9)}
+    `;
+    const style = document.createElement('style');
+    style.id = 'custom-tempo-css';
+    style.textContent = css;
+    document.head.appendChild(style);
   }
 
-  function wireTempoSliderHandlers() {
-    if (!tempoSlider) return;
+  function buildIOSCustomTempoSlider(){
+    if (!USE_IOS_CUSTOM_SLIDER || !tempoSlider || customTempo) return;
+    injectCustomTempoStyles();
 
-    // Ensure slider is usable everywhere
-    tempoSlider.style.touchAction = 'none';
+    // Hide native slider
+    tempoSlider.style.display = 'none';
 
-    // Clean previous listeners by recreating element (we already do),
-    // so we only attach the current set:
+    // Build custom
+    const root  = document.createElement('div');
+    root.className = 'tempo-slider-custom';
+    const fill  = document.createElement('div');
+    fill.className = 'tempo-fill';
+    const thumb = document.createElement('div');
+    thumb.className = 'tempo-thumb';
+    root.appendChild(fill);
+    root.appendChild(thumb);
+    tempoSlider.parentNode.insertBefore(root, tempoSlider.nextSibling);
 
-    // Track drag state
-    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive: true });
-    tempoSlider.addEventListener('touchstart',  () => { userIsAdjustingTempo = true; }, { passive: true });
-    tempoSlider.addEventListener('mousedown',   () => { userIsAdjustingTempo = true; });
-
-    const endDrag = () => {
-      userIsAdjustingTempo = false;
-      // On iOS Safari, fully reset the slider to drop implicit capture
-      if (NEEDS_IOS_HACK) setTimeout(recreateTempoSlider, 0);
+    customTempo = {
+      root, fill, thumb, dragging:false,
+      min:Number(tempoSlider.min)||40,
+      max:Number(tempoSlider.max)||240
     };
 
-    ['pointerup','pointercancel','touchend','touchcancel','mouseup']
-      .forEach(evt => window.addEventListener(evt, endDrag, { passive: true }));
+    const updateUIFromValue = () => {
+      const v = Number(tempoSlider.value);
+      const min = customTempo.min, max = customTempo.max;
+      const pct = Math.max(0, Math.min(1, (v - min) / (max - min)));
+      fill.style.width = (pct*100) + '%';
+      const x = pct * root.clientWidth;
+      thumb.style.left = x + 'px';
+    };
 
-    // If you tap anything else, reset slider first (capture = run before targets)
-    if (NEEDS_IOS_HACK) {
-      document.addEventListener('pointerdown', (e) => {
-        if (e.target !== tempoSlider) recreateTempoSlider();
-      }, { capture: true, passive: true });
-      document.addEventListener('click', (e) => {
-        if (e.target !== tempoSlider) recreateTempoSlider();
-      }, { capture: true });
-    }
+    const setFromClientX = (clientX) => {
+      const rect = root.getBoundingClientRect();
+      const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
+      const pct = rect.width ? (x / rect.width) : 0;
+      const min = customTempo.min, max = customTempo.max;
+      const val = Math.round(min + pct * (max - min));
+      if (tempoSlider.disabled) return; // respect disabled state from playlist mode
+      if (String(val) !== String(tempoSlider.value)) {
+        tempoSlider.value = String(val);
+        updatePlaybackRate();
+        updateSliderBackground?.(tempoSlider, '#96318d', '#ffffff');
+      }
+      updateUIFromValue();
+    };
 
-    // Normal slider behavior
+    const startDrag = (e) => {
+      if (tempoSlider.disabled) return;
+      customTempo.dragging = true;
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
+      setFromClientX(clientX);
+      e.preventDefault();
+    };
+    const moveDrag = (e) => {
+      if (!customTempo.dragging) return;
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
+      setFromClientX(clientX);
+      e.preventDefault();
+    };
+    const endDrag = () => { customTempo.dragging = false; };
+
+    root.addEventListener('mousedown',  startDrag, { passive:false });
+    window.addEventListener('mousemove', moveDrag,  { passive:false });
+    window.addEventListener('mouseup',   endDrag,   { passive:true });
+
+    root.addEventListener('touchstart',  startDrag, { passive:false });
+    window.addEventListener('touchmove', moveDrag,  { passive:false });
+    window.addEventListener('touchend',  endDrag,   { passive:true });
+    window.addEventListener('touchcancel', endDrag, { passive:true });
+
+    // resize-safe
+    window.addEventListener('resize', () => updateUIFromValue(), { passive:true });
+
+    customTempo.updateUIFromValue = updateUIFromValue;
+    updateUIFromValue();
+  }
+
+  function syncCustomTempoBounds(){
+    if (!customTempo) return;
+    customTempo.min = Number(tempoSlider.min)||customTempo.min;
+    customTempo.max = Number(tempoSlider.max)||customTempo.max;
+    customTempo.updateUIFromValue?.();
+  }
+
+  // Desktop/Android: normal range input handlers
+  if (!USE_IOS_CUSTOM_SLIDER && tempoSlider) {
+    // pointer/keyboard for native slider
+    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive:true });
+    ['pointerup','pointercancel','mouseup','mouseleave'].forEach(evt =>
+      window.addEventListener(evt, () => { userIsAdjustingTempo = false; }, { passive:true })
+    );
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
       updatePlaybackRate();
@@ -308,57 +362,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Wire once on load
-  wireTempoSliderHandlers();
-
-  // ===================== Progress bar drag (iOS-friendly) =====================
-  if (progressContainer) {
-    progressContainer.addEventListener('mousedown', startDragging);
-    progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
+  // ===================== Progress bar (smooth RAF) =====================
+  let progressRafId = null;
+  if (progress) {
+    progress.style.transformOrigin = 'left center';
+    progress.style.transform = 'scaleX(0)';
   }
-  document.addEventListener('mousemove', dragProgress);
-  document.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); dragProgress(e); } }, { passive: false });
-  document.addEventListener('mouseup',   stopDragging);
-  document.addEventListener('touchend',  stopDragging, { passive: true });
-
-  // --- Exercise nav buttons ---
-  prevExerciseBtn?.addEventListener('click', () => { quietRandomize(); navigateExercise(-1); });
-  nextExerciseBtn?.addEventListener('click', () => { quietRandomize(); navigateExercise(1);  });
-
-  // --- Playlist buttons ---
-  stopPlaylistBtn?.addEventListener('click', function () { if (isPlayingPlaylist) stopPlaylist(); });
-  prevPlaylistItemBtn?.addEventListener('click', function () {
-    if (isPlayingPlaylist && playlistQueueMap.length > 0) {
-      let i = getCurrentPlaylistQueueIndex();
-      if (i > 0) {
-        i--;
-        const pos = playlistQueueMap[i];
-        currentPlaylistItemIndex = pos.playlistItemIndex;
-        currentTempoIndex        = pos.tempoIndex;
-        currentRepetition        = pos.repetition;
-        updatePlaylistQueueDisplay();
-        updatePlaylistProgressBar();
-        playCurrentPlaylistItem();
+  function resetProgressBarInstant() {
+    if (!progress) return;
+    progress.style.transform = 'scaleX(0)';
+    void progress.offsetWidth;
+    if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
+  }
+  function startProgressTicker() {
+    if (!audio || !progress) return;
+    cancelAnimationFrame(progressRafId);
+    const tick = () => {
+      if (!audio || !progress) return;
+      const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
+      const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
+      progress.style.transform = `scaleX(${pct})`;
+      updateCurrentTime();
+      if (!audio.paused && !audio.ended) {
+        progressRafId = requestAnimationFrame(tick);
       }
-    }
-  });
-  nextPlaylistItemBtn?.addEventListener('click', function () {
-    if (isPlayingPlaylist && playlistQueueMap.length > 0) {
-      let i = getCurrentPlaylistQueueIndex();
-      if (i < playlistQueueMap.length - 1) {
-        i++;
-        const pos = playlistQueueMap[i];
-        currentPlaylistItemIndex = pos.playlistItemIndex;
-        currentTempoIndex        = pos.tempoIndex;
-        currentRepetition        = pos.repetition;
-        updatePlaylistQueueDisplay();
-        updatePlaylistProgressBar();
-        playCurrentPlaylistItem();
-      }
-    }
-  });
+    };
+    progressRafId = requestAnimationFrame(tick);
+  }
+  function stopProgressTicker() {
+    cancelAnimationFrame(progressRafId);
+    progressRafId = null;
+  }
 
-  // --- Close dropdowns on outside click ---
+  // ===================== Dropdowns / lists =====================
+  // Close dropdowns on outside click
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.exercise-container')       && exerciseList)        exerciseList.style.display = 'none';
     if (!e.target.closest('.category-container')       && categoryList)        categoryList.style.display = 'none';
@@ -366,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!e.target.closest('.playlist-queue-container') && playlistQueueList)   playlistQueueList.style.display = 'none';
   });
 
-  // --- Open/populate dropdowns ---
+  // Open/populate dropdowns
   exerciseSearchInput?.addEventListener('focus', () => populateExerciseList(exerciseSearchInput.value));
   exerciseSearchInput?.addEventListener('input', () => populateExerciseList(exerciseSearchInput.value));
   categorySearchInput?.addEventListener('focus', () => populateCategoryList(categorySearchInput.value));
@@ -420,6 +457,13 @@ document.addEventListener('DOMContentLoaded', function () {
       exerciseSearchInput.placeholder = ex.name;
     }
 
+    // iOS custom slider build/sync
+    if (USE_IOS_CUSTOM_SLIDER) {
+      buildIOSCustomTempoSlider();
+      syncCustomTempoBounds();
+      customTempo?.updateUIFromValue?.();
+    }
+
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
     applyLoopMode();
@@ -441,39 +485,8 @@ document.addEventListener('DOMContentLoaded', function () {
     tempoSlider.value = String(bpm);
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
+    if (USE_IOS_CUSTOM_SLIDER) customTempo?.updateUIFromValue?.();
     requestAnimationFrame(() => { suppressTempoInput = false; });
-  }
-
-  // --- Progress ticker (iOS-smooth) ---
-  let progressRafId = null;
-  if (progress) {
-    progress.style.transformOrigin = 'left center';
-    progress.style.transform = 'scaleX(0)';
-  }
-  function resetProgressBarInstant() {
-    if (!progress) return;
-    progress.style.transform = 'scaleX(0)';
-    void progress.offsetWidth; // force repaint on Safari
-    if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
-  }
-  function startProgressTicker() {
-    if (!audio || !progress) return;
-    cancelAnimationFrame(progressRafId);
-    const tick = () => {
-      if (!audio || !progress) return;
-      const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
-      const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
-      progress.style.transform = `scaleX(${pct})`;
-      updateCurrentTime();
-      if (!audio.paused && !audio.ended) {
-        progressRafId = requestAnimationFrame(tick);
-      }
-    };
-    progressRafId = requestAnimationFrame(tick);
-  }
-  function stopProgressTicker() {
-    cancelAnimationFrame(progressRafId);
-    progressRafId = null;
   }
 
   function updateSliderBackground(slider, c1, c2) {
@@ -502,6 +515,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const current = (audio.currentTime || 0) / rate;
     currentTimeDisplay.textContent = formatTime(current);
   }
+
+  // --- Progress bar drag (iOS-friendly) ---
+  if (progressContainer) {
+    progressContainer.addEventListener('mousedown', startDragging);
+    progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
+  }
+  document.addEventListener('mousemove', dragProgress);
+  document.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); dragProgress(e); } }, { passive: false });
+  document.addEventListener('mouseup',   stopDragging);
+  document.addEventListener('touchend',  stopDragging, { passive: true });
 
   function startDragging(e) { isDragging = true; updateProgress(e); }
   function dragProgress(e)  { if (isDragging) updateProgress(e); }
@@ -584,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Only show exercise list when the search input is focused
+  // Lists
   function populateExerciseList(filter = '') {
     if (!exerciseList) return;
 
@@ -739,6 +762,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
     if (tempoSlider)           tempoSlider.disabled           = true;
 
+    if (customTempo) customTempo.root.classList.add('is-disabled');
+
     const autoLabel = document.querySelector('.auto-label');
     if (autoLabel) autoLabel.classList.add('disabled');
     const randomContainer = document.querySelector('.random-container');
@@ -754,7 +779,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
 
-    if (exerciseList) exerciseList.style.display = 'none'; // ensure closed
+    if (exerciseList) exerciseList.style.display = 'none';
 
     displayedExercises = filterExercisesForMode();
     if (displayedExercises.length > 0) {
@@ -849,6 +874,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
     if (tempoSlider)        tempoSlider.disabled          = false;
 
+    if (customTempo) customTempo.root.classList.remove('is-disabled');
+
     const autoLabel = document.querySelector('.auto-label');
     if (autoLabel) autoLabel.classList.remove('disabled');
     const randomContainer = document.querySelector('.random-container');
@@ -866,7 +893,7 @@ document.addEventListener('DOMContentLoaded', function () {
       playlistQueueSearchInput.setAttribute('disabled','');
     }
 
-    if (exerciseList) exerciseList.style.display = 'none'; // keep closed
+    if (exerciseList) exerciseList.style.display = 'none';
     applyLoopMode();
   }
 
