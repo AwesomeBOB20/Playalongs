@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // iOS fix: use Pointer Events with capture for progress and tempo slider
-  // prevent stuck drag, stop event bleed into buttons, and disable label click
-
-  // --- Data from data.js ---
+  // Data
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
   const playlists  = Array.isArray(window.PLAYLISTS)  ? window.PLAYLISTS  : [];
 
-  // --- DOM ---
+  // DOM
   const audio                      = document.getElementById('audio');
   const totalTimeDisplay           = document.getElementById('totalTime');
   const currentTimeDisplay         = document.getElementById('currentTime');
@@ -15,10 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const tempoLabel                 = document.getElementById('tempoLabel');
   const sheetMusicImg              = document.querySelector('.sheet-music img');
 
-  // Progress bar elements
+  // Progress bar
   const progressContainer          = document.querySelector('.progress-container .bar');
   let   progress                   = document.getElementById('progress') || document.querySelector('.bar__fill');
 
+  // Controls
   const randomExerciseBtn          = document.getElementById('randomExerciseBtn');
   const randomTempoBtn             = document.getElementById('randomTempoBtn');
   const minTempoInput              = document.getElementById('minTempo');
@@ -45,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // --- State ---
-  let isDragging = false; // progress bar drag (via Pointer Events)
+  // State
+  let isDragging = false; // progress bar drag
   if (playlistQueueSearchInput) playlistQueueSearchInput.disabled = true;
   if (stopPlaylistBtn)          stopPlaylistBtn.disabled          = true;
   if (prevPlaylistItemBtn)      prevPlaylistItemBtn.disabled      = true;
@@ -67,13 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentSelectedExercise = null;
   let prevTempo = null;
 
-  // tempo/randomize guards
+  // tempo guards
   let currentOriginalTempo = null;
   let userIsAdjustingTempo = false;
   let suppressTempoInput   = false;
   let inEndedCycle         = false;
 
-  // categories
+  // Categories
   let displayedCategories = [
     "all","one-handers","accent-tap","rhythms","rudiments","timing",
     "paradiddles","singles","rolls","natural-decays","flams","hybrids",
@@ -87,9 +85,9 @@ document.addEventListener('DOMContentLoaded', function () {
   };
   let displayedPlaylists = playlists.map((p, i) => ({ index: i, name: p.name }));
 
-  // audio defaults
+  // Audio defaults
   if (audio) {
-    audio.loop = false; // controlled by applyLoopMode()
+    audio.loop = false;
     if ('preservesPitch' in audio)       audio.preservesPitch = true;
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
@@ -99,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.loop = !isPlayingPlaylist && !isRandomizeEnabled;
   }
 
-  // --- Reset inputs on refresh and bfcache (iOS back) ---
+  // Reset on refresh or iOS back
   function resetPracticeControls() {
     if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
     if (repsPerTempoInput)   repsPerTempoInput.value = '';
@@ -113,12 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   resetPracticeControls();
   window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
-  // --- Initialize ---
-  // Safe defaults for touch intent to reduce iOS gesture coercion
-  if (tempoSlider) tempoSlider.style.touchAction = 'none';
-  if (progressContainer) progressContainer.style.touchAction = 'none';
-  if (tempoLabel) tempoLabel.style.pointerEvents = 'none';
-
+  // Button intent and propagation safety
   const clickableIds = [
     'playPauseBtn','randomExerciseBtn','randomTempoBtn',
     'prevExerciseBtn','nextExerciseBtn',
@@ -134,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     el.addEventListener('click', stop);
   });
 
+  // Init lists
   initializeCategoryList();
   initializePlaylistList();
   populateExerciseList();
@@ -152,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (exerciseSearchInput) exerciseSearchInput.placeholder = "Search Exercises...";
   }
 
-  // --- Randomize toggle/count ---
+  // Randomize
   if (autoRandomizeToggle) {
     autoRandomizeToggle.addEventListener('change', function () {
       isRandomizeEnabled = this.checked;
@@ -167,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Buttons ---
+  // Buttons
   randomExerciseBtn?.addEventListener('click', function () {
     quietRandomize();
     if (isPlayingPlaylist) stopPlaylist();
@@ -205,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Ended behavior (guard re-entry) ---
+  // Ended behavior
   if (audio) {
     audio.addEventListener('ended', function () {
       stopProgressTicker();
@@ -217,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
           currentRepCount++;
           if (currentRepCount >= repsBeforeChange) {
             currentRepCount = 0;
-            pickRandomTempo(); // set before play for smoother reset
+            pickRandomTempo();
           }
           audio.currentTime = 0;
           resetProgressBarInstant();
@@ -243,21 +237,18 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider: Pointer Events to prevent stuck drag state ---
+  // Tempo slider without pointer capture
   if (tempoSlider) {
-    tempoSlider.addEventListener('pointerdown', (e) => {
+    tempoSlider.addEventListener('pointerdown', () => {
       userIsAdjustingTempo = true;
-      try { tempoSlider.setPointerCapture(e.pointerId); } catch {}
     }, { passive: true });
 
-    const endTempoDrag = (e) => {
-      userIsAdjustingTempo = false;
-      try { tempoSlider.releasePointerCapture(e.pointerId); } catch {}
-    };
+    const endTempoDrag = () => { userIsAdjustingTempo = false; };
     tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
     tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
-    window.addEventListener('pointerup',   () => { userIsAdjustingTempo = false; }, { passive: true });
-    window.addEventListener('pointercancel', () => { userIsAdjustingTempo = false; }, { passive: true });
+    window.addEventListener('pointerup', endTempoDrag, { passive: true });
+    window.addEventListener('pointercancel', endTempoDrag, { passive: true });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) userIsAdjustingTempo = false; });
 
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
@@ -266,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Progress bar drag (Pointer Events with capture, no document handlers) ---
+  // Progress bar with pointer capture
   if (progressContainer) {
     progressContainer.addEventListener('pointerdown', (e) => {
       isDragging = true;
@@ -287,11 +278,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('visibilitychange', () => { if (document.hidden) isDragging = false; });
   }
 
-  // --- Exercise nav buttons ---
+  // Exercise nav
   prevExerciseBtn?.addEventListener('click', () => { quietRandomize(); navigateExercise(-1); });
   nextExerciseBtn?.addEventListener('click', () => { quietRandomize(); navigateExercise(1);  });
 
-  // --- Playlist buttons ---
+  // Playlist buttons
   stopPlaylistBtn?.addEventListener('click', function () { if (isPlayingPlaylist) stopPlaylist(); });
   prevPlaylistItemBtn?.addEventListener('click', function () {
     if (isPlayingPlaylist && playlistQueueMap.length > 0) {
@@ -324,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // --- Close dropdowns on outside click ---
+  // Close dropdowns on outside click
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.exercise-container')       && exerciseList)        exerciseList.style.display = 'none';
     if (!e.target.closest('.category-container')       && categoryList)        categoryList.style.display = 'none';
@@ -332,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!e.target.closest('.playlist-queue-container') && playlistQueueList)   playlistQueueList.style.display = 'none';
   });
 
-  // --- Open/populate dropdowns ---
+  // Open and filter dropdowns
   exerciseSearchInput?.addEventListener('focus', () => populateExerciseList(exerciseSearchInput.value));
   exerciseSearchInput?.addEventListener('input', () => populateExerciseList(exerciseSearchInput.value));
   categorySearchInput?.addEventListener('focus', () => populateCategoryList(categorySearchInput.value));
@@ -342,8 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
   playlistQueueSearchInput?.addEventListener('focus', () => populatePlaylistQueueList(playlistQueueSearchInput.value));
   playlistQueueSearchInput?.addEventListener('input', () => populatePlaylistQueueList(playlistQueueSearchInput.value));
 
-  // ===================== Helpers =====================
-
+  // Helpers
   function filterExercisesForMode() {
     if (isPlayingPlaylist && currentPlaylist) {
       const ids = currentPlaylist.items.map(i => i.exerciseId);
@@ -410,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function () {
     requestAnimationFrame(() => { suppressTempoInput = false; });
   }
 
-  // --- Progress ticker ---
+  // Progress ticker
   let progressRafId = null;
   if (progress) {
     progress.style.transformOrigin = 'left center';
@@ -419,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function resetProgressBarInstant() {
     if (!progress) return;
     progress.style.transform = 'scaleX(0)';
-    void progress.offsetWidth; // force repaint on Safari
+    void progress.offsetWidth; // Safari repaint
     if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
   }
   function startProgressTicker() {
@@ -546,7 +536,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Only show exercise list when the search input is focused
   function populateExerciseList(filter = '') {
     if (!exerciseList) return;
 
@@ -716,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
 
-    if (exerciseList) exerciseList.style.display = 'none'; // ensure closed
+    if (exerciseList) exerciseList.style.display = 'none';
 
     displayedExercises = filterExercisesForMode();
     if (displayedExercises.length > 0) {
@@ -828,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function () {
       playlistQueueSearchInput.setAttribute('disabled','');
     }
 
-    if (exerciseList) exerciseList.style.display = 'none'; // keep closed
+    if (exerciseList) exerciseList.style.display = 'none';
 
     applyLoopMode();
   }
@@ -903,11 +892,10 @@ document.addEventListener('DOMContentLoaded', function () {
       updatePlaylistQueueDisplay();
       updatePlaylistProgressBar();
     }
-  }
+    }
 
   function quietRandomize() {
     currentRepCount = 0;
     if (audio) audio.onended = null;
   }
 });
-
