@@ -43,13 +43,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // ---- iOS focus guard + Auto debounce (NEW) ----
-  let autoChangeCooldown = false;
+  // ---- Feature detection / flags ----
+  const isTouchDevice =
+    (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0);
+
+  // ---- iOS focus guard + Auto debounce/throttle ----
+  let autoChangeCooldown = false;              // prevents duplicate tempo changes on a single "ended"
+  let inEndedCycle       = false;              // guards re-entrant ended bursts
+  let lastTempoChangeAt  = 0;                  // throttles programmatic tempo moves
+
   function defocusSlider() {
     if (tempoSlider && document.activeElement === tempoSlider) tempoSlider.blur();
     userIsAdjustingTempo = false;
   }
-  // Blur the slider whenever you touch anything that is NOT the slider
+
+  // Blur the slider whenever you touch/click anything that is NOT the slider
   document.addEventListener('pointerdown', (e) => {
     if (e.target !== tempoSlider) defocusSlider();
   }, { capture: true, passive: true });
@@ -80,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentOriginalTempo = null;
   let userIsAdjustingTempo = false;
   let suppressTempoInput   = false;
-  let inEndedCycle         = false;
 
   // Categories
   let displayedCategories = [
@@ -211,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Ended behavior
+  // Ended behavior (longer guard window)
   if (audio) {
     audio.addEventListener('ended', function () {
       stopProgressTicker();
@@ -223,11 +232,10 @@ document.addEventListener('DOMContentLoaded', function () {
           currentRepCount++;
           if (currentRepCount >= repsBeforeChange) {
             currentRepCount = 0;
-            // Debounce so tempo changes once per finished rep on iOS
             if (!autoChangeCooldown) {
               autoChangeCooldown = true;
               pickRandomTempo(); // moves knob + blurs slider
-              setTimeout(() => { autoChangeCooldown = false; }, 200);
+              setTimeout(() => { autoChangeCooldown = false; }, 250);
             }
           }
           audio.currentTime = 0;
@@ -242,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
           resetProgressBarInstant();
         }
       } finally {
-        setTimeout(() => { inEndedCycle = false; }, 0);
+        setTimeout(() => { inEndedCycle = false; }, 250); // was 0; give iOS time
       }
     });
 
@@ -254,46 +262,51 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // --- Tempo slider: detect track taps, defocus appropriately (NEW) ---
-  if (tempoSlider) {
-    let trackTap = false;
-
-    tempoSlider.addEventListener('pointerdown', (e) => {
-      userIsAdjustingTempo = true;
-
-      // detect track tap vs. knob drag
+  // --- TEMPO SLIDER ---
+  // A) On TOUCH devices, disable tap-to-jump on the TRACK (thumb drag still works)
+  if (tempoSlider && isTouchDevice) {
+    tempoSlider.addEventListener('touchstart', (e) => {
+      // detect track tap vs. thumb press
+      const t = e.touches[0];
       const rect = tempoSlider.getBoundingClientRect();
-      const min  = Number(tempoSlider.min), max = Number(tempoSlider.max);
+      const min  = Number(tempoSlider.min) || 0;
+      const max  = Number(tempoSlider.max) || 100;
       const pct  = (Number(tempoSlider.value) - min) / (max - min || 1);
       const knobX = rect.left + pct * rect.width;
-      const x = (e.clientX != null) ? e.clientX : (e.touches?.[0]?.clientX ?? knobX);
-      trackTap = Math.abs(x - knobX) > 24; // ≈ thumb radius
-    }, { passive: true });
+      const isTrackTap = Math.abs(t.clientX - knobX) > 24; // ~thumb radius
 
-    const endTempoDrag = () => {
-      if (trackTap) {
-        // If it was a track tap, immediately blur so Safari won’t keep routing taps
+      if (isTrackTap) {
+        // Block native jump-to-tap and clear focus so buttons don’t get hijacked.
+        e.preventDefault();
+        e.stopPropagation();
         defocusSlider();
       } else {
-        userIsAdjustingTempo = false;
+        userIsAdjustingTempo = true;
       }
-      trackTap = false;
-    };
+    }, { passive: false });
 
+    tempoSlider.addEventListener('touchend', () => { userIsAdjustingTempo = false; }, { passive: true });
+    tempoSlider.addEventListener('touchcancel', () => { userIsAdjustingTempo = false; }, { passive: true });
+  }
+
+  // B) Pointer fallback (mouse / stylus): allow normal behavior
+  if (tempoSlider) {
+    tempoSlider.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'touch') userIsAdjustingTempo = true;
+    }, { passive: true });
+
+    const endTempoDrag = () => { userIsAdjustingTempo = false; };
     tempoSlider.addEventListener('pointerup', endTempoDrag, { passive: true });
     tempoSlider.addEventListener('pointercancel', endTempoDrag, { passive: true });
-    window.addEventListener('pointerup', endTempoDrag, { passive: true });
-    window.addEventListener('pointercancel', endTempoDrag, { passive: true });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) userIsAdjustingTempo = false; });
-
-    // On value commit, also blur (extra safety on iOS after track taps)
-    tempoSlider.addEventListener('change', defocusSlider);
 
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
       updatePlaybackRate();
       updateSliderBackground(this, '#96318d', '#ffffff');
     });
+
+    // Also blur on value commit (extra iOS safety)
+    tempoSlider.addEventListener('change', defocusSlider);
   }
 
   // Progress bar with pointer capture (also defocus slider on touch)
@@ -431,7 +444,15 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCurrentTime();
   }
 
-  // supports optional blur after programmatic change
+  // Throttled programmatic setter (prevents "frantic" bursts)
+  function setTempoThrottled(bpm, { blur = false } = {}) {
+    const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    if (now - lastTempoChangeAt < 180) return; // ~ one change per animation frame cluster
+    lastTempoChangeAt = now;
+    setTempoSilently(bpm, { blur });
+  }
+
+  // Programmatic set that optionally blurs
   function setTempoSilently(bpm, { blur = false } = {}) {
     if (!tempoSlider) return;
     suppressTempoInput = true;
@@ -557,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     prevTempo = randomTempo;
     // blur after programmatic change so buttons stay independent on iOS
-    setTempoSilently(randomTempo, { blur: true });
+    setTempoThrottled(randomTempo, { blur: true });
   }
 
   function navigateExercise(step) {
@@ -776,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeExercise(exercise);
 
     const tempo = item.tempos[currentTempoIndex];
-    setTempoSilently(tempo); // playlist already disables the slider, so blur not needed
+    setTempoSilently(tempo); // playlist already disables the slider
 
     if (playlistQueueSearchInput) {
       playlistQueueSearchInput.placeholder = exercise.name + " at " + tempo + " BPM";
