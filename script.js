@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const totalTimeDisplay           = document.getElementById('totalTime');
   const currentTimeDisplay         = document.getElementById('currentTime');
   const playPauseBtn               = document.getElementById('playPauseBtn');
-  let   tempoSlider                = document.getElementById('tempoSlider'); // let: used by iOS custom slider
+  const tempoSlider                = document.getElementById('tempoSlider');
   const tempoLabel                 = document.getElementById('tempoLabel');
   const sheetMusicImg              = document.querySelector('.sheet-music img');
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistQueueSearchInput   = document.getElementById('playlistQueueSearch');
   const playlistQueueList          = document.getElementById('playlistQueueList');
 
-  // --- iOS-specific style to keep playlistQueueSearch visible ---
+  // --- iOS-only: ensure Playlist Queue input isn't translucent when enabled
   (function ensureIOSPlaylistQueueOpacity(){
     const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -54,12 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.head.appendChild(style);
   })();
-
-  // --- UA detection for iOS Safari custom slider ---
-  const UA = navigator.userAgent || "";
-  const IS_IOS = /iPad|iPhone|iPod/.test(UA) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  const IS_SAFARI = /^((?!chrome|android).)*safari/i.test(UA);
-  const USE_IOS_CUSTOM_SLIDER = IS_IOS && IS_SAFARI;
 
   // --- State ---
   let isDragging = false; // progress bar drag
@@ -88,6 +82,17 @@ document.addEventListener('DOMContentLoaded', function () {
   let userIsAdjustingTempo = false;
   let suppressTempoInput   = false;
   let inEndedCycle         = false;
+
+  // --- Ghost-tap guard for iOS Safari after touching the slider ---
+  let ignoreTempoGhostUntil = 0;
+  const nowTime = () => (performance && performance.now ? performance.now() : Date.now());
+  const hushTempo = (ms = 180) => { ignoreTempoGhostUntil = nowTime() + ms; };
+
+  // When you tap ANYTHING (capture phase), hush stray slider inputs briefly
+  document.addEventListener('pointerdown', (e) => {
+    if (!tempoSlider) return;
+    if (e.target !== tempoSlider) hushTempo();
+  }, { capture: true, passive: true });
 
   // categories
   let displayedCategories = [
@@ -154,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
       isRandomizeEnabled = this.checked;
       currentRepCount = 0;
       applyLoopMode();
+      hushTempo(); // extra safety
     });
   }
   if (repsPerTempoInput) {
@@ -165,21 +171,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Buttons ---
   randomExerciseBtn?.addEventListener('click', function () {
+    hushTempo();
     quietRandomize();
     if (isPlayingPlaylist) stopPlaylist();
     pickRandomExercise();
   });
 
   randomTempoBtn?.addEventListener('click', function () {
+    hushTempo();
     if (isPlayingPlaylist) return;
     const wasPlaying = audio && !audio.paused;
     quietRandomize();
-    pickRandomTempo();
+    pickRandomTempo(); // programmatic set (suppressTempoInput handles UI)
     if (wasPlaying) startProgressTicker();
   });
 
   if (playPauseBtn && audio) {
     playPauseBtn.addEventListener('click', function () {
+      hushTempo();
       if (audio.ended || (isFinite(audio.duration) && audio.currentTime >= audio.duration)) {
         audio.currentTime = 0;
         resetProgressBarInstant();
@@ -213,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
           currentRepCount++;
           if (currentRepCount >= repsBeforeChange) {
             currentRepCount = 0;
-            pickRandomTempo(); // set before play for smoother reset
+            pickRandomTempo();
           }
           audio.currentTime = 0;
           resetProgressBarInstant();
@@ -239,124 +248,25 @@ document.addEventListener('DOMContentLoaded', function () {
     audio.addEventListener('seeking',        startProgressTicker);
   }
 
-  // ===================== Tempo Slider (native on desktop / custom on iOS Safari) =====================
+  // ===================== Tempo Slider (native) =====================
+  if (tempoSlider) {
+    // Help mobile browsers treat taps as direct manipulations
+    tempoSlider.style.touchAction = 'manipulation';
 
-  // Custom slider state (iOS Safari only)
-  let customTempo = null; // {root, fill, thumb, dragging, min, max}
+    const beginDrag = () => { userIsAdjustingTempo = true; };
+    const endDrag   = () => { userIsAdjustingTempo = false; hushTempo(120); };
 
-  function injectCustomTempoStyles(){
-    if (!USE_IOS_CUSTOM_SLIDER) return;
-    if (document.getElementById('custom-tempo-css')) return;
-    const css = `
-    .tempo-slider-custom{position:relative;width:100%;max-width:100%;height:12px;border-radius:5px;
-      box-shadow:inset 0 0 0 2px #000;background:#ddd;touch-action:none;user-select:none}
-    .tempo-slider-custom .tempo-fill{position:absolute;left:0;top:0;height:100%;width:0%;
-      background:#96318d;border-radius:5px 0 0 5px}
-    .tempo-slider-custom .tempo-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);
-      width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #000;pointer-events:none}
-    .tempo-slider-custom.is-disabled{filter:grayscale(.2) brightness(.9)}
-    `;
-    const style = document.createElement('style');
-    style.id = 'custom-tempo-css';
-    style.textContent = css;
-    document.head.appendChild(style);
-  }
+    tempoSlider.addEventListener('pointerdown', beginDrag, { passive:true });
+    tempoSlider.addEventListener('touchstart',  beginDrag, { passive:true });
+    tempoSlider.addEventListener('mousedown',   beginDrag);
 
-  function buildIOSCustomTempoSlider(){
-    if (!USE_IOS_CUSTOM_SLIDER || !tempoSlider || customTempo) return;
-    injectCustomTempoStyles();
+    ['pointerup','pointercancel','touchend','touchcancel','mouseup']
+      .forEach(evt => window.addEventListener(evt, endDrag, { passive:true }));
 
-    // Hide native slider
-    tempoSlider.style.display = 'none';
-
-    // Build custom
-    const root  = document.createElement('div');
-    root.className = 'tempo-slider-custom';
-    const fill  = document.createElement('div');
-    fill.className = 'tempo-fill';
-    const thumb = document.createElement('div');
-    thumb.className = 'tempo-thumb';
-    root.appendChild(fill);
-    root.appendChild(thumb);
-    tempoSlider.parentNode.insertBefore(root, tempoSlider.nextSibling);
-
-    customTempo = {
-      root, fill, thumb, dragging:false,
-      min:Number(tempoSlider.min)||40,
-      max:Number(tempoSlider.max)||240
-    };
-
-    const updateUIFromValue = () => {
-      const v = Number(tempoSlider.value);
-      const min = customTempo.min, max = customTempo.max;
-      const pct = Math.max(0, Math.min(1, (v - min) / (max - min)));
-      fill.style.width = (pct*100) + '%';
-      const x = pct * root.clientWidth;
-      thumb.style.left = x + 'px';
-    };
-
-    const setFromClientX = (clientX) => {
-      const rect = root.getBoundingClientRect();
-      const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
-      const pct = rect.width ? (x / rect.width) : 0;
-      const min = customTempo.min, max = customTempo.max;
-      const val = Math.round(min + pct * (max - min));
-      if (tempoSlider.disabled) return; // respect disabled state from playlist mode
-      if (String(val) !== String(tempoSlider.value)) {
-        tempoSlider.value = String(val);
-        updatePlaybackRate();
-        updateSliderBackground?.(tempoSlider, '#96318d', '#ffffff');
-      }
-      updateUIFromValue();
-    };
-
-    const startDrag = (e) => {
-      if (tempoSlider.disabled) return;
-      customTempo.dragging = true;
-      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
-      setFromClientX(clientX);
-      e.preventDefault();
-    };
-    const moveDrag = (e) => {
-      if (!customTempo.dragging) return;
-      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
-      setFromClientX(clientX);
-      e.preventDefault();
-    };
-    const endDrag = () => { customTempo.dragging = false; };
-
-    root.addEventListener('mousedown',  startDrag, { passive:false });
-    window.addEventListener('mousemove', moveDrag,  { passive:false });
-    window.addEventListener('mouseup',   endDrag,   { passive:true });
-
-    root.addEventListener('touchstart',  startDrag, { passive:false });
-    window.addEventListener('touchmove', moveDrag,  { passive:false });
-    window.addEventListener('touchend',  endDrag,   { passive:true });
-    window.addEventListener('touchcancel', endDrag, { passive:true });
-
-    // resize-safe
-    window.addEventListener('resize', () => updateUIFromValue(), { passive:true });
-
-    customTempo.updateUIFromValue = updateUIFromValue;
-    updateUIFromValue();
-  }
-
-  function syncCustomTempoBounds(){
-    if (!customTempo) return;
-    customTempo.min = Number(tempoSlider.min)||customTempo.min;
-    customTempo.max = Number(tempoSlider.max)||customTempo.max;
-    customTempo.updateUIFromValue?.();
-  }
-
-  // Desktop/Android: normal range input handlers
-  if (!USE_IOS_CUSTOM_SLIDER && tempoSlider) {
-    // pointer/keyboard for native slider
-    tempoSlider.addEventListener('pointerdown', () => { userIsAdjustingTempo = true; }, { passive:true });
-    ['pointerup','pointercancel','mouseup','mouseleave'].forEach(evt =>
-      window.addEventListener(evt, () => { userIsAdjustingTempo = false; }, { passive:true })
-    );
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
+      // Ignore ghost inputs fired when tapping other controls on iOS
+      if (nowTime() < ignoreTempoGhostUntil) return;
       updatePlaybackRate();
       updateSliderBackground(this, '#96318d', '#ffffff');
     });
@@ -392,6 +302,34 @@ document.addEventListener('DOMContentLoaded', function () {
   function stopProgressTicker() {
     cancelAnimationFrame(progressRafId);
     progressRafId = null;
+  }
+
+  // --- Progress bar drag (iOS-friendly) ---
+  if (progressContainer) {
+    progressContainer.addEventListener('mousedown', startDragging);
+    progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
+  }
+  document.addEventListener('mousemove', dragProgress);
+  document.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); dragProgress(e); } }, { passive: false });
+  document.addEventListener('mouseup',   stopDragging);
+  document.addEventListener('touchend',  stopDragging, { passive: true });
+
+  function startDragging(e) { isDragging = true; updateProgress(e); }
+  function dragProgress(e)  { if (isDragging) updateProgress(e); }
+  function stopDragging()   { isDragging = false; }
+
+  function updateProgress(e) {
+    if (!audio || !progressContainer || !progress) return;
+    const rect = progressContainer.getBoundingClientRect();
+    let clientX = e.touches?.[0]?.clientX ?? e.clientX ?? 0;
+    let x = clientX - rect.left;
+    const width = rect.width || 1;
+    let clickedValue = Math.min(1, Math.max(0, x / width));
+    const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
+    audio.currentTime = clickedValue * dur;
+    const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
+    progress.style.transform = `scaleX(${pct})`;
+    updateCurrentTime();
   }
 
   // ===================== Dropdowns / lists =====================
@@ -457,13 +395,6 @@ document.addEventListener('DOMContentLoaded', function () {
       exerciseSearchInput.placeholder = ex.name;
     }
 
-    // iOS custom slider build/sync
-    if (USE_IOS_CUSTOM_SLIDER) {
-      buildIOSCustomTempoSlider();
-      syncCustomTempoBounds();
-      customTempo?.updateUIFromValue?.();
-    }
-
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
     applyLoopMode();
@@ -485,7 +416,6 @@ document.addEventListener('DOMContentLoaded', function () {
     tempoSlider.value = String(bpm);
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
-    if (USE_IOS_CUSTOM_SLIDER) customTempo?.updateUIFromValue?.();
     requestAnimationFrame(() => { suppressTempoInput = false; });
   }
 
@@ -514,34 +444,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const rate = audio.playbackRate || 1;
     const current = (audio.currentTime || 0) / rate;
     currentTimeDisplay.textContent = formatTime(current);
-  }
-
-  // --- Progress bar drag (iOS-friendly) ---
-  if (progressContainer) {
-    progressContainer.addEventListener('mousedown', startDragging);
-    progressContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startDragging(e); }, { passive: false });
-  }
-  document.addEventListener('mousemove', dragProgress);
-  document.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); dragProgress(e); } }, { passive: false });
-  document.addEventListener('mouseup',   stopDragging);
-  document.addEventListener('touchend',  stopDragging, { passive: true });
-
-  function startDragging(e) { isDragging = true; updateProgress(e); }
-  function dragProgress(e)  { if (isDragging) updateProgress(e); }
-  function stopDragging()   { isDragging = false; }
-
-  function updateProgress(e) {
-    if (!audio || !progressContainer || !progress) return;
-    const rect = progressContainer.getBoundingClientRect();
-    let clientX = e.touches?.[0]?.clientX ?? e.clientX ?? 0;
-    let x = clientX - rect.left;
-    const width = rect.width || 1;
-    let clickedValue = Math.min(1, Math.max(0, x / width));
-    const dur = (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : 1;
-    audio.currentTime = clickedValue * dur;
-    const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
-    progress.style.transform = `scaleX(${pct})`;
-    updateCurrentTime();
   }
 
   function pickRandomExercise() {
@@ -575,6 +477,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (minTempo > maxTempo) [minTempo, maxTempo] = [maxTempo, minTempo];
 
     minTempo = Math.max(minTempo, Number(tempoSlider.min));
+    maxTempo = Math.min(maxTempo, Number(empoSlider.max)); // typo fix below
+
+    // FIX typo: ensure we read tempoSlider.max correctly
     maxTempo = Math.min(maxTempo, Number(tempoSlider.max));
 
     let randomTempo;
@@ -762,8 +667,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
     if (tempoSlider)           tempoSlider.disabled           = true;
 
-    if (customTempo) customTempo.root.classList.add('is-disabled');
-
     const autoLabel = document.querySelector('.auto-label');
     if (autoLabel) autoLabel.classList.add('disabled');
     const randomContainer = document.querySelector('.random-container');
@@ -779,7 +682,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
 
-    if (exerciseList) exerciseList.style.display = 'none';
+    if (exerciseList) exerciseList.style.display = 'none'; // ensure closed
 
     displayedExercises = filterExercisesForMode();
     if (displayedExercises.length > 0) {
@@ -874,8 +777,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
     if (tempoSlider)        tempoSlider.disabled          = false;
 
-    if (customTempo) customTempo.root.classList.remove('is-disabled');
-
     const autoLabel = document.querySelector('.auto-label');
     if (autoLabel) autoLabel.classList.remove('disabled');
     const randomContainer = document.querySelector('.random-container');
@@ -893,7 +794,7 @@ document.addEventListener('DOMContentLoaded', function () {
       playlistQueueSearchInput.setAttribute('disabled','');
     }
 
-    if (exerciseList) exerciseList.style.display = 'none';
+    if (exerciseList) exerciseList.style.display = 'none'; // keep closed
     applyLoopMode();
   }
 
