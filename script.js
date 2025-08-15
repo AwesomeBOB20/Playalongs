@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // iOS fix: use Pointer Events with capture for progress and tempo slider
-  // prevent stuck drag, stop event bleed into buttons, and disable label clicks
+  // prevent stuck drag, stop event bleed into buttons, and disable label click
 
   // --- Data from data.js ---
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
@@ -910,3 +910,4 @@ document.addEventListener('DOMContentLoaded', function () {
     if (audio) audio.onended = null;
   }
 });
+
