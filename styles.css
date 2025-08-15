@@ -309,6 +309,3 @@ input[type="number"]:disabled{
   letter-spacing:normal !important;
   font-family:'Ubuntu',sans-serif !important;
 }
-
-#tempoSlider { touch-action: manipulation; }
-
