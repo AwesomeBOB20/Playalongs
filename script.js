@@ -49,16 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0);
 
-  // ---- iOS focus guard + Auto debounce/throttle ----
-  let autoChangeCooldown = false;              // prevents duplicate tempo changes on a single "ended"
-  let inEndedCycle       = false;              // guards re-entrant ended bursts
-  let lastTempoChangeAt  = 0;                  // throttles programmatic tempo moves
-
+  // ---- iOS focus guard + Auto throttle ----
+  let lastTempoChangeAt  = 0;   // throttles programmatic tempo moves
   function defocusSlider() {
     if (tempoSlider && document.activeElement === tempoSlider) tempoSlider.blur();
     userIsAdjustingTempo = false;
   }
-
   // Blur the slider whenever you touch/click anything that is NOT the slider
   document.addEventListener('pointerdown', (e) => {
     if (e.target !== tempoSlider) defocusSlider();
@@ -220,47 +216,53 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Ended behavior (longer guard window)
-  if (audio) {
-    audio.addEventListener('ended', function () {
-      stopProgressTicker();
-      if (isPlayingPlaylist) return;
-      if (inEndedCycle) return;
-      inEndedCycle = true;
-      try {
-        if (isRandomizeEnabled && currentSelectedExercise) {
-          currentRepCount++;
-          if (currentRepCount >= repsBeforeChange) {
-            currentRepCount = 0;
-            if (!autoChangeCooldown) {
-              autoChangeCooldown = true;
-              pickRandomTempo(); // moves knob + blurs slider
-              setTimeout(() => { autoChangeCooldown = false; }, 250);
-            }
-          }
-          audio.currentTime = 0;
-          resetProgressBarInstant();
-          Promise.resolve().then(() => audio.play().catch(()=>{}));
-          if (playPauseBtn) playPauseBtn.textContent = 'Pause';
-          startProgressTicker();
-          return;
-        }
-        if (!audio.loop) {
-          if (playPauseBtn) playPauseBtn.textContent = 'Play';
-          resetProgressBarInstant();
-        }
-      } finally {
-        setTimeout(() => { inEndedCycle = false; }, 250); // was 0; give iOS time
-      }
-    });
+  // --- Ended behavior (serialized; iOS-safe) ---
+  let autoStepLock = false;   // only one auto step at a time
+  let playbackCycleId = 0;    // cancels any stale async work
 
-    audio.addEventListener('loadedmetadata', updateTotalTime);
-    audio.addEventListener('ratechange',     updateTotalTime);
-    audio.addEventListener('ratechange',     updateCurrentTime);
-    audio.addEventListener('pause',          stopProgressTicker);
-    audio.addEventListener('play',           startProgressTicker);
-    audio.addEventListener('seeking',        startProgressTicker);
-  }
+  const onEnded = async () => {
+    stopProgressTicker();
+    if (isPlayingPlaylist) return;        // playlist manages its own flow
+    if (autoStepLock) return;             // already handling this rep
+    autoStepLock = true;
+    const cycleId = ++playbackCycleId;
+
+    try {
+      if (isRandomizeEnabled && currentSelectedExercise) {
+        currentRepCount++;
+        if (currentRepCount >= repsBeforeChange) {
+          currentRepCount = 0;
+          // one RNG move per rep; blur to avoid sticky focus
+          pickRandomTempo(); // uses setTempoThrottled -> setTempoSilently({ blur:true })
+        }
+
+        // Reset UI and playback atomically
+        resetProgressBarInstant();
+        audio.currentTime = 0;
+
+        // Let Safari clear its internal 'ended' state before play
+        await new Promise(r => requestAnimationFrame(r));
+        if (cycleId !== playbackCycleId) return; // canceled by newer cycle
+
+        try { await audio.play(); } catch {}
+        if (playPauseBtn) playPauseBtn.textContent = 'Pause';
+        startProgressTicker();
+        return;
+      }
+
+      // Not randomizing: act like normal single-shot end
+      if (!audio.loop) {
+        if (playPauseBtn) playPauseBtn.textContent = 'Play';
+        resetProgressBarInstant();
+      }
+    } finally {
+      // Give iOS a little settle time so we don't re-enter immediately
+      setTimeout(() => {
+        if (cycleId === playbackCycleId) autoStepLock = false;
+      }, 400);
+    }
+  };
+  audio.addEventListener('ended', onEnded);
 
   // --- TEMPO SLIDER ---
   // iOS-only shield: block track taps; allow thumb drag via custom handling (prevents button hijack)
@@ -519,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Throttled programmatic setter (prevents "frantic" bursts)
   function setTempoThrottled(bpm, { blur = false } = {}) {
     const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
-    if (now - lastTempoChangeAt < 180) return; // ~ one change per animation frame cluster
+    if (now - lastTempoChangeAt < 400) return; // bumped to 400ms
     lastTempoChangeAt = now;
     setTempoSilently(bpm, { blur });
   }
