@@ -272,12 +272,12 @@ window.EXERCISES = [
     { id: 329, name: "Inverted Huggadiddles", category: ["one-handers", "hybrids"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255b54920a822a.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a18238242935dbeb2c.png", originalTempo: 70 },
     { id: 182, name: "Inverted Roll Gauntlet", category: ["rolls"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675aab43da8c3968fb41cbf8.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675aab3b3772bd98de838ae3.png", originalTempo: 100},
     { id: 39, name: "Irish Spring", category: ["one-handers"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6639db2214262955ef62a10b.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6639db2c575d673ce96dc91c.png", originalTempo: 140 },
+        { id: 394, name: "J.A.H", category: ["hybrids"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a2c249f4db3f7aa5dc1bb7.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a2c25325dfa358c644398d.png", originalTempo: 110 },      
+
     { id: 40, name: "Jedi 8's", category: ["one-handers", "timing"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6639db22142629978762a10d.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6639db2c575d670f776dc91a.png", originalTempo: 140 },
     { id: 363, name: "Jedi 8's 2 Note", category: ["timing"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3bc4d6066020631e962.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3c2f6c48d77c8a4a713.png", originalTempo: 110 },
     { id: 364, name: "Jedi 8's Dotted Quarters", category: ["timing"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3bc6202d56e69dd446e.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3c24d606652e631e968.png", originalTempo: 110 },
     { id: 365, name: "Jedi 8's Quarters", category: ["timing"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3bd4d6066f5b131e963.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3c277f6b135b1d656eb.png", originalTempo: 110 },
-            { id: 394, name: "J.A.H", category: ["hybrids"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a2c249f4db3f7aa5dc1bb7.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a2c25325dfa358c644398d.png", originalTempo: 110 },      
-    
     { id: 41, name: "Jeepers Creepers", category: ["rolls"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675977315f5b95bde1ef6a1c.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67597736da8c39175140a089.png", originalTempo: 110 },
     { id: 377, name: "Kicked Paradiddles", category: ["rudiments"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68591f0e0bf945c9cf061ac2.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68591f050bf945302f061abb.png", originalTempo: 120 },    
     { id: 271, name: "Legato Pyramid", category: ["natural-decays"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676d141b7a5c4ca669697b14.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676d1416cd5e7254c0c90c33.png", originalTempo: 150 },
@@ -658,3 +658,4 @@ window.PLAYLISTS = [
     }
 
 ];
+
