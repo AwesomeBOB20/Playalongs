@@ -208,6 +208,8 @@ window.EXERCISES = [
     { id: 22, name: "Colt Forty Five", category: ["timing"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/669c9be954921d84f6e7337e.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/669ca4895f2569c9c82eba14.png", originalTempo: 100 },
     { id: 130, name: "Crazy 3's", category: ["accent-tap", "timing", "natural-decays"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150c34bae98132c76b8.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e31fc1ac6df57.png", originalTempo: 110 },
     { id: 23, name: "Crazy 5's", category: ["rolls", "exercises"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/674ffbac251b39214bf08692.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66b1977c3129355e2473e833.png", originalTempo: 80 },
+        { id: 395, name: "Dead Sea Scrolls", category: ["hybrids"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a61c31440c5b4fe46fa542.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a61c2c2e6d10c4e2ef080a.png", originalTempo: 90 },      
+    
     { "id": 63, "name": "Diddle Diddle Five Nine", "category": ["rolls", "exercises"], "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89e0c6a839f6d950a5d9.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89ec7172d76f6173b993.png", "originalTempo": 90 },    
     { id: 184, name: "Diddle Primer", category: ["rolls", "natural-decays"], audioSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675f4ed6109525645f5f33a2.mpeg", sheetMusicSrc: "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675f4db8db46566471fabef1.png", originalTempo: 120},
     { "id": 367, "name": "Diddle Space Control", "category": ["rolls", "timing"], "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3bc6202d56307dd446f.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3c277f6b1adabd656ea.png", "originalTempo": 140 },
@@ -658,4 +660,5 @@ window.PLAYLISTS = [
     }
 
 ];
+
 
