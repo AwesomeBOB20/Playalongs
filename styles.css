@@ -455,3 +455,5 @@ input[type="number"]:disabled{
 .picker__search::-moz-placeholder { color:#555; opacity:1; }/* Firefox */
 .picker__search:-ms-input-placeholder { color:#555; }       /* old IE */
 .picker__search::-ms-input-placeholder { color:#555; }      /* Edge Legacy */
+
+.selector { caret-color: transparent; }
