@@ -922,6 +922,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       function render() {
         pickerList.innerHTML = '';
+        // Hide list entirely when empty
+        pickerOverlay.classList.toggle('picker--no-results', items.length === 0);
         if (!items.length) return;
 
         activeIndex = Math.max(0, Math.min(activeIndex, items.length - 1));
@@ -979,6 +981,7 @@ document.addEventListener('DOMContentLoaded', function () {
       function cleanup() {
         pickerOverlay.hidden = true;
         pickerOverlay.setAttribute('aria-hidden', 'true');
+        pickerOverlay.classList.remove('picker--no-results');
         pickerSearch.value = '';
         pickerList.innerHTML = '';
         document.body.classList.remove('modal-open');
@@ -1125,30 +1128,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ===== Open pickers from inputs (open on release with movement threshold; no keyboard) =====
   function wireOpener(input, fn) {
-  if (!input) return;
-  try { input.readOnly = true; } catch {}
-  input.setAttribute('inputmode','none');
+    if (!input) return;
+    try { input.readOnly = true; } catch {}
+    input.setAttribute('inputmode','none');
 
-  // Open on release
-  input.addEventListener('click', (e) => {
-    e.preventDefault();
-    fn();
-  });
-
-  // Keyboard support
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    // Open on release
+    input.addEventListener('click', (e) => {
       e.preventDefault();
       fn();
-    }
-  });
-}
+    });
 
+    // Keyboard support
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fn();
+      }
+    });
+  }
 
   wireOpener(categorySearchInput, openCategoryPicker);
   wireOpener(exerciseSearchInput, openExercisePicker);
   wireOpener(playlistSearchInput, openPlaylistPicker);
   wireOpener(playlistQueueSearchInput, openQueuePicker);
+
+  // ===== Picker-list only: suppress OS selection/handles to kill the chip =====
+  if (pickerList){
+    pickerList.addEventListener('selectstart', (e) => e.preventDefault(), { passive:false });
+    pickerList.addEventListener('contextmenu', (e) => e.preventDefault());
+    pickerList.addEventListener('pointerdown', () => {
+      const sel = window.getSelection?.();
+      if (sel && sel.removeAllRanges) sel.removeAllRanges();
+    }, { passive:true });
+  }
 
   // Playlist navigation buttons
   stopPlaylistBtn?.addEventListener('click', function () { if (isPlayingPlaylist) stopPlaylist(); });
@@ -1182,4 +1194,57 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
+
+  /* ===== Mobile polish: keyboard-safe picker (header frozen) ===== */
+  (function(){
+    if (!pickerOverlay || !pickerList) return;
+    const header = pickerOverlay.querySelector('.picker__header');
+
+    function isOpen(){
+      return !pickerOverlay.hidden && pickerOverlay.getAttribute('aria-hidden') !== 'true';
+    }
+    function vvh(){ return (window.visualViewport && window.visualViewport.height) || window.innerHeight; }
+    function px(n){ return `${Math.max(120, Math.round(n))}px`; }
+
+    function updatePickerLayout(){
+      if (!isOpen()) return;
+      const cs = getComputedStyle(pickerOverlay);
+      const padTop    = parseFloat(cs.paddingTop)    || 0;
+      const padBottom = parseFloat(cs.paddingBottom) || 0;
+      const headerH   = header ? header.getBoundingClientRect().height : 0;
+      const gapBelowHeader = 10; // matches CSS grid gap
+      const usable = vvh() - padTop - padBottom - headerH - gapBelowHeader;
+      pickerList.style.maxHeight = px(usable);
+    }
+
+    let bound = false;
+    const vv = window.visualViewport;
+
+    function bind(){
+      if (bound) return;
+      bound = true;
+      updatePickerLayout();
+      window.addEventListener('orientationchange', updatePickerLayout);
+      if (vv){
+        vv.addEventListener('resize', updatePickerLayout);
+        vv.addEventListener('scroll', updatePickerLayout);
+      }
+      requestAnimationFrame(() => setTimeout(updatePickerLayout, 50));
+    }
+    function unbind(){
+      if (!bound) return;
+      bound = false;
+      window.removeEventListener('orientationchange', updatePickerLayout);
+      if (vv){
+        vv.removeEventListener('resize', updatePickerLayout);
+        vv.removeEventListener('scroll', updatePickerLayout);
+      }
+    }
+
+    const mo = new MutationObserver(() => (isOpen() ? bind() : unbind()));
+    mo.observe(pickerOverlay, { attributes:true, attributeFilter:['hidden','aria-hidden','class','style'] });
+
+    if (isOpen()) bind();
+  })();
+
 });
