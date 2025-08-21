@@ -833,16 +833,11 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.classList.add(theme === 'purple' ? 'picker--purple' : 'picker--orange');
 
       // Title + open
-pickerTitle.textContent = title;
-pickerOverlay.hidden = false;
-pickerOverlay.setAttribute('aria-hidden', 'false');
-pickerSearch.value = '';
-// Prevent mobile keyboard on open (no autofocus anywhere)
-requestAnimationFrame(() => {
-  const el = document.activeElement;
-  if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) el.blur();
-});
-
+      pickerTitle.textContent = title;
+      pickerOverlay.hidden = false;
+      pickerOverlay.setAttribute('aria-hidden', 'false');
+      pickerSearch.value = '';
+      pickerSearch.focus({ preventScroll: true });
 
       let items = [];
       let activeIndex = -1;
@@ -1051,15 +1046,13 @@ requestAnimationFrame(() => {
 
   // ===== Open pickers from inputs (readonly) =====
   function wireOpener(input, fn) {
-  if (!input) return;
-  const open = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
-  input.addEventListener('pointerdown', open, { passive: false }); // <— add this
-  input.addEventListener('click', open);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') open(e);
-  });
-}
-
+    if (!input) return;
+    const open = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
+    input.addEventListener('click', open);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') open(e);
+    });
+  }
   wireOpener(categorySearchInput, openCategoryPicker);
   wireOpener(exerciseSearchInput, openExercisePicker);
   wireOpener(playlistSearchInput, openPlaylistPicker);
