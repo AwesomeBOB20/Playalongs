@@ -112,12 +112,42 @@ body{ margin:0; background:var(--bg); color:var(--white); }
   margin:0; background:var(--orange); padding:0;
 }
 .random-container:hover{ background:var(--orange-d); }
-.random-container .btn, .random-container .auto-label{
+
+.random-container .btn,
+.random-container .auto-label{
   margin:0; height:40px; display:inline-flex; align-items:center; justify-content:center;
 }
 .random-container .btn{ border:0; }
-.random-container.disabled{ background:var(--orange-dim); cursor:not-allowed; }
-.random-container.disabled .btn{ background:var(--orange-dim); cursor:not-allowed; }
+
+/* --- PLAYLIST LOCK: make container + both children match disabled orange exactly --- */
+.random-container.disabled{
+  background:var(--orange-dim);
+  cursor:not-allowed;
+  /* apply the same dimming used by other disabled orange controls */
+  filter:brightness(.85) saturate(.95);
+}
+.random-container.disabled .btn,
+.random-container.disabled .auto-label{
+  background:var(--orange-dim);
+  cursor:not-allowed;
+  /* avoid double-dimming since parent already has a filter */
+  filter:none !important;
+}
+/* kill hover while locked */
+.random-container.disabled .btn:hover,
+.random-container.disabled .auto-label:hover{
+  background:var(--orange-dim);
+}
+
+/* Remove inner radii next to the vertical divider; keep outer corners round */
+.random-container .btn:first-child{
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+}
+.random-container .auto-label:last-child{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
 
 .vertical-divider{ width:2px; background:var(--black); align-self:stretch; margin:0; height:40px; }
 
@@ -286,6 +316,10 @@ input[type="number"]:disabled{
   cursor:not-allowed;
 }
 
+/* Prevent .disabled parity from re-dimming children inside the locked random group */
+.random-container.disabled .auto-label.disabled{ filter:none !important; }
+.random-container.disabled .btn:disabled{ filter:none !important; }
+
 /* --- Webflow typography guard (keep at end) --- */
 .container .auto-label,
 .container .auto-label *,
@@ -390,8 +424,6 @@ input[type="number"]:disabled{
   color:var(--white);
   border-radius:5px;
 }
-/* remove item top margins (delete any previous margin rules) */
-
 /* Hover = subtle; Active = white bg + themed text */
 .picker__item:hover{ background:var(--gray-3); }
 .picker--orange .picker__item.is-active{ background:var(--white); color:var(--orange); }
@@ -423,5 +455,3 @@ input[type="number"]:disabled{
 .picker__search::-moz-placeholder { color:#555; opacity:1; }/* Firefox */
 .picker__search:-ms-input-placeholder { color:#555; }       /* old IE */
 .picker__search::-ms-input-placeholder { color:#555; }      /* Edge Legacy */
-
-
