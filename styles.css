@@ -155,10 +155,14 @@ input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
 }
 .picker-overlay[data-open="1"]{ display:block; }
 
+/* TOP-ANCHORED: fixed, centered horizontally, no lateral jump */
 .picker{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  position:fixed;
+  left:50%;
+  top:4vw;                     /* top spacing (tweak if you want) */
+  transform:translateX(-50%);  /* keep horizontal centering static */
   width:min(520px, 92vw);
-  max-height:82vh;
+  max-height:calc(100vh - 8vw);
   display:flex; flex-direction:column; gap:10px;
   background:transparent; border:none; padding:0;
   animation: panel-pop .22s cubic-bezier(.2,.8,.2,1);
@@ -228,10 +232,16 @@ input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
 
 /* Motion */
 @keyframes picker-fade-in{ from{opacity:0} to{opacity:1} }
-@keyframes panel-pop{ from{opacity:0; transform:translate(-50%,-44%) scale(.98)} to{opacity:1; transform:translate(-50%,-50%) scale(1)} }
+/* Include translateX(-50%) in both frames so centering is never lost */
+@keyframes panel-pop{
+  from{ opacity:0; transform:translateX(-50%) translateY(12px) scale(.98); }
+  to{   opacity:1; transform:translateX(-50%) translateY(0)      scale(1);  }
+}
 @media (prefers-reduced-motion: reduce){
   .picker-overlay, .picker{ animation:none !important; }
 }
+
+
 
 /* ===== Mobile (≤600px) ===== */
 /* ===== Mobile (≤600px) ===== */
