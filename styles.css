@@ -9,7 +9,7 @@
   --gray-1:#ddd; --gray-2:#808080; --gray-3:#53525d;
 }
 
-/* ===== Global ===== */
+/* ===== Global ==== */
 *{ box-sizing:border-box; }
 html, body { font-family:'Ubuntu',sans-serif; font-weight:400; }
 *, *::before, *::after { font-family:inherit; }
@@ -510,3 +510,4 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
+
