@@ -29,6 +29,30 @@ body.modal-open{ overflow:hidden; touch-action:none; }
   -webkit-touch-callout:none;
 }
 
+/* NEW: never show a caret/selection for the top readOnly selector inputs */
+.selector,
+.selector:focus{
+  -webkit-user-select:none; user-select:none; -moz-user-select:none;
+  -webkit-touch-callout:none;
+  caret-color:transparent;
+}
+.selector::selection{ background:transparent; }
+
+/* NEW: blanket suppression inside the picker overlay subtree */
+.picker, .picker *{
+  -webkit-user-select:none; user-select:none; -moz-user-select:none;
+  -webkit-touch-callout:none;
+  caret-color:transparent;
+}
+/* but allow normal text/caret in the search box when focused */
+.picker__search,
+.picker__search:focus{
+  -webkit-user-select:text; user-select:text; -moz-user-select:text;
+  caret-color:auto;
+}
+/* selection highlight off for any stray selection in overlay */
+.picker ::selection{ background:transparent; }
+
 /* iOS interaction guards */
 .bar{
   touch-action:none;
@@ -431,6 +455,7 @@ input[type="number"]:disabled{
   color:var(--white);
   border-radius:5px;
   transition:none; /* no hover fade animations */
+  touch-action:manipulation; /* NEW: hint to browsers */
 }
 .picker__item:hover{ background:var(--gray-3); } /* Hover = gray 3 */
 .picker--orange .picker__item.is-active{ background:var(--white); color:var(--orange); }
@@ -474,4 +499,14 @@ input[type="number"]:disabled{
   .picker__item:hover{ background:transparent; } /* kill sticky hover */
   .picker--orange .picker__item.is-active{ background:#fff; color:var(--orange); }
   .picker--purple .picker__item.is-active{ background:#fff; color:var(--purple); }
+}
+
+/* Remove tap highlight on touch UIs (Chrome/Safari/Firefox on Android/iOS) */
+@media (hover:none) and (pointer:coarse){
+  .picker, .picker * , .selector, .btn {
+    -webkit-tap-highlight-color: transparent;  /* WebKit/Chrome */
+    -moz-tap-highlight-color: transparent;     /* Firefox Android */
+    touch-action: manipulation;
+  }
+  .picker__item:focus { outline: none; }
 }
