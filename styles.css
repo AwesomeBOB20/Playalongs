@@ -5,8 +5,8 @@
   --black:#000; --white:#fff;
   --bg:#1c1c1c;
   --orange:#d35400; --orange-d:#c25227; --orange-dim:#a84300;
+  --purple:#96318d; --purple-d:#81227a; --purple-dim:#752070;
   --gray-1:#ddd; --gray-2:#808080; --gray-3:#53525d;
-  --control-h: 40px; /* button height & mobile control height */
 }
 
 /* ===== Global ===== */
@@ -18,6 +18,40 @@ input::placeholder, textarea::placeholder { font-family:inherit; }
 
 body{ margin:0; background:var(--bg); color:var(--white); }
 .container{ width:90%; max-width:1000px; margin:20px auto; text-align:center; }
+
+/* prevent background scroll when picker open */
+body.modal-open{ overflow:hidden; touch-action:none; }
+
+/* ===== Selection policy ===== */
+/* Allow selection globally again. Only block it inside picker rows to prevent the Android/iOS text chip there. */
+.picker__list, .picker__item{
+  -webkit-user-select:none; user-select:none;
+  -webkit-touch-callout:none;
+}
+
+/* NEW: never show a caret/selection for the top readOnly selector inputs */
+.selector,
+.selector:focus{
+  -webkit-user-select:none; user-select:none; -moz-user-select:none;
+  -webkit-touch-callout:none;
+  caret-color:transparent;
+}
+.selector::selection{ background:transparent; }
+
+/* NEW: blanket suppression inside the picker overlay subtree */
+.picker, .picker *{
+  -webkit-user-select:none; user-select:none; -moz-user-select:none;
+  -webkit-touch-callout:none;
+  caret-color:transparent;
+}
+/* but allow normal text/caret in the search box when focused */
+.picker__search,
+.picker__search:focus{
+  -webkit-user-select:text; user-select:text; -moz-user-select:text;
+  caret-color:auto;
+}
+/* selection highlight off for any stray selection in overlay */
+.picker ::selection{ background:transparent; }
 
 /* iOS interaction guards */
 .bar{
@@ -37,7 +71,7 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .sheet-music{ margin:40px 0; }
 .sheet-music img{ max-width:100%; height:auto; border:2px solid var(--black); }
 
-/* ===== Inputs (selectors) ===== */
+/* ===== Inputs ===== */
 .selector{
   width:10rem; max-width:100%;
   padding:5px 8px; font-size:.9rem;
@@ -45,43 +79,150 @@ body{ margin:0; background:var(--bg); color:var(--white); }
   background:var(--orange);
 }
 .selector::placeholder{ color:var(--white); opacity:1; }
+
+/* Disabled selectors — EXACT match to disabled buttons (no iOS fade) */
+.selector:disabled{
+  background:var(--orange-dim) !important;
+  color:#fff !important;
+  border-color:var(--black) !important;
+  cursor:not-allowed !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#fff !important; /* iOS */
+  filter:brightness(.85) saturate(.95) !important;
+}
+
+/* Variants */
 .selector--orange{ background:var(--orange); }
 .selector--orange:hover,.selector--orange:focus{ background:var(--orange-d); }
+.selector--purple{ background:var(--purple); }
+.selector--purple:hover,.selector--purple:focus{ background:var(--purple-d); }
 
-/* Desktop fixed widths for top selectors */
-#categorySearch.selector,
-#exerciseSearch.selector{ width:150px; }
+/* Playlist Queue disabled stays purple */
+#playlistQueueSearch.selector:disabled{
+  background:var(--purple-dim) !important;
+  filter:brightness(.9) saturate(.95) !important;
+}
+
+/* Tempo utility inputs */
+.tempo-input{
+  width:6.4rem; height:40px;
+  padding:6px; font-size:1rem;
+  border:2px solid var(--black); border-radius:5px;
+  background:#fff; color:#000;
+}
+#repsPerTempo:disabled,
+#minTempo:disabled,
+#maxTempo:disabled{
+  background:#d9d9d9;
+  color:#444;
+  border-color:var(--black);
+  cursor:not-allowed;
+  opacity:1;
+  -webkit-text-fill-color:currentColor;
+}
 
 /* ===== Buttons ===== */
 .btn{
-  height:var(--control-h);
-  display:inline-flex; align-items:center; justify-content:center;
+  height:40px; display:inline-flex; align-items:center; justify-content:center;
   border:2px solid var(--black); color:var(--white); font-size:1.2rem;
   padding:6px 12px; border-radius:5px; cursor:pointer; margin:0;
   touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;
 }
 .btn--orange{ background:var(--orange); }
 .btn--orange:hover{ background:var(--orange-d); }
+.btn--purple{ background:var(--purple); }
+.btn--purple:hover{ background:var(--purple-d); }
 .btn:disabled{
   background:var(--orange-dim);
   cursor:not-allowed;
   opacity:1; filter:brightness(.85) saturate(.95);
 }
+.btn--purple:disabled{ background:var(--purple-dim); opacity:1; filter:brightness(.9) saturate(.95); }
 .btn-square{ width:45px; }
 
-/* ===== Layout ===== */
+/* ===== Random container ===== */
+.random-container{
+  display:flex; align-items:center; border:2px solid var(--black); border-radius:5px; overflow:hidden;
+  margin:0; background:var(--orange); padding:0;
+}
+.random-container:hover{ background:var(--orange-d); }
+
+.random-container .btn,
+.random-container .auto-label{
+  margin:0; height:40px; display:inline-flex; align-items:center; justify-content:center;
+}
+.random-container .btn{ border:0; }
+
+/* Playlist lock visuals */
+.random-container.disabled{
+  background:var(--orange-dim);
+  cursor:not-allowed;
+  filter:brightness(.85) saturate(.95);
+}
+.random-container.disabled .btn,
+.random-container.disabled .auto-label{
+  background:var(--orange-dim);
+  cursor:not-allowed;
+  filter:none !important;
+}
+.random-container.disabled .btn:hover,
+.random-container.disabled .auto-label:hover{
+  background:var(--orange-dim);
+}
+
+.random-container .btn:first-child{
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+}
+.random-container .auto-label:last-child{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.vertical-divider{ width:2px; background:var(--black); align-self:stretch; margin:0; height:40px; }
+
+/* ===== Auto label ===== */
+.auto-label{
+  height:40px; display:inline-flex; align-items:center; justify-content:center;
+  background:var(--orange); color:var(--white);
+  font-size:1.2rem; padding:6px 12px; cursor:pointer; border-radius:5px; border:0; margin:0;
+}
+.auto-label:hover{ background:var(--orange-d); }
+.auto-label input[type="checkbox"]{ margin:0 10px 0 0; accent-color:var(--purple); }
+.auto-label.disabled{ background:var(--orange-dim); cursor:not-allowed; }
+
+/* ===== Sliders ===== */
+.volume-slider{
+  -webkit-appearance:none; appearance:none; width:75%; max-width:600px; height:12px; border-radius:5px;
+  margin:20px auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
+}
+.tempo-slider{
+  -webkit-appearance:none; appearance:none; width:100%; max-width:100%; height:12px; border-radius:5px;
+  margin:0 auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
+}
+.volume-slider::-webkit-slider-thumb, .tempo-slider::-webkit-slider-thumb,
+.volume-slider::-moz-range-thumb,   .tempo-slider::-moz-range-thumb{
+  width:20px; height:20px; background:var(--white); border-radius:50%; border:2px solid var(--black); cursor:pointer;
+}
+.volume-slider::-webkit-slider-runnable-track, .tempo-slider::-webkit-slider-runnable-track,
+.volume-slider::-moz-range-track,              .tempo-slider::-moz-range-track{ background:transparent; border:none; }
+
+/* Disabled range visuals (Safari) */
+input[type="range"]:disabled{ opacity:1; }
+input[type="range"]:disabled::-webkit-slider-runnable-track{ background:#c7b8c5; }
+input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
+
+/* ===== Layout (40px section spacing) ===== */
 .control-container{
   display:flex; justify-content:center; align-items:center;
   gap:20px; margin:40px auto; flex-wrap:wrap; width:100%;
 }
-
-/* Category lives by itself (150px); Exercise group is a 3-col grid */
-.category-container{ position:relative; }
-.exercise-group{
-  display:grid; grid-template-columns:45px 150px 45px;
-  gap:20px; align-items:center; justify-content:center;
+.exercise-group, .playlist-group{
+  display:flex; align-items:center; justify-content:center;
+  gap:20px;
 }
-.exercise-container{ position:relative; }
+#exerciseSearch.selector, #playlistQueueSearch.selector{ width:150px; } /* desktop */
+.exercise-container, .category-container, .playlist-container, .playlist-queue-container{ position:relative; }
 
 /* ===== Tempo column ===== */
 .tempo-control{
@@ -90,30 +231,9 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 }
 .tempo-control label{ margin:0; color:var(--white); width:100%; text-align:center; }
 
-/* Tempo slider visuals */
-.tempo-slider{
-  -webkit-appearance:none; appearance:none;
-  width:100%; max-width:100%; height:12px; border-radius:5px;
-  margin:0 auto; box-shadow:inset 0 0 0 2px var(--black);
-  background:var(--gray-1); cursor:pointer;
-}
-.tempo-slider::-webkit-slider-thumb{
-  -webkit-appearance:none; appearance:none;
-  width:20px; height:20px; background:var(--white);
-  border-radius:50%; border:2px solid var(--black); cursor:pointer;
-}
-.tempo-slider::-moz-range-thumb{
-  width:20px; height:20px; background:var(--white);
-  border-radius:50%; border:2px solid var(--black); cursor:pointer;
-}
-.tempo-slider::-webkit-slider-runnable-track,
-.tempo-slider::-moz-range-track{ background:transparent; border:none; }
-input[type="range"]:disabled{ opacity:1; }
-input[type="range"]:disabled::-webkit-slider-runnable-track{ background:#c7b8c5; }
-input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
-
-/* ===== Progress bar ===== */
-.progress-container{ width:75%; max-width:600px; margin:40px auto; }
+/* ===== Progress bars ===== */
+.progress-container, .playlist-progress-container{ width:75%; max-width:600px; margin:40px auto; }
+.playlist-progress-container{ display:none; }
 .bar{
   position:relative; height:40px; background:var(--white);
   border:2px solid var(--black); overflow:hidden; margin:0 auto;
@@ -122,53 +242,155 @@ input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
   width:100%; height:100%; background:var(--orange);
   transform-origin:left center; transform:scaleX(0); will-change:transform;
 }
-.time-overlay{
+.bar--playlist .bar__fill{ background:var(--purple); }
+
+.time-overlay, .playlist-time-overlay{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   font-size:1rem; color:var(--black); pointer-events:none;
 }
 
-/* ===== Kill legacy inline UL menus so they never affect spacing ===== */
-.menu,
-#exerciseList,
-#categoryList{
-  display:none !important;
-  position:fixed !important; left:-9999px !important; top:auto !important;
-  width:0 !important; height:0 !important;
-  pointer-events:none !important; visibility:hidden !important; opacity:0 !important;
+/* Playlist progress visuals */
+.playlist-progress-bar{ position:relative; width:100%; height:40px; background:var(--white); border:2px solid var(--black); overflow:hidden; }
+#playlistProgress{ width:0%; height:100%; background:var(--purple); transition:width .2s linear; }
+
+/* ===== Playlist mode locks ===== */
+body.playlist-mode #exerciseSearch.selector{ background:var(--purple); }
+body.playlist-mode #exerciseSearch.selector:hover,
+body.playlist-mode #exerciseSearch.selector:focus{ background:var(--purple-d); }
+body.playlist-mode .btn-square{ background:var(--purple); border:2px solid var(--black); }
+body.playlist-mode .btn-square:hover{ background:var(--purple-d); }
+
+/* ===== Scrollbar (optional) ===== */
+::-webkit-scrollbar{ width:8px; height:8px; }
+::-webkit-scrollbar-track{ background:#2c2c2c; }
+::-webkit-scrollbar-thumb{ background:var(--purple); border-radius:4px; }
+::-webkit-scrollbar-thumb:hover{ background:#e67e22; }
+
+/* ===== Mobile (≤600px) ===== */
+@media (max-width:600px){
+  body{ font-size:.95rem; }
+
+  .control-container{
+    flex-direction:column;
+    align-items:stretch;
+    gap:20px;
+    margin:40px auto;
+  }
+
+  .exercise-group,
+  .playlist-group{
+    width:100%;
+    display:grid;
+    grid-template-columns:40px minmax(0,1fr) 40px;
+    gap:20px;
+    align-items:center;
+  }
+  .btn-square{ width:40px; height:40px; }
+
+  .exercise-container,
+  .playlist-queue-container{ min-width:0; }
+  #exerciseSearch.selector,
+  #playlistQueueSearch.selector{ width:100% !important; min-width:0; }
+
+  .selector{ width:100%; height:40px; }
+  .btn{ width:100%; height:40px; }
+  .tempo-input{ width:100%; height:40px; }
+
+  .control-container:has(#playPauseBtn){
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-auto-rows:auto;
+    gap:20px;
+  }
+
+  #playPauseBtn{ grid-column:1 / 4; }
+  .random-container{ grid-column:1 / 4; }
+
+  .random-container{ flex-direction:row; }
+  .random-container .btn{ flex:7; min-width:0; }
+  .random-container .auto-label{ flex:3; min-width:0; }
+  .vertical-divider{ display:block; height:40px; }
+
+  #repsPerTempo{ grid-column:1 / 2; }
+  #minTempo{     grid-column:2 / 3; }
+  #maxTempo{     grid-column:3 / 4; }
+
+  .tempo-control{ width:100%; max-width:600px; margin:40px auto; }
+  .progress-container, .playlist-progress-container{ width:100%; margin:40px auto; }
 }
 
-/* ===== Active item style for modal picker list ===== */
-.picker__list li.active-option{
-  background:#fff !important;
-  color:var(--orange) !important;
-  border-radius:5px !important;
+/* ===== Accessibility & disabled parity (no iOS fade) ===== */
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled{
+  opacity:1;
+  filter:brightness(.85) saturate(.95);
+  cursor:not-allowed;
+}
+select:disabled:not(.selector),
+input[type="text"]:disabled:not(.selector),
+input[type="search"]:disabled:not(.selector),
+input[type="number"]:disabled{
+  opacity:1;
+  background:#efefef;
+  color:#555;
+  border-color:var(--black);
+  -webkit-text-fill-color:currentColor;
 }
 
-/* ===== Modal Picker (kept) ===== */
-.picker-overlay{
-  position:fixed; inset:0; display:none;
+/* aria-disabled/.disabled parity */
+[aria-disabled="true"],
+.disabled{
+  opacity:1 !important;
+  filter:brightness(.9) saturate(.95);
+  cursor:not-allowed;
+}
+
+/* Prevent .disabled parity from re-dimming children inside the locked random group */
+.random-container.disabled .auto-label.disabled{ filter:none !important; }
+.random-container.disabled .btn:disabled{ filter:none !important; }
+
+/* --- Webflow typography guard (keep at end) --- */
+.container .auto-label,
+.container .auto-label *,
+.container .tempo-control label,
+.container .tempo-control label *,
+.container #tempoLabel{
+  font-weight:400 !important;
+  font-style:normal !important;
+  text-transform:none !important;
+  letter-spacing:normal !important;
+  font-family:'Ubuntu',sans-serif !important;
+}
+
+/* ===== Picker Overlay (TOP-ANCHORED) ===== */
+.picker{
+  position:fixed; inset:0;
+  display:flex; align-items:flex-start; justify-content:center;
+  /* Top spacing equals side spacing for a clean mobile look */
+  --picker-inline-pad: 4vw;
+  padding: var(--picker-inline-pad);
   background:rgba(0,0,0,.35);
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
   z-index:9999;
   animation: picker-fade-in .18s ease-out;
 }
-.picker-overlay[data-open="1"]{ display:block; }
+.picker[hidden]{ display:none !important; }
 
-/* TOP-ANCHORED: fixed, centered horizontally, no lateral jump */
-.picker{
-  position:fixed;
-  left:50%;
-  top:4vw;                     /* top spacing (tweak if you want) */
-  transform:translateX(-50%);  /* keep horizontal centering static */
-  width:min(520px, 92vw);
-  max-height:calc(100vh - 8vw);
-  display:flex; flex-direction:column; gap:10px;
-  background:transparent; border:none; padding:0;
+.picker__panel{
+  width:min(520px, 100%);
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  padding:0;
+  display:grid;
+  grid-template-rows:auto 1fr;
+  gap:10px;
   animation: panel-pop .22s cubic-bezier(.2,.8,.2,1);
+  overscroll-behavior:contain;
 }
 
-/* Orange header: title + close on row 1, search full width on row 2 */
 .picker__header{
   display:grid;
   grid-template-columns:1fr 40px;
@@ -178,10 +400,12 @@ input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
   align-items:center;
   gap:8px 10px;
   padding:8px;
-  background:var(--orange);
   border:2px solid var(--black);
   border-radius:10px;
 }
+.picker--orange .picker__header{ background:var(--orange); }
+.picker--purple .picker__header{ background:var(--purple); }
+
 .picker__title{
   grid-area:title;
   margin:0;
@@ -189,109 +413,100 @@ input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
   line-height:1.2;
   color:var(--white);
 }
-.picker__header .btn-square{
+.picker__close{
   grid-area:close;
   width:40px; height:40px;
-  border-width:2px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:1.4rem; line-height:1;
+  cursor:pointer;
+  background:var(--white);
+  color:var(--black);
+  border:2px solid var(--black);
   border-radius:10px;
-  background:var(--white); color:var(--black);
 }
-#pickerSearch.selector{
+.picker__search{
   grid-area:search;
-  width:100%; height:var(--control-h); font-size:1rem;
+  width:100%; height:40px; font-size:1rem;
   padding:6px 10px;
   background:#fff; color:#000;
   border:2px solid var(--black);
   border-radius:10px;
 }
 
-/* List panel */
+/* List “card” (JS will set max-height dynamically for keyboard-safe sizing) */
 .picker__list{
   list-style:none; margin:0; padding:6px;
   border:2px solid var(--black);
   border-radius:10px;
   overflow-y:auto;
-  max-height:calc(82vh - 80px);
+  max-height:calc(82vh - 80px); /* fallback */
   box-shadow:0 8px 24px rgba(0,0,0,.45);
-  background:var(--orange);
 }
-.picker__list li{
+.picker--orange .picker__list{ background:var(--orange); }
+.picker--purple .picker__list{ background:var(--purple); }
+
+/* Hide the list entirely when there are no results */
+.picker--no-results .picker__panel{ grid-template-rows:auto; }
+.picker--no-results .picker__list{ display:none; }
+
+.picker__item{
   padding:10px 12px;
   cursor:pointer;
   color:var(--white);
-  border-radius:10px;
+  border-radius:5px;
+  transition:none; /* no hover fade animations */
+  touch-action:manipulation; /* NEW: hint to browsers */
 }
-.picker__list li:hover{ background:var(--gray-3); }
+.picker__item:hover{ background:var(--gray-3); } /* Hover = gray 3 */
+.picker--orange .picker__item.is-active{ background:var(--white); color:var(--orange); }
+.picker--purple .picker__item.is-active{ background:var(--white); color:var(--purple); }
 
-/* add this near your picker styles */
-#pickerSearch::placeholder{
-  color:#555;     /* readable on white input */
-  opacity:1;
+/* Ensure active stays white even on touch "sticky hover" */
+@media (hover:none) and (pointer:coarse){
+  .picker__item:hover{ background:transparent; }
+  .picker--orange .picker__item.is-active:hover{ background:#fff; color:var(--orange); }
+  .picker--purple .picker__item.is-active:hover{ background:#fff; color:var(--purple); }
 }
 
-
-/* Motion */
-@keyframes picker-fade-in{ from{opacity:0} to{opacity:1} }
-/* Include translateX(-50%) in both frames so centering is never lost */
-@keyframes panel-pop{
-  from{ opacity:0; transform:translateX(-50%) translateY(12px) scale(.98); }
-  to{   opacity:1; transform:translateX(-50%) translateY(0)      scale(1);  }
-}
+/* Motion prefs */
 @media (prefers-reduced-motion: reduce){
-  .picker-overlay, .picker{ animation:none !important; }
+  .picker, .picker__panel{ animation:none !important; }
 }
 
+/* Animations */
+@keyframes picker-fade-in{
+  from{ opacity:0; } to{ opacity:1; }
+}
+@keyframes panel-pop{
+  from{ opacity:0; transform:translateY(12px) scale(.98); }
+  to{   opacity:1; transform:translateY(0)      scale(1);   }
+}
 
-
-/* ===== Mobile (≤600px) ===== */
-/* ===== Mobile (≤600px) ===== */
 @media (max-width:600px){
-  body{ font-size:.95rem; }
-
-  /* Stack: Category row, then Exercise group row */
-  .control-container{
-    display:grid;
-    grid-template-columns:1fr;
-    row-gap:20px;
-    justify-items:stretch;
-  }
-
-  /* Exercise row = Prev | Exercise | Next */
-  .exercise-group{
-    grid-template-columns:40px 1fr 40px;
-    gap:20px;
-  }
-
-  /* Force all four to 40px tall and full width in their cells */
-  #categorySearch.selector,
-  #exerciseSearch.selector,
-  #prevExerciseBtn,
-  #nextExerciseBtn{
-    height:var(--control-h);
-    width:100%;
-  }
-
-  .btn-square{ width:40px; height:var(--control-h); }
-
-  .tempo-control{ width:100%; max-width:600px; margin:40px auto; }
-  .progress-container{ width:100%; margin:40px auto; }
-
-  /* === NEW: disable hover color changes on mobile only === */
-  .selector--orange:hover{ background:var(--orange); }     /* same as idle */
-  .btn--orange:hover{ background:var(--orange); }           /* same as idle */
-  .picker__list li:hover{ background:transparent; }         /* no hover tint */
-  .picker__list li.active-option:hover{
-    background:#fff; color:var(--orange);                   /* keep selected look when tapped */
-  }
+  .picker__panel{ width:100%; }
+  .picker__close{ width:36px; height:36px; font-size:1.2rem; }
+  .picker__search{ height:38px; }
 }
 
+/* Picker search placeholder color */
+.picker__search::placeholder { color:#555; opacity:1; }
+.picker__search::-webkit-input-placeholder { color:#555; }
+.picker__search::-moz-placeholder { color:#555; opacity:1; }
+.picker__search:-ms-input-placeholder { color:#555; }
+.picker__search::-ms-input-placeholder { color:#555; }
 
-/* --- Typography guard (keep at end) --- */
-.container .tempo-control label,
-.container #tempoLabel{
-  font-weight:400 !important;
-  font-style:normal !important;
-  text-transform:none !important;
-  letter-spacing:normal !important;
-  font-family:'Ubuntu',sans-serif !important;
+@media (hover:none) and (pointer:coarse){
+  .picker__item:hover{ background:transparent; } /* kill sticky hover */
+  .picker--orange .picker__item.is-active{ background:#fff; color:var(--orange); }
+  .picker--purple .picker__item.is-active{ background:#fff; color:var(--purple); }
+}
+
+/* Remove tap highlight on touch UIs (Chrome/Safari/Firefox on Android/iOS) */
+@media (hover:none) and (pointer:coarse){
+  .picker, .picker * , .selector, .btn {
+    -webkit-tap-highlight-color: transparent;  /* WebKit/Chrome */
+    -moz-tap-highlight-color: transparent;     /* Firefox Android */
+    touch-action: manipulation;
+  }
+  .picker__item:focus { outline: none; }
 }
