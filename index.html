@@ -5,23 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Playalongs</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <link rel="stylesheet" href="https://awesomebob20.github.io/Playalongs/styles.css" type="text/css"></head>
 <body>
   <div class="container">
 
     <!-- Playlist Controls (Purple) -->
     <div class="control-container">
       <div class="playlist-container">
-        <input type="text" id="playlistSearch" class="selector selector--purple" placeholder="Select a Playlist" autocomplete="off" />
-        <ul id="playlistList" class="menu menu--purple"></ul>
+        <input
+          type="text"
+          id="playlistSearch"
+          class="selector selector--purple"
+          placeholder="Select a Playlist"
+          autocomplete="off"
+          readonly
+          inputmode="none"
+        />
       </div>
 
       <div class="playlist-group">
         <button id="prevPlaylistItemBtn" class="btn btn--purple btn-square" aria-label="Previous in playlist">-</button>
         <div class="playlist-queue-container">
-          <input type="text" id="playlistQueueSearch" class="selector selector--purple" placeholder="Playlist Queue" autocomplete="off" />
-          <ul id="playlistQueueList" class="menu menu--purple"></ul>
+          <input
+            type="text"
+            id="playlistQueueSearch"
+            class="selector selector--purple"
+            placeholder="Playlist Queue"
+            autocomplete="off"
+            readonly
+            inputmode="none"
+          />
         </div>
         <button id="nextPlaylistItemBtn" class="btn btn--purple btn-square" aria-label="Next in playlist">+</button>
       </div>
@@ -32,15 +45,29 @@
     <!-- Category / Exercise -->
     <div class="control-container">
       <div class="category-container">
-        <input type="text" id="categorySearch" class="selector selector--orange" placeholder="All Categories" autocomplete="off" />
-        <ul id="categoryList" class="menu menu--orange"></ul>
+        <input
+          type="text"
+          id="categorySearch"
+          class="selector selector--orange"
+          placeholder="All Categories"
+          autocomplete="off"
+          readonly
+          inputmode="none"
+        />
       </div>
 
       <div class="exercise-group">
         <button id="prevExerciseBtn" class="btn btn--orange btn-square" aria-label="Previous exercise">-</button>
         <div class="exercise-container">
-          <input type="text" id="exerciseSearch" class="selector selector--orange" placeholder="Search exercises..." autocomplete="off" />
-          <ul id="exerciseList" class="menu menu--orange"></ul>
+          <input
+            type="text"
+            id="exerciseSearch"
+            class="selector selector--orange"
+            placeholder="Search exercises..."
+            autocomplete="off"
+            readonly
+            inputmode="none"
+          />
         </div>
         <button id="nextExerciseBtn" class="btn btn--orange btn-square" aria-label="Next exercise">+</button>
       </div>
@@ -102,9 +129,25 @@
     </div>
   </div>
 
+  <!-- Picker Overlay -->
+<div id="pickerOverlay" class="picker picker--orange" hidden aria-hidden="true">
+  <div class="picker__panel" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+    <!-- Header (title + search + close) -->
+    <div class="picker__header" role="group">
+      <h2 id="pickerTitle" class="picker__title">Select</h2>
+      <input type="search" id="pickerSearch" class="picker__search" placeholder="Search..." autocomplete="off" />
+      <button id="pickerClose" class="picker__close" aria-label="Close">×</button>
+    </div>
+
+    <!-- Results list -->
+    <ul id="pickerList" class="picker__list" role="listbox" aria-label="Options"></ul>
+  </div>
+</div>
+
+
   <!-- Local assets only -->
-  <script defer src="data.js"></script>
-  <script defer src="script.js"></script>
+ <script defer src="https://awesomebob20.github.io/Playalongs/data.js"></script>
+  <script defer src="https://awesomebob20.github.io/Playalongs/scripts.js"></script>
 
   <noscript>This app needs JavaScript enabled.</noscript>
 </body>
