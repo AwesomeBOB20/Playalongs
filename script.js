@@ -33,24 +33,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistProgress           = document.getElementById('playlistProgress');
   const playlistProgressPercentage = document.getElementById('playlistProgressPercentage');
 
-  // Top selectors (readonly)
+  // Top selectors (we make these readonly to avoid mobile keyboard)
   const categorySearchInput      = document.getElementById('categorySearch');
   const exerciseSearchInput      = document.getElementById('exerciseSearch');
   const playlistSearchInput      = document.getElementById('playlistSearch');
   const playlistQueueSearchInput = document.getElementById('playlistQueueSearch');
 
-  // Picker overlay (free-style modal)
+  // Picker overlay
   const pickerOverlay = document.getElementById('pickerOverlay');
   const pickerTitle   = document.getElementById('pickerTitle');
   const pickerSearch  = document.getElementById('pickerSearch');
   const pickerList    = document.getElementById('pickerList');
   const pickerClose   = document.getElementById('pickerClose');
-  // Try to locate the panel container that wraps title/search/list
-  const pickerPanel   = (pickerOverlay && (
-    pickerOverlay.querySelector('.picker-panel') ||
-    pickerOverlay.querySelector('.picker__panel') ||
-    pickerOverlay.firstElementChild
-  )) || null;
 
   // ===== Feature flags =====
   const isTouchDevice =
@@ -58,157 +52,16 @@ document.addEventListener('DOMContentLoaded', function () {
     ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0);
 
-  // At runtime, harden the selector inputs against mobile keyboards
-  [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(el => {
-    if (!el) return;
-    el.readOnly = true;
-    el.setAttribute('readonly', '');
-    el.setAttribute('inputmode', 'none');
-  });
-
-  // ===== Viewport lock helper for picker (prevents keyboard from covering & freezes position) =====
-  const PickerViewportLock = (() => {
-    let vv = null;
-    let listeners = [];
-    let restoreScroll = null;
-
-    function lockBodyScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      document.body.dataset._scrollY = String(y);
-      document.body.classList.add('modal-open'); // relies on CSS; still set top to be safe
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${y}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-      restoreScroll = () => {
-        const yy = parseInt(document.body.dataset._scrollY || '0', 10);
-        document.body.classList.remove('modal-open');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.width = '';
-        window.scrollTo(0, yy);
-        delete document.body.dataset._scrollY;
-      };
-    }
-
-    function unlockBodyScroll() {
-      if (typeof restoreScroll === 'function') restoreScroll();
-      restoreScroll = null;
-    }
-
-    function pinOverlayToVV(overlay) {
-      const useVV = window.visualViewport || null;
-      vv = useVV;
-
-      const apply = () => {
-        const height = vv ? vv.height : window.innerHeight;
-        const width  = vv ? vv.width  : window.innerWidth;
-        const top    = vv ? vv.offsetTop  : 0;
-        const left   = vv ? vv.offsetLeft : 0;
-
-        overlay.style.position = 'fixed';
-        overlay.style.top    = `${top}px`;
-        overlay.style.left   = `${left}px`;
-        overlay.style.width  = `${width}px`;
-        overlay.style.height = `${height}px`;
-
-        // Update a CSS var for any CSS that wants it
-        document.documentElement.style.setProperty('--vvh', `${height}px`);
-
-        // Recompute list max-height so it always fits above the keyboard
-        adjustListHeights();
-      };
-
-      apply();
-
-      // Bind listeners (resize/scroll of visual viewport)
-      if (vv) {
-        const onResize = () => apply();
-        const onScroll = () => apply();
-        vv.addEventListener('resize', onResize);
-        vv.addEventListener('scroll', onScroll);
-        listeners.push(() => vv.removeEventListener('resize', onResize));
-        listeners.push(() => vv.removeEventListener('scroll', onScroll));
-      } else {
-        const onWin = () => apply();
-        window.addEventListener('resize', onWin);
-        window.addEventListener('scroll', onWin, { passive: true });
-        listeners.push(() => window.removeEventListener('resize', onWin));
-        listeners.push(() => window.removeEventListener('scroll', onWin));
-      }
-
-      // Prevent background from scrolling while allowing the list to scroll
-      const touchBlocker = (e) => {
-        if (!pickerList || !pickerList.contains(e.target)) e.preventDefault();
-      };
-      overlay.addEventListener('touchmove', touchBlocker, { passive: false });
-      listeners.push(() => overlay.removeEventListener('touchmove', touchBlocker));
-    }
-
-    function adjustListHeights() {
-      if (!pickerOverlay) return;
-      const height = (window.visualViewport ? window.visualViewport.height : window.innerHeight) || 0;
-
-      // Determine panel outer paddings/margins to keep some breathing room (fallback 24px each side)
-      const verticalPadding = 24;
-
-      if (pickerPanel) {
-        pickerPanel.style.maxHeight = Math.max(160, height - verticalPadding * 2) + 'px';
-      }
-
-      if (pickerList) {
-        // Compute header height = space from panel top to top of list
-        let headerH = 0;
-        try {
-          const panelRect = (pickerPanel || pickerOverlay).getBoundingClientRect();
-          const listRect  = pickerList.getBoundingClientRect();
-          headerH = Math.max(0, listRect.top - panelRect.top);
-        } catch (_) { headerH = 0; }
-
-        const listMax = Math.max(120, height - verticalPadding * 2 - headerH);
-        pickerList.style.maxHeight = listMax + 'px';
-        pickerList.style.overflowY = 'auto';
-        pickerList.style.webkitOverflowScrolling = 'touch';
-      }
-    }
-
-    function enable(overlayEl) {
-      if (!overlayEl) return;
-      lockBodyScroll();
-      pinOverlayToVV(overlayEl);
-      // Small delay to ensure first render sizes are measured after items are injected
-      setTimeout(adjustListHeights, 0);
-    }
-
-    function disable() {
-      // Remove listeners
-      listeners.forEach(off => { try { off(); } catch {} });
-      listeners = [];
-      unlockBodyScroll();
-
-      // Clear inline overlay styles
-      if (pickerOverlay) {
-        pickerOverlay.style.position = '';
-        pickerOverlay.style.top = '';
-        pickerOverlay.style.left = '';
-        pickerOverlay.style.width = '';
-        pickerOverlay.style.height = '';
-      }
-
-      // Clear inline sizing we may have set
-      if (pickerPanel) pickerPanel.style.maxHeight = '';
-      if (pickerList) {
-        pickerList.style.maxHeight = '';
-        pickerList.style.overflowY = '';
-        pickerList.style.webkitOverflowScrolling = '';
-      }
-    }
-
-    return { enable, disable, adjustListHeights };
-  })();
+  // ===== Helpers: selector value/data-id =====
+  function setSelectorValue(input, label, id) {
+    if (!input) return;
+    input.value = label ?? '';
+    if (id == null) delete input.dataset.id;
+    else input.dataset.id = String(id);
+  }
+  function getSelectorId(input) {
+    return input?.dataset?.id ?? null;
+  }
 
   // ===== State =====
   let isDragging              = false; // progress bar drag
@@ -217,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentPlaylistItemIndex = 0;
   let currentTempoIndex       = 0;
   let currentRepetition       = 0;
-  let playlistQueueMap        = [];    // flattened [ {playlistItemIndex, tempoIndex, repetition} ]
+  let playlistQueueMap        = [];    // flattened queue
 
   let isRandomizeEnabled      = false;
   let repsBeforeChange        = 1;
@@ -233,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let lastTempoChangeAt       = 0;
   let prevTempo               = null;
 
-  // Category set & display names (same as your free build)
+  // Category set & display names
   let displayedCategories = [
     "all","one-handers","accent-tap","rhythms","rudiments","timing",
     "paradiddles","singles","rolls","natural-decays","flams","hybrids",
@@ -410,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.target !== tempoSlider) defocusSlider();
   }, { capture: true, passive: true });
 
-  // iOS tap shield so the slider doesn't steal focus or jump
+  // iOS tap shield (unchanged)
   (function () {
     const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -475,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
       window.addEventListener('pointercancel', end, { passive: true, once: true });
       window.addEventListener('touchmove',   move, { passive: false });
       window.addEventListener('touchend',    end,  { passive: true, once: true });
-      window.addEventListener('touchcancel', end, { passive: true, once: true });
+      window.addEventListener('touchcancel', end,  { passive: true, once: true });
     }
 
     function move(e) {
@@ -653,8 +506,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function getSelectedCategory() {
-    if (!categorySearchInput) return 'all';
-    const ph = categorySearchInput.placeholder;
+    // Prefer data-id on the input; fallback to placeholder mapping
+    const id = getSelectorId(categorySearchInput);
+    if (id) return id;
+    const ph = categorySearchInput?.placeholder ?? 'All Categories';
     if (ph === '' || ph === 'All Categories') return 'all';
     const entry = Object.entries(categoryDisplayMap).find(([key, val]) => val.toLowerCase() === ph.toLowerCase());
     return entry ? entry[0] : 'all';
@@ -682,6 +537,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (exerciseSearchInput) {
       exerciseSearchInput.value = '';
       exerciseSearchInput.placeholder = ex.name;
+      exerciseSearchInput.dataset.id = String(ex.id);
     }
 
     updatePlaybackRate();
@@ -695,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const idx = Math.floor(Math.random() * filtered.length);
     currentExerciseIndex    = idx;
     currentSelectedExercise = filtered[idx];
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; }
+    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; exerciseSearchInput.dataset.id = String(currentSelectedExercise.id); }
     initializeExercise(currentSelectedExercise);
     if (audio) { audio.pause(); resetProgressBarInstant(); }
     if (playPauseBtn) playPauseBtn.textContent = 'Play';
@@ -739,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function () {
     currentExerciseIndex = (currentExerciseIndex + step + len) % len;
     currentSelectedExercise = displayedExercises[currentExerciseIndex];
 
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; }
+    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; exerciseSearchInput.dataset.id = String(currentSelectedExercise.id); }
 
     initializeExercise(currentSelectedExercise);
     if (audio) { audio.pause(); resetProgressBarInstant(); if (playPauseBtn) playPauseBtn.textContent = 'Play'; }
@@ -765,7 +621,10 @@ document.addEventListener('DOMContentLoaded', function () {
     isPlayingPlaylist = true;
 
     document.body.classList.add('playlist-mode');
-    if (categorySearchInput) categorySearchInput.placeholder = "All Categories";
+    if (categorySearchInput) {
+      categorySearchInput.placeholder = "All Categories";
+      categorySearchInput.dataset.id = 'all';
+    }
 
     if (categorySearchInput)   categorySearchInput.disabled   = true;
     if (minTempoInput)         minTempoInput.disabled         = true;
@@ -814,14 +673,14 @@ document.addEventListener('DOMContentLoaded', function () {
     displayedExercises      = filterExercisesForMode();
     currentExerciseIndex    = displayedExercises.indexOf(exercise);
 
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = exercise.name; }
+    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = exercise.name; exerciseSearchInput.dataset.id = String(exercise.id); }
     initializeExercise(exercise);
 
     const tempo = item.tempos[currentTempoIndex];
     setTempoSilently(tempo); // slider is disabled in playlist mode
 
     if (playlistQueueSearchInput) {
-      playlistQueueSearchInput.placeholder = `${exercise.name} at ${tempo} BPM`;
+      setSelectorValue(playlistQueueSearchInput, `${exercise.name} at ${tempo} BPM`, `${currentPlaylistItemIndex}-${currentTempoIndex}-${currentRepetition}`);
     }
 
     playExerciseRepetitions(item.repetitionsPerTempo);
@@ -867,43 +726,78 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function stopPlaylist() {
-    if (audio) audio.pause();
-    isPlayingPlaylist = false;
-    currentPlaylist   = null;
-    if (playPauseBtn) playPauseBtn.textContent = 'Play';
-    resetPlaylistControls();
-    resetProgressBarInstant();
+  if (audio) audio.pause();
+  isPlayingPlaylist = false;
+  currentPlaylist   = null;
+  if (playPauseBtn) playPauseBtn.textContent = 'Play';
+  resetPlaylistControls();
+  resetProgressBarInstant();
 
-    displayedExercises = filterExercisesForMode();
+  // Re-enable controls
+  if (categorySearchInput) categorySearchInput.disabled = false;
+  if (minTempoInput)      minTempoInput.disabled        = false;
+  if (maxTempoInput)      maxTempoInput.disabled        = false;
+  if (randomExerciseBtn)  randomExerciseBtn.disabled    = false;
+  if (randomTempoBtn)     randomTempoBtn.disabled       = false;
+  if (autoRandomizeToggle) autoRandomizeToggle.disabled = false;
+  if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
+  if (tempoSlider)        tempoSlider.disabled          = false;
 
-    if (categorySearchInput) categorySearchInput.disabled = false;
-    if (minTempoInput)      minTempoInput.disabled        = false;
-    if (maxTempoInput)      maxTempoInput.disabled        = false;
-    if (randomExerciseBtn)  randomExerciseBtn.disabled    = false;
-    if (randomTempoBtn)     randomTempoBtn.disabled       = false;
-    if (autoRandomizeToggle) autoRandomizeToggle.disabled = false;
-    if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
-    if (tempoSlider)        tempoSlider.disabled          = false;
+  const autoLabel = document.querySelector('.auto-label');
+  if (autoLabel) autoLabel.classList.remove('disabled');
+  const randomContainer = document.querySelector('.random-container');
+  if (randomContainer) randomContainer.classList.remove('disabled');
 
-    const autoLabel = document.querySelector('.auto-label');
-    if (autoLabel) autoLabel.classList.remove('disabled');
-    const randomContainer = document.querySelector('.random-container');
-    if (randomContainer) randomContainer.classList.remove('disabled');
+  document.body.classList.remove('playlist-mode');
 
+  // Reset queue field
+  if (playlistQueueSearchInput) {
+    playlistQueueSearchInput.value = '';
+    playlistQueueSearchInput.placeholder = 'Playlist Queue';
+    delete playlistQueueSearchInput.dataset.id;
+    playlistQueueSearchInput.disabled = true;
+    playlistQueueSearchInput.setAttribute('disabled','');
+  }
+
+  // Reset playlist selector to prompt text
+  if (playlistSearchInput) {
+    playlistSearchInput.value = '';
+    playlistSearchInput.placeholder = 'Select a Playlist';
+    delete playlistSearchInput.dataset.id;
+  }
+
+  // ✅ Reset Category to "All Categories"
+  if (categorySearchInput) {
+    categorySearchInput.value = '';
+    categorySearchInput.placeholder = 'All Categories';
+    categorySearchInput.dataset.id = 'all';
+  }
+
+  // Recompute exercises under "All" and sync exercise field
+  displayedExercises = filterExercisesForMode();
+  if (displayedExercises.length) {
+    if (!currentSelectedExercise || !displayedExercises.some(ex => ex.id === currentSelectedExercise.id)) {
+      currentSelectedExercise = displayedExercises[0];
+      initializeExercise(currentSelectedExercise);
+    }
     if (exerciseSearchInput) {
       exerciseSearchInput.value = '';
-      exerciseSearchInput.placeholder = currentSelectedExercise ? currentSelectedExercise.name : "Search Exercises...";
+      exerciseSearchInput.placeholder = currentSelectedExercise.name;
+      exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
     }
-
-    document.body.classList.remove('playlist-mode');
-    if (playlistQueueSearchInput) {
-      playlistQueueSearchInput.placeholder = 'Playlist Queue';
-      playlistQueueSearchInput.disabled = true;
-      playlistQueueSearchInput.setAttribute('disabled','');
+  } else {
+    currentSelectedExercise = null;
+    if (exerciseSearchInput) {
+      exerciseSearchInput.value = '';
+      exerciseSearchInput.placeholder = 'Search Exercises...';
+      delete exerciseSearchInput.dataset.id;
     }
-
-    applyLoopMode();
   }
+
+  applyLoopMode();
+}
+
+
 
   function resetPlaylistControls() {
     if (stopPlaylistBtn)            stopPlaylistBtn.disabled = true;
@@ -911,8 +805,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (prevPlaylistItemBtn)        prevPlaylistItemBtn.disabled = true;
     if (nextPlaylistItemBtn)        nextPlaylistItemBtn.disabled = true;
     if (playPauseBtn)               playPauseBtn.textContent = 'Play';
-    if (playlistSearchInput)        playlistSearchInput.placeholder = 'Select a Playlist';
-    if (playlistQueueSearchInput)   playlistQueueSearchInput.placeholder = 'Playlist Queue';
+    // Do NOT clear playlistSearchInput.value; keep last selection visible.
     if (playlistProgressContainer)  playlistProgressContainer.style.display = 'none';
     updatePlaylistQueueDisplay();
     updatePlaylistProgressBar();
@@ -975,15 +868,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (audio) audio.onended = null;
   }
 
-  // ===== Placeholders =====
+  // ===== Placeholders / initial ids =====
   function initializeCategoryPlaceholder() {
-    if (categorySearchInput) categorySearchInput.placeholder = "All Categories";
+    if (categorySearchInput) {
+      categorySearchInput.placeholder = "All Categories";
+      categorySearchInput.dataset.id = 'all';
+    }
   }
   function initializePlaylistPlaceholder() {
     if (playlistSearchInput) playlistSearchInput.placeholder = "Select a Playlist";
   }
 
-  // ===== Picker overlay (generic, now with viewport lock & no auto-keyboard) =====
+  // ===== Picker overlay (no auto-focus; active item scrolls into view) =====
   function showPicker({ theme = 'orange', title = 'Select', getItems, onSelect, getActiveId, getInitialIndex }) {
     return new Promise((resolve) => {
       // Theme
@@ -994,23 +890,11 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerTitle.textContent = title;
       pickerOverlay.hidden = false;
       pickerOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+
       pickerSearch.value = '';
-
-      // Do NOT autofocus search; blur anything active so keyboard does not appear
-      if (document.activeElement && typeof document.activeElement.blur === 'function') {
-        try { document.activeElement.blur(); } catch {}
-      }
-      pickerOverlay.setAttribute('tabindex', '-1');
-      try { pickerOverlay.focus({ preventScroll: true }); } catch {}
-      setTimeout(() => {
-        const ae = document.activeElement;
-        if (ae && ae.tagName === 'INPUT') {
-          try { ae.blur(); } catch {}
-        }
-      }, 0);
-
-      // Freeze page and pin overlay to visual viewport
-      PickerViewportLock.enable(pickerOverlay);
+      pickerSearch.placeholder = 'Search...';
+      // IMPORTANT: do NOT focus automatically (prevents keyboard popup)
 
       let items = [];
       let activeIndex = -1;
@@ -1045,8 +929,11 @@ document.addEventListener('DOMContentLoaded', function () {
           pickerList.appendChild(li);
         });
 
-        // After (re)render, recompute heights in case list size changed
-        PickerViewportLock.adjustListHeights();
+        // Keep active item in view on (re)render
+        if (activeIndex >= 0) {
+          const el = pickerList.querySelector(`[data-idx="${activeIndex}"]`);
+          if (el) el.scrollIntoView({ block: 'nearest' });
+        }
       }
 
       function refresh() {
@@ -1084,12 +971,11 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       function cleanup() {
-        PickerViewportLock.disable();
         pickerOverlay.hidden = true;
         pickerOverlay.setAttribute('aria-hidden', 'true');
-        pickerOverlay.removeAttribute('tabindex'); // remove temporary focusability
         pickerSearch.value = '';
         pickerList.innerHTML = '';
+        document.body.classList.remove('modal-open');
         pickerSearch.removeEventListener('input', refresh);
         document.removeEventListener('keydown', onKey);
         pickerOverlay.removeEventListener('click', onOverlayClick);
@@ -1105,7 +991,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Specific pickers (pass current selection so it highlights) =====
+  // ===== Specific pickers =====
   function openCategoryPicker() {
     showPicker({
       theme: 'orange',
@@ -1116,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', function () {
       getActiveId: () => getSelectedCategory(),
       onSelect: (it) => {
         if (!it) return;
-        if (categorySearchInput) { categorySearchInput.value = ''; categorySearchInput.placeholder = it.label; }
+        setSelectorValue(categorySearchInput, it.label, it.id);
         if (isPlayingPlaylist) stopPlaylist();
 
         currentExerciseIndex = 0;
@@ -1127,12 +1013,17 @@ document.addEventListener('DOMContentLoaded', function () {
           if (exerciseSearchInput) {
             exerciseSearchInput.value = '';
             exerciseSearchInput.placeholder = currentSelectedExercise.name;
+            exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
           }
           if (audio) { audio.pause(); resetProgressBarInstant(); }
           if (playPauseBtn) playPauseBtn.textContent = 'Play';
         } else {
           currentSelectedExercise = null;
-          if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = "Search Exercises..."; }
+          if (exerciseSearchInput) {
+            exerciseSearchInput.value = '';
+            exerciseSearchInput.placeholder = "Search Exercises...";
+            delete exerciseSearchInput.dataset.id;
+          }
         }
       }
     });
@@ -1145,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', function () {
       getItems: (q) => filterExercisesForMode()
         .filter(ex => ex.name.toLowerCase().includes(q))
         .map(ex => ({ id: ex.id, label: ex.name, ex })),
-      getActiveId: () => currentSelectedExercise?.id ?? null,
+      getActiveId: () => currentSelectedExercise?.id ?? exerciseSearchInput?.dataset?.id ?? null,
       onSelect: (it) => {
         if (!it) return;
         const exercise = it.ex || exercises.find(e => e.id === it.id);
@@ -1156,7 +1047,11 @@ document.addEventListener('DOMContentLoaded', function () {
         currentExerciseIndex    = displayedExercises.findIndex(ex => ex.id === exercise.id);
         initializeExercise(exercise);
 
-        if (exerciseSearchInput) exerciseSearchInput.value = '';
+        if (exerciseSearchInput) {
+          exerciseSearchInput.value = '';
+          exerciseSearchInput.placeholder = exercise.name;
+          exerciseSearchInput.dataset.id = String(exercise.id);
+        }
 
         if (isPlayingPlaylist && currentPlaylist) {
           syncPlaylistIndexToExercise(exercise.id);
@@ -1178,12 +1073,16 @@ document.addEventListener('DOMContentLoaded', function () {
       getItems: (q) => displayedPlaylists
         .filter(p => p.name.toLowerCase().includes(q))
         .map(p => ({ id: p.index, label: p.name })),
-      getActiveId: () => currentPlaylist ? playlists.indexOf(currentPlaylist) : null,
+      getActiveId: () => {
+        if (currentPlaylist) return playlists.indexOf(currentPlaylist);
+        return getSelectorId(playlistSearchInput);
+      },
       onSelect: (it) => {
         if (!it) return;
-        if (playlistSearchInput) { playlistSearchInput.value = ''; playlistSearchInput.placeholder = it.label; }
+        // Ensure previous run is fully stopped before updating UI
         if (isPlayingPlaylist) stopPlaylist();
         startPlaylist(it.id);
+        setSelectorValue(playlistSearchInput, it.label, it.id);
       }
     });
   }
@@ -1210,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentPlaylistItemIndex = pos.playlistItemIndex;
         currentTempoIndex        = pos.tempoIndex;
         currentRepetition        = pos.repetition;
-        if (playlistQueueSearchInput) playlistQueueSearchInput.placeholder = it.label;
+        if (playlistQueueSearchInput) setSelectorValue(playlistQueueSearchInput, it.label, it.id);
         updatePlaylistQueueDisplay();
         updatePlaylistProgressBar();
         playCurrentPlaylistItem();
@@ -1218,23 +1117,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Open pickers from inputs (readonly) =====
+  // ===== Open pickers from inputs (open on release with movement threshold; no keyboard) =====
   function wireOpener(input, fn) {
-    if (!input) return;
-    const open = (e) => {
+  if (!input) return;
+  try { input.readOnly = true; } catch {}
+  input.setAttribute('inputmode','none');
+
+  // Open on release
+  input.addEventListener('click', (e) => {
+    e.preventDefault();
+    fn();
+  });
+
+  // Keyboard support
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      e.stopPropagation();
-      if (pickerOverlay && pickerOverlay.hidden === false) return; // already open
       fn();
-    };
-    input.addEventListener('click', open);
-    if (isTouchDevice) {
-      input.addEventListener('touchstart', open, { passive: false });
     }
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') open(e);
-    });
-  }
+  });
+}
+
+
   wireOpener(categorySearchInput, openCategoryPicker);
   wireOpener(exerciseSearchInput, openExercisePicker);
   wireOpener(playlistSearchInput, openPlaylistPicker);
