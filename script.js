@@ -52,6 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
     ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0);
 
+  // At runtime, harden the selector inputs against mobile keyboards
+  [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(el => {
+    if (!el) return;
+    el.readOnly = true;
+    el.setAttribute('readonly', '');
+    el.setAttribute('inputmode', 'none');
+  });
+
   // ===== State =====
   let isDragging              = false; // progress bar drag
   let isPlayingPlaylist       = false;
@@ -317,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
       window.addEventListener('pointercancel', end, { passive: true, once: true });
       window.addEventListener('touchmove',   move, { passive: false });
       window.addEventListener('touchend',    end,  { passive: true, once: true });
-      window.addEventListener('touchcancel', end,  { passive: true, once: true });
+      window.addEventListener('touchcancel', end, { passive: true, once: true });
     }
 
     function move(e) {
@@ -825,7 +833,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (playlistSearchInput) playlistSearchInput.placeholder = "Select a Playlist";
   }
 
-  // ===== Picker overlay (generic, now with initial active selection) =====
+  // ===== Picker overlay (generic, now with mobile no-keyboard behavior) =====
   function showPicker({ theme = 'orange', title = 'Select', getItems, onSelect, getActiveId, getInitialIndex }) {
     return new Promise((resolve) => {
       // Theme
@@ -837,7 +845,20 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.hidden = false;
       pickerOverlay.setAttribute('aria-hidden', 'false');
       pickerSearch.value = '';
-      pickerSearch.focus({ preventScroll: true });
+
+      // IMPORTANT: do NOT autofocus the search. Blur anything active and focus a NON-input.
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        try { document.activeElement.blur(); } catch {}
+      }
+      pickerOverlay.setAttribute('tabindex', '-1');
+      try { pickerOverlay.focus({ preventScroll: true }); } catch {}
+      // Extra safety for iOS if an input briefly grabbed focus
+      setTimeout(() => {
+        const ae = document.activeElement;
+        if (ae && ae.tagName === 'INPUT') {
+          try { ae.blur(); } catch {}
+        }
+      }, 0);
 
       let items = [];
       let activeIndex = -1;
@@ -913,6 +934,7 @@ document.addEventListener('DOMContentLoaded', function () {
       function cleanup() {
         pickerOverlay.hidden = true;
         pickerOverlay.setAttribute('aria-hidden', 'true');
+        pickerOverlay.removeAttribute('tabindex'); // remove temporary focusability
         pickerSearch.value = '';
         pickerList.innerHTML = '';
         pickerSearch.removeEventListener('input', refresh);
@@ -1047,8 +1069,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===== Open pickers from inputs (readonly) =====
   function wireOpener(input, fn) {
     if (!input) return;
-    const open = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
+    const open = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Guard against double-open on touchstart → click
+      if (pickerOverlay && pickerOverlay.hidden === false) return;
+      fn();
+    };
     input.addEventListener('click', open);
+    // On mobile, prevent focusing the input (which could summon a keyboard on some browsers)
+    if (isTouchDevice) {
+      input.addEventListener('touchstart', open, { passive: false });
+    }
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') open(e);
     });
