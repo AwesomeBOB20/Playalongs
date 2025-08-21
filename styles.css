@@ -19,6 +19,9 @@ input::placeholder, textarea::placeholder { font-family:inherit; }
 body{ margin:0; background:var(--bg); color:var(--white); }
 .container{ width:90%; max-width:1000px; margin:20px auto; text-align:center; }
 
+/* prevent background scroll when picker open */
+body.modal-open{ overflow:hidden; touch-action:none; }
+
 /* iOS interaction guards */
 .bar{
   touch-action:none;
@@ -63,7 +66,7 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 .selector--purple{ background:var(--purple); }
 .selector--purple:hover,.selector--purple:focus{ background:var(--purple-d); }
 
-/* Playlist Queue disabled stays purple, matching purple buttons */
+/* Playlist Queue disabled stays purple */
 #playlistQueueSearch.selector:disabled{
   background:var(--purple-dim) !important;
   filter:brightness(.9) saturate(.95) !important;
@@ -119,27 +122,23 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 }
 .random-container .btn{ border:0; }
 
-/* --- PLAYLIST LOCK: make container + both children match disabled orange exactly --- */
+/* Playlist lock visuals */
 .random-container.disabled{
   background:var(--orange-dim);
   cursor:not-allowed;
-  /* apply the same dimming used by other disabled orange controls */
   filter:brightness(.85) saturate(.95);
 }
 .random-container.disabled .btn,
 .random-container.disabled .auto-label{
   background:var(--orange-dim);
   cursor:not-allowed;
-  /* avoid double-dimming since parent already has a filter */
   filter:none !important;
 }
-/* kill hover while locked */
 .random-container.disabled .btn:hover,
 .random-container.disabled .auto-label:hover{
   background:var(--orange-dim);
 }
 
-/* Remove inner radii next to the vertical divider; keep outer corners round */
 .random-container .btn:first-child{
   border-top-right-radius:0;
   border-bottom-right-radius:0;
@@ -341,12 +340,10 @@ input[type="number"]:disabled{
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
   z-index:9999;
-  /* fade-in */
   animation: picker-fade-in .18s ease-out;
 }
 .picker[hidden]{ display:none !important; }
 
-/* Desktop width = 520px */
 .picker__panel{
   width:min(520px, 92vw);
   max-height:82vh;
@@ -357,13 +354,9 @@ input[type="number"]:disabled{
   display:grid;
   grid-template-rows:auto 1fr;
   gap:10px;
-
-  /* pop-in */
   animation: panel-pop .22s cubic-bezier(.2,.8,.2,1);
 }
 
-/* Header: title + close on row 1, search full-width row 2
-   Header color matches theme, with 2px black border & 10px radius */
 .picker__header{
   display:grid;
   grid-template-columns:1fr 40px;
@@ -384,7 +377,7 @@ input[type="number"]:disabled{
   margin:0;
   font-size:1.2rem;
   line-height:1.2;
-  color:var(--white); /* always white */
+  color:var(--white);
 }
 .picker__close{
   grid-area:close;
@@ -406,7 +399,7 @@ input[type="number"]:disabled{
   border-radius:10px;
 }
 
-/* List “card” below header — 10px radius, themed bg */
+/* List “card” */
 .picker__list{
   list-style:none; margin:0; padding:6px;
   border:2px solid var(--black);
@@ -423,11 +416,20 @@ input[type="number"]:disabled{
   cursor:pointer;
   color:var(--white);
   border-radius:5px;
+  /* no hover fade animations */
+  transition:none;
 }
-/* Hover = subtle; Active = white bg + themed text */
+/* Hover = gray; Active = white bg + themed text */
 .picker__item:hover{ background:var(--gray-3); }
 .picker--orange .picker__item.is-active{ background:var(--white); color:var(--orange); }
 .picker--purple .picker__item.is-active{ background:var(--white); color:var(--purple); }
+
+/* Ensure active stays white even on touch "sticky hover" */
+@media (hover:none) and (pointer:coarse){
+  .picker__item:hover{ background:transparent; }
+  .picker--orange .picker__item.is-active:hover{ background:var(--white); color:var(--orange); }
+  .picker--purple .picker__item.is-active:hover{ background:var(--white); color:var(--purple); }
+}
 
 /* Motion prefs */
 @media (prefers-reduced-motion: reduce){
@@ -450,113 +452,14 @@ input[type="number"]:disabled{
 }
 
 /* Picker search placeholder color */
-.picker__search::placeholder { color:#555; opacity:1; }     /* modern */
-.picker__search::-webkit-input-placeholder { color:#555; }  /* Safari/old Chrome */
-.picker__search::-moz-placeholder { color:#555; opacity:1; }/* Firefox */
-.picker__search:-ms-input-placeholder { color:#555; }       /* old IE */
-.picker__search::-ms-input-placeholder { color:#555; }      /* Edge Legacy */
+.picker__search::placeholder { color:#555; opacity:1; }
+.picker__search::-webkit-input-placeholder { color:#555; }
+.picker__search::-moz-placeholder { color:#555; opacity:1; }
+.picker__search:-ms-input-placeholder { color:#555; }
+.picker__search::-ms-input-placeholder { color:#555; }
 
-.selector { caret-color: transparent; }
-
-/* ===== Touch: remove hover highlights (picker items only) ===== */
-@media (hover: none) and (pointer: coarse) {
-  .menu li:hover,
-  .menu .menu__item:hover,
-  .picker__item:hover {
-    background: transparent !important;
-  }
+@media (hover:none) and (pointer:coarse){
+  .picker__item:hover{ background:transparent; } /* kill sticky hover */
+  .picker--orange .picker__item.is-active{ background:#fff; color:var(--orange); }
+  .picker--purple .picker__item.is-active{ background:#fff; color:var(--purple); }
 }
-
-/* ===== Modal/body lock ===== */
-body.modal-open {
-  position: fixed;
-  width: 100%;
-  overflow: hidden; /* extra safety */
-}
-
-/* ===== Viewport sizing vars (updated by JS) ===== */
-:root{
-  --vvh: 100vh;          /* visual viewport height */
-  --panel-pad: 12px;     /* outer padding inside overlay */
-  --header-h: 56px;      /* updated by JS if different */
-  --panel-max-h: calc(var(--vvh) - (var(--panel-pad) * 2) - env(safe-area-inset-bottom));
-  --list-max-h: calc(var(--panel-max-h) - var(--header-h));
-}
-
-/* ===== Picker overlay & panel ===== */
-.picker-overlay {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,.55);
-  padding: max(var(--panel-pad), env(safe-area-inset-top))
-           var(--panel-pad)
-           max(var(--panel-pad), env(safe-area-inset-bottom));
-  overscroll-behavior: contain; /* keep background from moving */
-  z-index: 9999;
-}
-
-.picker-overlay.is-open { display: flex; }
-
-/* Keep the overlay visually pinned to the visible area (JS updates top/left/width/height) */
-.picker-overlay.vv-locked {
-  top: 0; left: 0; width: 100vw; height: var(--vvh);
-}
-
-.picker-panel {
-  width: min(720px, 92vw);
-  max-height: var(--panel-max-h);
-  border-radius: 14px;
-  background: var(--bg, #1c1c1c);
-  color: var(--white, #fff);
-  overflow: hidden; /* header fixed, list scrolls */
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  touch-action: none; /* helps prevent accidental background scroll */
-}
-
-/* Header stays fixed; put your search in here */
-.picker-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: 12px;
-  background: inherit;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-
-/* Search placeholder color (requested earlier) */
-.picker-header .picker-search::placeholder { color: #555; }
-
-/* List scrolls and auto-condenses above keyboard */
-.picker-list,
-.picker-panel .menu /* in case your list is .menu */ {
-  max-height: var(--list-max-h);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
-/* Soft scroll shadows so users see there's more to scroll */
-.picker-list,
-.picker-panel .menu {
-  /* constant soft fades top/bottom */
-  -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 16px,
-      rgba(0,0,0,1) calc(100% - 16px),
-      rgba(0,0,0,0) 100%);
-  mask-image: linear-gradient(to bottom,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 16px,
-      rgba(0,0,0,1) calc(100% - 16px),
-      rgba(0,0,0,0) 100%);
-}
-
-/* Allow list items to scroll but keep overlay locked in place */
-.picker-overlay,
-.picker-panel {
-  contain: layout paint; /* reduces reflow jank during keyboard anim */
-}
-
