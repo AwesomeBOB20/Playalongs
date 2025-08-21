@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
     ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0);
 
+  const isFxAndroid = /Android/i.test(navigator.userAgent) && /Firefox/i.test(navigator.userAgent);
+
   // ===== Helpers: selector value/data-id =====
   function setSelectorValue(input, label, id) {
     if (!input) return;
@@ -140,6 +142,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const stop = (e) => e.stopPropagation();
     el.addEventListener('pointerdown', stop, { passive: true });
     el.addEventListener('click', stop);
+  });
+
+  // NEW: never let readOnly selector inputs keep a caret/focus
+  [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
+    if(!inp) return;
+    try { inp.readOnly = true; } catch {}
+    inp.setAttribute('inputmode','none');
+    inp.addEventListener('focus', () => { if (inp.readOnly) inp.blur(); }, true);
   });
 
   // Initial UI setup
@@ -614,59 +624,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ===== Playlist flow =====
   function startPlaylist(playlistId) {
-  currentPlaylist = playlists[playlistId];
-  currentPlaylistItemIndex = 0;
-  currentTempoIndex = 0;
-  currentRepetition = 0;
-  isPlayingPlaylist = true;
+    currentPlaylist = playlists[playlistId];
+    currentPlaylistItemIndex = 0;
+    currentTempoIndex = 0;
+    currentRepetition = 0;
+    isPlayingPlaylist = true;
 
-  document.body.classList.add('playlist-mode');
+    document.body.classList.add('playlist-mode');
 
-  // ✅ Force Category to "All Categories" and lock it during playlist
-  if (categorySearchInput) {
-    categorySearchInput.value = '';
-    categorySearchInput.placeholder = 'All Categories';
-    categorySearchInput.dataset.id = 'all';
-    categorySearchInput.disabled = true;
+    // Force Category to "All Categories" and lock it during playlist
+    if (categorySearchInput) {
+      categorySearchInput.value = '';
+      categorySearchInput.placeholder = 'All Categories';
+      categorySearchInput.dataset.id = 'all';
+      categorySearchInput.disabled = true;
+    }
+
+    // Lock other controls
+    if (minTempoInput)         minTempoInput.disabled         = true;
+    if (maxTempoInput)         maxTempoInput.disabled         = true;
+    if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
+    if (randomTempoBtn)        randomTempoBtn.disabled        = true;
+    if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
+    if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
+    if (tempoSlider)           tempoSlider.disabled           = true;
+
+    const autoLabel = document.querySelector('.auto-label');
+    if (autoLabel) autoLabel.classList.add('disabled');
+    const randomContainer = document.querySelector('.random-container');
+    if (randomContainer) randomContainer.classList.add('disabled');
+
+    if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
+    if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
+    if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
+
+    if (playlistQueueSearchInput) {
+      playlistQueueSearchInput.disabled = false;
+      playlistQueueSearchInput.removeAttribute('disabled');
+      playlistQueueSearchInput.style.opacity = '1';
+    }
+    if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
+
+    // Recompute lists under "All" and start playback
+    displayedExercises = filterExercisesForMode();
+    if (displayedExercises.length > 0) {
+      currentExerciseIndex    = 0;
+      currentSelectedExercise = displayedExercises[0];
+    }
+
+    updatePlaylistQueueDisplay(); // builds queue map
+    playCurrentPlaylistItem();
+    applyLoopMode();
   }
-
-  // Lock other controls
-  if (minTempoInput)         minTempoInput.disabled         = true;
-  if (maxTempoInput)         maxTempoInput.disabled         = true;
-  if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
-  if (randomTempoBtn)        randomTempoBtn.disabled        = true;
-  if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
-  if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
-  if (tempoSlider)           tempoSlider.disabled           = true;
-
-  const autoLabel = document.querySelector('.auto-label');
-  if (autoLabel) autoLabel.classList.add('disabled');
-  const randomContainer = document.querySelector('.random-container');
-  if (randomContainer) randomContainer.classList.add('disabled');
-
-  if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
-  if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
-  if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
-
-  if (playlistQueueSearchInput) {
-    playlistQueueSearchInput.disabled = false;
-    playlistQueueSearchInput.removeAttribute('disabled');
-    playlistQueueSearchInput.style.opacity = '1';
-  }
-  if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
-
-  // Recompute lists under "All" and start playback
-  displayedExercises = filterExercisesForMode();
-  if (displayedExercises.length > 0) {
-    currentExerciseIndex    = 0;
-    currentSelectedExercise = displayedExercises[0];
-  }
-
-  updatePlaylistQueueDisplay(); // builds queue map
-  playCurrentPlaylistItem();
-  applyLoopMode();
-}
-
 
   function playCurrentPlaylistItem() {
     if (!currentPlaylist) return;
@@ -732,78 +741,76 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function stopPlaylist() {
-  if (audio) audio.pause();
-  isPlayingPlaylist = false;
-  currentPlaylist   = null;
-  if (playPauseBtn) playPauseBtn.textContent = 'Play';
-  resetPlaylistControls();
-  resetProgressBarInstant();
+    if (audio) audio.pause();
+    isPlayingPlaylist = false;
+    currentPlaylist   = null;
+    if (playPauseBtn) playPauseBtn.textContent = 'Play';
+    resetPlaylistControls();
+    resetProgressBarInstant();
 
-  // Re-enable controls
-  if (categorySearchInput) categorySearchInput.disabled = false;
-  if (minTempoInput)      minTempoInput.disabled        = false;
-  if (maxTempoInput)      maxTempoInput.disabled        = false;
-  if (randomExerciseBtn)  randomExerciseBtn.disabled    = false;
-  if (randomTempoBtn)     randomTempoBtn.disabled       = false;
-  if (autoRandomizeToggle) autoRandomizeToggle.disabled = false;
-  if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
-  if (tempoSlider)        tempoSlider.disabled          = false;
+    // Re-enable controls
+    if (categorySearchInput) categorySearchInput.disabled = false;
+    if (minTempoInput)      minTempoInput.disabled        = false;
+    if (maxTempoInput)      maxTempoInput.disabled        = false;
+    if (randomExerciseBtn)  randomExerciseBtn.disabled    = false;
+    if (randomTempoBtn)     randomTempoBtn.disabled       = false;
+    if (autoRandomizeToggle) autoRandomizeToggle.disabled = false;
+    if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
+    if (tempoSlider)        tempoSlider.disabled          = false;
 
-  const autoLabel = document.querySelector('.auto-label');
-  if (autoLabel) autoLabel.classList.remove('disabled');
-  const randomContainer = document.querySelector('.random-container');
-  if (randomContainer) randomContainer.classList.remove('disabled');
+    const autoLabel = document.querySelector('.auto-label');
+    if (autoLabel) autoLabel.classList.remove('disabled');
+    const randomContainer = document.querySelector('.random-container');
+    if (randomContainer) randomContainer.classList.remove('disabled');
 
-  document.body.classList.remove('playlist-mode');
+    document.body.classList.remove('playlist-mode');
 
-  // Reset queue field
-  if (playlistQueueSearchInput) {
-    playlistQueueSearchInput.value = '';
-    playlistQueueSearchInput.placeholder = 'Playlist Queue';
-    delete playlistQueueSearchInput.dataset.id;
-    playlistQueueSearchInput.disabled = true;
-    playlistQueueSearchInput.setAttribute('disabled','');
-  }
-
-  // Reset playlist selector to prompt text
-  if (playlistSearchInput) {
-    playlistSearchInput.value = '';
-    playlistSearchInput.placeholder = 'Select a Playlist';
-    delete playlistSearchInput.dataset.id;
-  }
-
-  // ✅ Reset Category to "All Categories"
-  if (categorySearchInput) {
-    categorySearchInput.value = '';
-    categorySearchInput.placeholder = 'All Categories';
-    categorySearchInput.dataset.id = 'all';
-  }
-
-  // Recompute exercises under "All" and sync exercise field
-  displayedExercises = filterExercisesForMode();
-  if (displayedExercises.length) {
-    if (!currentSelectedExercise || !displayedExercises.some(ex => ex.id === currentSelectedExercise.id)) {
-      currentSelectedExercise = displayedExercises[0];
-      initializeExercise(currentSelectedExercise);
+    // Reset queue field
+    if (playlistQueueSearchInput) {
+      playlistQueueSearchInput.value = '';
+      playlistQueueSearchInput.placeholder = 'Playlist Queue';
+      delete playlistQueueSearchInput.dataset.id;
+      playlistQueueSearchInput.disabled = true;
+      playlistQueueSearchInput.setAttribute('disabled','');
     }
-    if (exerciseSearchInput) {
-      exerciseSearchInput.value = '';
-      exerciseSearchInput.placeholder = currentSelectedExercise.name;
-      exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
+
+    // Reset playlist selector to prompt text
+    if (playlistSearchInput) {
+      playlistSearchInput.value = '';
+      playlistSearchInput.placeholder = 'Select a Playlist';
+      delete playlistSearchInput.dataset.id;
     }
-  } else {
-    currentSelectedExercise = null;
-    if (exerciseSearchInput) {
-      exerciseSearchInput.value = '';
-      exerciseSearchInput.placeholder = 'Search Exercises...';
-      delete exerciseSearchInput.dataset.id;
+
+    // Reset Category to "All Categories"
+    if (categorySearchInput) {
+      categorySearchInput.value = '';
+      categorySearchInput.placeholder = 'All Categories';
+      categorySearchInput.dataset.id = 'all';
     }
+
+    // Recompute exercises under "All" and sync exercise field
+    displayedExercises = filterExercisesForMode();
+    if (displayedExercises.length) {
+      if (!currentSelectedExercise || !displayedExercises.some(ex => ex.id === currentSelectedExercise.id)) {
+        currentSelectedExercise = displayedExercises[0];
+        initializeExercise(currentSelectedExercise);
+      }
+      if (exerciseSearchInput) {
+        exerciseSearchInput.value = '';
+        exerciseSearchInput.placeholder = currentSelectedExercise.name;
+        exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
+      }
+    } else {
+      currentSelectedExercise = null;
+      if (exerciseSearchInput) {
+        exerciseSearchInput.value = '';
+        exerciseSearchInput.placeholder = 'Search Exercises...';
+        delete exerciseSearchInput.dataset.id;
+      }
+    }
+
+    applyLoopMode();
   }
-
-  applyLoopMode();
-}
-
-
 
   function resetPlaylistControls() {
     if (stopPlaylistBtn)            stopPlaylistBtn.disabled = true;
@@ -898,6 +905,10 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
 
+      // ensure no residual caret/selection from previous interactions
+      try { pickerSearch.blur(); } catch {}
+      const sel = window.getSelection?.(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
+
       pickerSearch.value = '';
       pickerSearch.placeholder = 'Search...';
       // IMPORTANT: do NOT focus automatically (prevents keyboard popup)
@@ -927,13 +938,43 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!items.length) return;
 
         activeIndex = Math.max(0, Math.min(activeIndex, items.length - 1));
+
         items.forEach((it, i) => {
           const li = document.createElement('li');
           li.className = 'picker__item' + (i === activeIndex ? ' is-active' : '');
           li.setAttribute('role', 'option');
           li.dataset.idx = i;
           li.textContent = it.label;
-          li.addEventListener('click', () => choose(i));
+          li.style.touchAction = 'manipulation';
+
+          // Tap handling that avoids OS text-caret on Firefox Android,
+          // while preserving natural scroll.
+          let startX=0, startY=0, moved=false;
+          const THRESH = 8;
+
+          li.addEventListener('touchstart', (e) => {
+            const t = e.touches && e.touches[0];
+            if (!t) return;
+            startX = t.clientX; startY = t.clientY; moved = false;
+          }, { passive: true });
+
+          li.addEventListener('touchmove', (e) => {
+            const t = e.touches && e.touches[0];
+            if (!t) return;
+            if (Math.abs(t.clientX - startX) > THRESH || Math.abs(t.clientY - startY) > THRESH) moved = true;
+          }, { passive: true });
+
+          li.addEventListener('touchend', (e) => {
+            if (!moved) {
+              e.preventDefault(); // suppress native tap (no caret/blue chip)
+              choose(i);
+            }
+          }, { passive: false });
+
+          li.addEventListener('click', () => choose(i)); // desktop/mouse
+
+          li.addEventListener('contextmenu', (e) => e.preventDefault()); // long-press menu
+
           pickerList.appendChild(li);
         });
 
@@ -989,12 +1030,21 @@ document.addEventListener('DOMContentLoaded', function () {
         document.removeEventListener('keydown', onKey);
         pickerOverlay.removeEventListener('click', onOverlayClick);
         pickerClose.removeEventListener('click', close);
+        document.removeEventListener('selectionchange', clearSelection);
       }
 
       pickerSearch.addEventListener('input', refresh);
       document.addEventListener('keydown', onKey);
       pickerOverlay.addEventListener('click', onOverlayClick);
       pickerClose.addEventListener('click', close);
+
+      // Clear any accidental selection while picker is open
+      const clearSelection = () => {
+        if (pickerOverlay.hidden) return;
+        const sel2 = window.getSelection?.();
+        if (sel2 && sel2.rangeCount) sel2.removeAllRanges();
+      };
+      document.addEventListener('selectionchange', clearSelection);
 
       refresh();
     });
@@ -1126,13 +1176,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Open pickers from inputs (open on release with movement threshold; no keyboard) =====
+  // ===== Open pickers from inputs (open on release; no keyboard) =====
   function wireOpener(input, fn) {
     if (!input) return;
     try { input.readOnly = true; } catch {}
     input.setAttribute('inputmode','none');
 
-    // Open on release
     input.addEventListener('click', (e) => {
       e.preventDefault();
       fn();
@@ -1152,13 +1201,13 @@ document.addEventListener('DOMContentLoaded', function () {
   wireOpener(playlistSearchInput, openPlaylistPicker);
   wireOpener(playlistQueueSearchInput, openQueuePicker);
 
-  // ===== Picker-list only: suppress OS selection/handles to kill the chip =====
+  // ===== Picker-list only: extra guards =====
   if (pickerList){
     pickerList.addEventListener('selectstart', (e) => e.preventDefault(), { passive:false });
     pickerList.addEventListener('contextmenu', (e) => e.preventDefault());
     pickerList.addEventListener('pointerdown', () => {
-      const sel = window.getSelection?.();
-      if (sel && sel.removeAllRanges) sel.removeAllRanges();
+      const sel3 = window.getSelection?.();
+      if (sel3 && sel3.removeAllRanges) sel3.removeAllRanges();
     }, { passive:true });
   }
 
