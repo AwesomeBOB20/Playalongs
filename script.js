@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
   const playlists  = Array.isArray(window.PLAYLISTS)  ? window.PLAYLISTS  : [];
 
-  // ===== DOM =====
+  // ===== DOM ====
   // Core UI
   const audio               = document.getElementById('audio');
   const totalTimeDisplay    = document.getElementById('totalTime');
@@ -1091,3 +1091,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
