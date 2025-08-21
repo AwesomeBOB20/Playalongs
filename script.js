@@ -614,53 +614,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ===== Playlist flow =====
   function startPlaylist(playlistId) {
-    currentPlaylist = playlists[playlistId];
-    currentPlaylistItemIndex = 0;
-    currentTempoIndex = 0;
-    currentRepetition = 0;
-    isPlayingPlaylist = true;
+  currentPlaylist = playlists[playlistId];
+  currentPlaylistItemIndex = 0;
+  currentTempoIndex = 0;
+  currentRepetition = 0;
+  isPlayingPlaylist = true;
 
-    document.body.classList.add('playlist-mode');
-    if (categorySearchInput) {
-      categorySearchInput.placeholder = "All Categories";
-      categorySearchInput.dataset.id = 'all';
-    }
+  document.body.classList.add('playlist-mode');
 
-    if (categorySearchInput)   categorySearchInput.disabled   = true;
-    if (minTempoInput)         minTempoInput.disabled         = true;
-    if (maxTempoInput)         maxTempoInput.disabled         = true;
-    if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
-    if (randomTempoBtn)        randomTempoBtn.disabled        = true;
-    if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
-    if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
-    if (tempoSlider)           tempoSlider.disabled           = true;
-
-    const autoLabel = document.querySelector('.auto-label');
-    if (autoLabel) autoLabel.classList.add('disabled');
-    const randomContainer = document.querySelector('.random-container');
-    if (randomContainer) randomContainer.classList.add('disabled');
-
-    if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
-    if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
-    if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
-
-    if (playlistQueueSearchInput) {
-      playlistQueueSearchInput.disabled = false;
-      playlistQueueSearchInput.removeAttribute('disabled');
-      playlistQueueSearchInput.style.opacity = '1';
-    }
-    if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
-
-    displayedExercises = filterExercisesForMode();
-    if (displayedExercises.length > 0) {
-      currentExerciseIndex    = 0;
-      currentSelectedExercise = displayedExercises[0];
-    }
-
-    updatePlaylistQueueDisplay(); // builds queue map
-    playCurrentPlaylistItem();
-    applyLoopMode();
+  // ✅ Force Category to "All Categories" and lock it during playlist
+  if (categorySearchInput) {
+    categorySearchInput.value = '';
+    categorySearchInput.placeholder = 'All Categories';
+    categorySearchInput.dataset.id = 'all';
+    categorySearchInput.disabled = true;
   }
+
+  // Lock other controls
+  if (minTempoInput)         minTempoInput.disabled         = true;
+  if (maxTempoInput)         maxTempoInput.disabled         = true;
+  if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
+  if (randomTempoBtn)        randomTempoBtn.disabled        = true;
+  if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
+  if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
+  if (tempoSlider)           tempoSlider.disabled           = true;
+
+  const autoLabel = document.querySelector('.auto-label');
+  if (autoLabel) autoLabel.classList.add('disabled');
+  const randomContainer = document.querySelector('.random-container');
+  if (randomContainer) randomContainer.classList.add('disabled');
+
+  if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
+  if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
+  if (stopPlaylistBtn)     stopPlaylistBtn.disabled     = false;
+
+  if (playlistQueueSearchInput) {
+    playlistQueueSearchInput.disabled = false;
+    playlistQueueSearchInput.removeAttribute('disabled');
+    playlistQueueSearchInput.style.opacity = '1';
+  }
+  if (playlistProgressContainer) playlistProgressContainer.style.display = 'block';
+
+  // Recompute lists under "All" and start playback
+  displayedExercises = filterExercisesForMode();
+  if (displayedExercises.length > 0) {
+    currentExerciseIndex    = 0;
+    currentSelectedExercise = displayedExercises[0];
+  }
+
+  updatePlaylistQueueDisplay(); // builds queue map
+  playCurrentPlaylistItem();
+  applyLoopMode();
+}
+
 
   function playCurrentPlaylistItem() {
     if (!currentPlaylist) return;
