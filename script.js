@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
   const playlists  = Array.isArray(window.PLAYLISTS)  ? window.PLAYLISTS  : [];
 
-  // ===== DOM ====
+  // ===== DOM =====
   // Core UI
   const audio               = document.getElementById('audio');
   const totalTimeDisplay    = document.getElementById('totalTime');
@@ -833,11 +833,16 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.classList.add(theme === 'purple' ? 'picker--purple' : 'picker--orange');
 
       // Title + open
-      pickerTitle.textContent = title;
-      pickerOverlay.hidden = false;
-      pickerOverlay.setAttribute('aria-hidden', 'false');
-      pickerSearch.value = '';
-      pickerSearch.focus({ preventScroll: true });
+pickerTitle.textContent = title;
+pickerOverlay.hidden = false;
+pickerOverlay.setAttribute('aria-hidden', 'false');
+pickerSearch.value = '';
+// Prevent mobile keyboard on open (no autofocus anywhere)
+requestAnimationFrame(() => {
+  const el = document.activeElement;
+  if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) el.blur();
+});
+
 
       let items = [];
       let activeIndex = -1;
@@ -1046,13 +1051,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ===== Open pickers from inputs (readonly) =====
   function wireOpener(input, fn) {
-    if (!input) return;
-    const open = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
-    input.addEventListener('click', open);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') open(e);
-    });
-  }
+  if (!input) return;
+  const open = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
+  input.addEventListener('pointerdown', open, { passive: false }); // <— add this
+  input.addEventListener('click', open);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') open(e);
+  });
+}
+
   wireOpener(categorySearchInput, openCategoryPicker);
   wireOpener(exerciseSearchInput, openExercisePicker);
   wireOpener(playlistSearchInput, openPlaylistPicker);
@@ -1091,4 +1098,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
