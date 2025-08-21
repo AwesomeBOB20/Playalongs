@@ -22,6 +22,13 @@ body{ margin:0; background:var(--bg); color:var(--white); }
 /* prevent background scroll when picker open */
 body.modal-open{ overflow:hidden; touch-action:none; }
 
+/* ===== Selection policy ===== */
+/* Allow selection globally again. Only block it inside picker rows to prevent the Android/iOS text chip there. */
+.picker__list, .picker__item{
+  -webkit-user-select:none; user-select:none;
+  -webkit-touch-callout:none;
+}
+
 /* iOS interaction guards */
 .bar{
   touch-action:none;
@@ -332,10 +339,13 @@ input[type="number"]:disabled{
   font-family:'Ubuntu',sans-serif !important;
 }
 
-/* ===== Picker Overlay ===== */
+/* ===== Picker Overlay (TOP-ANCHORED) ===== */
 .picker{
   position:fixed; inset:0;
-  display:flex; align-items:center; justify-content:center;
+  display:flex; align-items:flex-start; justify-content:center;
+  /* Top spacing equals side spacing for a clean mobile look */
+  --picker-inline-pad: 4vw;
+  padding: var(--picker-inline-pad);
   background:rgba(0,0,0,.35);
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
@@ -345,8 +355,7 @@ input[type="number"]:disabled{
 .picker[hidden]{ display:none !important; }
 
 .picker__panel{
-  width:min(520px, 92vw);
-  max-height:82vh;
+  width:min(520px, 100%);
   background:transparent;
   border:none;
   box-shadow:none;
@@ -355,6 +364,7 @@ input[type="number"]:disabled{
   grid-template-rows:auto 1fr;
   gap:10px;
   animation: panel-pop .22s cubic-bezier(.2,.8,.2,1);
+  overscroll-behavior:contain;
 }
 
 .picker__header{
@@ -399,36 +409,38 @@ input[type="number"]:disabled{
   border-radius:10px;
 }
 
-/* List “card” */
+/* List “card” (JS will set max-height dynamically for keyboard-safe sizing) */
 .picker__list{
   list-style:none; margin:0; padding:6px;
   border:2px solid var(--black);
   border-radius:10px;
   overflow-y:auto;
-  max-height:calc(82vh - 80px);
+  max-height:calc(82vh - 80px); /* fallback */
   box-shadow:0 8px 24px rgba(0,0,0,.45);
 }
 .picker--orange .picker__list{ background:var(--orange); }
 .picker--purple .picker__list{ background:var(--purple); }
+
+/* Hide the list entirely when there are no results */
+.picker--no-results .picker__panel{ grid-template-rows:auto; }
+.picker--no-results .picker__list{ display:none; }
 
 .picker__item{
   padding:10px 12px;
   cursor:pointer;
   color:var(--white);
   border-radius:5px;
-  /* no hover fade animations */
-  transition:none;
+  transition:none; /* no hover fade animations */
 }
-/* Hover = gray; Active = white bg + themed text */
-.picker__item:hover{ background:var(--gray-3); }
+.picker__item:hover{ background:var(--gray-3); } /* Hover = gray 3 */
 .picker--orange .picker__item.is-active{ background:var(--white); color:var(--orange); }
 .picker--purple .picker__item.is-active{ background:var(--white); color:var(--purple); }
 
 /* Ensure active stays white even on touch "sticky hover" */
 @media (hover:none) and (pointer:coarse){
   .picker__item:hover{ background:transparent; }
-  .picker--orange .picker__item.is-active:hover{ background:var(--white); color:var(--orange); }
-  .picker--purple .picker__item.is-active:hover{ background:var(--white); color:var(--purple); }
+  .picker--orange .picker__item.is-active:hover{ background:#fff; color:var(--orange); }
+  .picker--purple .picker__item.is-active:hover{ background:#fff; color:var(--purple); }
 }
 
 /* Motion prefs */
@@ -446,7 +458,7 @@ input[type="number"]:disabled{
 }
 
 @media (max-width:600px){
-  .picker__panel{ width:94vw; max-height:86vh; }
+  .picker__panel{ width:100%; }
   .picker__close{ width:36px; height:36px; font-size:1.2rem; }
   .picker__search{ height:38px; }
 }
