@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const pickerSearch  = document.getElementById('pickerSearch');
   const pickerList    = document.getElementById('pickerList');
   const pickerClose   = document.getElementById('pickerClose');
+  // Try to locate the panel container that wraps title/search/list
+  const pickerPanel   = (pickerOverlay && (
+    pickerOverlay.querySelector('.picker-panel') ||
+    pickerOverlay.querySelector('.picker__panel') ||
+    pickerOverlay.firstElementChild
+  )) || null;
 
   // ===== Feature flags =====
   const isTouchDevice =
@@ -59,6 +65,150 @@ document.addEventListener('DOMContentLoaded', function () {
     el.setAttribute('readonly', '');
     el.setAttribute('inputmode', 'none');
   });
+
+  // ===== Viewport lock helper for picker (prevents keyboard from covering & freezes position) =====
+  const PickerViewportLock = (() => {
+    let vv = null;
+    let listeners = [];
+    let restoreScroll = null;
+
+    function lockBodyScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      document.body.dataset._scrollY = String(y);
+      document.body.classList.add('modal-open'); // relies on CSS; still set top to be safe
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${y}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      restoreScroll = () => {
+        const yy = parseInt(document.body.dataset._scrollY || '0', 10);
+        document.body.classList.remove('modal-open');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        window.scrollTo(0, yy);
+        delete document.body.dataset._scrollY;
+      };
+    }
+
+    function unlockBodyScroll() {
+      if (typeof restoreScroll === 'function') restoreScroll();
+      restoreScroll = null;
+    }
+
+    function pinOverlayToVV(overlay) {
+      const useVV = window.visualViewport || null;
+      vv = useVV;
+
+      const apply = () => {
+        const height = vv ? vv.height : window.innerHeight;
+        const width  = vv ? vv.width  : window.innerWidth;
+        const top    = vv ? vv.offsetTop  : 0;
+        const left   = vv ? vv.offsetLeft : 0;
+
+        overlay.style.position = 'fixed';
+        overlay.style.top    = `${top}px`;
+        overlay.style.left   = `${left}px`;
+        overlay.style.width  = `${width}px`;
+        overlay.style.height = `${height}px`;
+
+        // Update a CSS var for any CSS that wants it
+        document.documentElement.style.setProperty('--vvh', `${height}px`);
+
+        // Recompute list max-height so it always fits above the keyboard
+        adjustListHeights();
+      };
+
+      apply();
+
+      // Bind listeners (resize/scroll of visual viewport)
+      if (vv) {
+        const onResize = () => apply();
+        const onScroll = () => apply();
+        vv.addEventListener('resize', onResize);
+        vv.addEventListener('scroll', onScroll);
+        listeners.push(() => vv.removeEventListener('resize', onResize));
+        listeners.push(() => vv.removeEventListener('scroll', onScroll));
+      } else {
+        const onWin = () => apply();
+        window.addEventListener('resize', onWin);
+        window.addEventListener('scroll', onWin, { passive: true });
+        listeners.push(() => window.removeEventListener('resize', onWin));
+        listeners.push(() => window.removeEventListener('scroll', onWin));
+      }
+
+      // Prevent background from scrolling while allowing the list to scroll
+      const touchBlocker = (e) => {
+        if (!pickerList || !pickerList.contains(e.target)) e.preventDefault();
+      };
+      overlay.addEventListener('touchmove', touchBlocker, { passive: false });
+      listeners.push(() => overlay.removeEventListener('touchmove', touchBlocker));
+    }
+
+    function adjustListHeights() {
+      if (!pickerOverlay) return;
+      const height = (window.visualViewport ? window.visualViewport.height : window.innerHeight) || 0;
+
+      // Determine panel outer paddings/margins to keep some breathing room (fallback 24px each side)
+      const verticalPadding = 24;
+
+      if (pickerPanel) {
+        pickerPanel.style.maxHeight = Math.max(160, height - verticalPadding * 2) + 'px';
+      }
+
+      if (pickerList) {
+        // Compute header height = space from panel top to top of list
+        let headerH = 0;
+        try {
+          const panelRect = (pickerPanel || pickerOverlay).getBoundingClientRect();
+          const listRect  = pickerList.getBoundingClientRect();
+          headerH = Math.max(0, listRect.top - panelRect.top);
+        } catch (_) { headerH = 0; }
+
+        const listMax = Math.max(120, height - verticalPadding * 2 - headerH);
+        pickerList.style.maxHeight = listMax + 'px';
+        pickerList.style.overflowY = 'auto';
+        pickerList.style.webkitOverflowScrolling = 'touch';
+      }
+    }
+
+    function enable(overlayEl) {
+      if (!overlayEl) return;
+      lockBodyScroll();
+      pinOverlayToVV(overlayEl);
+      // Small delay to ensure first render sizes are measured after items are injected
+      setTimeout(adjustListHeights, 0);
+    }
+
+    function disable() {
+      // Remove listeners
+      listeners.forEach(off => { try { off(); } catch {} });
+      listeners = [];
+      unlockBodyScroll();
+
+      // Clear inline overlay styles
+      if (pickerOverlay) {
+        pickerOverlay.style.position = '';
+        pickerOverlay.style.top = '';
+        pickerOverlay.style.left = '';
+        pickerOverlay.style.width = '';
+        pickerOverlay.style.height = '';
+      }
+
+      // Clear inline sizing we may have set
+      if (pickerPanel) pickerPanel.style.maxHeight = '';
+      if (pickerList) {
+        pickerList.style.maxHeight = '';
+        pickerList.style.overflowY = '';
+        pickerList.style.webkitOverflowScrolling = '';
+      }
+    }
+
+    return { enable, disable, adjustListHeights };
+  })();
 
   // ===== State =====
   let isDragging              = false; // progress bar drag
@@ -833,7 +983,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (playlistSearchInput) playlistSearchInput.placeholder = "Select a Playlist";
   }
 
-  // ===== Picker overlay (generic, now with mobile no-keyboard behavior) =====
+  // ===== Picker overlay (generic, now with viewport lock & no auto-keyboard) =====
   function showPicker({ theme = 'orange', title = 'Select', getItems, onSelect, getActiveId, getInitialIndex }) {
     return new Promise((resolve) => {
       // Theme
@@ -846,13 +996,12 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.setAttribute('aria-hidden', 'false');
       pickerSearch.value = '';
 
-      // IMPORTANT: do NOT autofocus the search. Blur anything active and focus a NON-input.
+      // Do NOT autofocus search; blur anything active so keyboard does not appear
       if (document.activeElement && typeof document.activeElement.blur === 'function') {
         try { document.activeElement.blur(); } catch {}
       }
       pickerOverlay.setAttribute('tabindex', '-1');
       try { pickerOverlay.focus({ preventScroll: true }); } catch {}
-      // Extra safety for iOS if an input briefly grabbed focus
       setTimeout(() => {
         const ae = document.activeElement;
         if (ae && ae.tagName === 'INPUT') {
@@ -860,16 +1009,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }, 0);
 
+      // Freeze page and pin overlay to visual viewport
+      PickerViewportLock.enable(pickerOverlay);
+
       let items = [];
       let activeIndex = -1;
 
       function computeInitialIndex() {
-        // 1) Let caller override with an index in *current filtered items*
         if (typeof getInitialIndex === 'function') {
           const idx = getInitialIndex(items);
           if (Number.isInteger(idx) && idx >= 0 && idx < items.length) return idx;
         }
-        // 2) Otherwise, select by stable id
         if (typeof getActiveId === 'function') {
           const want = getActiveId();
           if (want != null) {
@@ -877,7 +1027,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (i !== -1) return i;
           }
         }
-        // 3) Fallback to first
         return items.length ? 0 : -1;
       }
 
@@ -895,6 +1044,9 @@ document.addEventListener('DOMContentLoaded', function () {
           li.addEventListener('click', () => choose(i));
           pickerList.appendChild(li);
         });
+
+        // After (re)render, recompute heights in case list size changed
+        PickerViewportLock.adjustListHeights();
       }
 
       function refresh() {
@@ -932,6 +1084,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       function cleanup() {
+        PickerViewportLock.disable();
         pickerOverlay.hidden = true;
         pickerOverlay.setAttribute('aria-hidden', 'true');
         pickerOverlay.removeAttribute('tabindex'); // remove temporary focusability
@@ -952,7 +1105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Specific pickers (now pass current selection so it highlights) =====
+  // ===== Specific pickers (pass current selection so it highlights) =====
   function openCategoryPicker() {
     showPicker({
       theme: 'orange',
@@ -1041,7 +1194,6 @@ document.addEventListener('DOMContentLoaded', function () {
       theme: 'purple',
       title: 'Playlist Queue',
       getItems: (q) => {
-        // Build view models with text
         return playlistQueueMap.map(pos => {
           const pItem = currentPlaylist.items[pos.playlistItemIndex];
           const ex    = exercises.find(e => e.id === pItem.exerciseId);
@@ -1072,12 +1224,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const open = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      // Guard against double-open on touchstart → click
-      if (pickerOverlay && pickerOverlay.hidden === false) return;
+      if (pickerOverlay && pickerOverlay.hidden === false) return; // already open
       fn();
     };
     input.addEventListener('click', open);
-    // On mobile, prevent focusing the input (which could summon a keyboard on some browsers)
     if (isTouchDevice) {
       input.addEventListener('touchstart', open, { passive: false });
     }
