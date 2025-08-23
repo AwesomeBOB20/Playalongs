@@ -337,11 +337,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   if (dialStepInput) {
-    dialStepInput.addEventListener('input', () => {
-      const v = parseInt(dialStepInput.value, 10);
-      tempoStepStep = (!isNaN(v)) ? v : 0;
-    });
-  }
+  // allow one leading "-" and digits; clamp to [-999, 999]
+  dialStepInput.addEventListener('input', () => {
+    let s = dialStepInput.value || '';
+    s = s.replace(/[^\d-]/g, '');        // strip non-digits/non-minus
+    s = s.replace(/(?!^)-/g, '');        // only one minus, and only at start
+    if (s === '-' || s === '') {         // user mid-typing
+      tempoStepStep = 0;
+      dialStepInput.setCustomValidity('');
+      return;
+    }
+    let v = parseInt(s, 10);
+    if (isNaN(v)) v = 0;
+    if (v > 999) v = 999;
+    if (v < -999) v = -999;
+    dialStepInput.value = String(v);
+    tempoStepStep = v;
+    dialStepInput.setCustomValidity('');
+  });
+
+  // keep "-" only at position 0 during typing
+  dialStepInput.addEventListener('beforeinput', (e) => {
+    if (e.inputType === 'insertText' && e.data === '-') {
+      const pos = dialStepInput.selectionStart ?? 0;
+      if (pos !== 0) e.preventDefault();
+    }
+  });
+}
+
 
   // ===== Buttons =====
   randomExerciseBtn?.addEventListener('click', function () {
@@ -1374,11 +1397,24 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerClose.addEventListener('click', close);
 
       const clearSelection = () => {
-        if (pickerOverlay.hidden) return;
-        const sel2 = window.getSelection?.();
-        if (sel2 && sel2.rangeCount) sel2.removeAllRanges();
-      };
-      document.addEventListener('selectionchange', clearSelection);
+  if (pickerOverlay.hidden) return;
+
+  // If caret/selection is in the search box, do nothing
+  const ae = document.activeElement;
+  if (ae && (ae === pickerSearch || ae.closest?.('.picker__search'))) return;
+
+  const sel2 = window.getSelection?.();
+  if (!sel2) return;
+
+  const anchor = sel2.anchorNode;
+  if (anchor) {
+    const node = anchor.nodeType === 3 ? anchor.parentNode : anchor;
+    if (node && (node === pickerSearch || node.closest?.('.picker__search'))) return;
+  }
+  if (sel2.rangeCount) sel2.removeAllRanges();
+};
+document.addEventListener('selectionchange', clearSelection, { passive: true });
+
 
       refresh();
     });
