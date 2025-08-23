@@ -10,21 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const currentTimeDisplay  = document.getElementById('currentTime');
   const playPauseBtn        = document.getElementById('playPauseBtn');
   const tempoSlider         = document.getElementById('tempoSlider');
-    const tempoLabel          = document.getElementById('tempoLabel');
+  const tempoLabel          = document.getElementById('tempoLabel');
   const sheetMusicImg       = document.querySelector('.sheet-music img');
-
-  // Ensure Play button sits above any shields and is always clickable
-  if (playPauseBtn) {
-    try { playPauseBtn.type = 'button'; } catch {}
-    playPauseBtn.style.position = 'relative';
-    playPauseBtn.style.zIndex   = '1000';
-    playPauseBtn.style.pointerEvents = 'auto';
-  }
 
   // Progress bar
   const progressContainer   = document.querySelector('.progress-container .bar');
   let   progress            = document.getElementById('progress') || document.querySelector('.bar__fill');
-
 
   // Transport / randomize / limits
   const randomExerciseBtn   = document.getElementById('randomExerciseBtn');
@@ -252,9 +243,8 @@ document.addEventListener('DOMContentLoaded', function () {
     applyLoopMode();
   }
   resetPracticeControls();
-    window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
-// Make buttons "real buttons" and stop event leaks
   // Make buttons "real buttons" and stop event leaks
   [
     'playPauseBtn','randomExerciseBtn','randomTempoBtn',
@@ -267,17 +257,12 @@ document.addEventListener('DOMContentLoaded', function () {
     try { el.type = 'button'; } catch {}
     el.style.touchAction = 'manipulation';
     const stop = (e) => e.stopPropagation();
-
-    // IMPORTANT: don't swallow Play button events
-    if (id !== 'playPauseBtn') {
-      el.addEventListener('pointerdown', stop, { passive: true });
-      el.addEventListener('click', stop);
-    }
+    el.addEventListener('pointerdown', stop, { passive: true });
+    el.addEventListener('click', stop);
   });
 
   // never let readOnly selector inputs keep a caret/focus
   [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
-
     if(!inp) return;
     try { inp.readOnly = true; } catch {}
     inp.setAttribute('inputmode','none');
@@ -388,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resetTempoStepCounter();
   });
 
-    if (playPauseBtn && audio) {
+  if (playPauseBtn && audio) {
     playPauseBtn.addEventListener('click', function () {
       if (audio.ended || (isFinite(audio.duration) && audio.currentTime >= audio.duration)) {
         audio.currentTime = 0;
@@ -400,7 +385,10 @@ document.addEventListener('DOMContentLoaded', function () {
           this.textContent = 'Pause';
           startProgressTicker();
         }).catch((error) => {
-          console.error('Error playing audio:', error);
+          console.error('Error playing audio:', error, {
+            src: audio.currentSrc || audio.src,
+            readyState: audio.readyState
+          });
           alert('Audio is not ready yet. Please wait a moment.');
         });
       } else {
@@ -408,11 +396,10 @@ document.addEventListener('DOMContentLoaded', function () {
         audio.pause();
         this.textContent = 'Play';
       }
-    }, { capture: true }); // <-- ensure Play always receives the click
+    });
   }
 
   // ===== Audio ended (single exercise / auto modes) =====
-
   let autoStepLock = false;
   let playbackCycleId = 0;
   const onEnded = async () => {
@@ -718,6 +705,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Resolve media/image URLs robustly across local, GitHub Pages, and Webflow.
+  function resolveAssetUrl(p) {
+    if (!p) return p;
+
+    // Upgrade to https if page is https (avoid mixed content)
+    if (location.protocol === 'https:' && /^http:\/\//i.test(p)) {
+      p = p.replace(/^http:\/\//i, 'https://');
+    }
+
+    // Already absolute (https or data URL)? Use as-is.
+    if (/^(https?:)?\/\//i.test(p) || /^data:/i.test(p)) return p;
+
+    // Root-absolute like "/audio/foo.mp3" -> this breaks on GitHub project sites.
+    if (p.startsWith('/')) {
+      const parts = location.pathname.split('/').filter(Boolean);
+      // On username.github.io/repo/... prefix the repo name: "/repo"
+      if (/github\.io$/i.test(location.hostname) && parts.length >= 1) {
+        return '/' + parts[0] + p; // "/repo" + "/audio/foo.mp3"
+      }
+      // Otherwise leave it root-absolute (works for custom domains/Webflow roots)
+      return p;
+    }
+
+    // Relative -> resolve against current page
+    try {
+      return new URL(p, document.baseURI).href;
+    } catch {
+      return p;
+    }
+  }
+
   // ===== Exercise flow =====
   function filterExercisesForMode() {
     if (isPlayingPlaylist && currentPlaylist) {
@@ -741,7 +759,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function initializeExercise(ex) {
     if (!audio || !tempoSlider || !tempoLabel || !sheetMusicImg) return;
 
-    audio.src     = ex.audioSrc;
+    audio.src     = resolveAssetUrl(ex.audioSrc);
     audio.preload = 'auto';
     audio.load();
 
@@ -749,7 +767,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
 
-    sheetMusicImg.src = ex.sheetMusicSrc;
+    sheetMusicImg.src = resolveAssetUrl(ex.sheetMusicSrc);
 
     currentOriginalTempo = ex.originalTempo;
     tempoSlider.min      = ex.originalTempo / 2;
@@ -941,7 +959,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
     if (randomTempoBtn)        randomTempoBtn.disabled        = true;
     if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
-    if (tempoSlider)           tempoSlider.disabled           = true;
+
+    // Keep slider LOOK the same but make it non-interactive
+    if (tempoSlider) {
+      tempoSlider.setAttribute('aria-disabled','true');
+      tempoSlider.classList.add('is-disabled');
+    }
 
     const autoLabelFirst = document.querySelector('.auto-label');
     if (autoLabelFirst) autoLabelFirst.classList.add('disabled');
@@ -991,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeExercise(exercise);
 
     const tempo = item.tempos[currentTempoIndex];
-    setTempoSilently(tempo); // slider is disabled in playlist mode
+    setTempoSilently(tempo); // slider visually same; input is non-interactive via aria-disabled
 
     if (playlistQueueSearchInput) {
       setSelectorValue(playlistQueueSearchInput, `${exercise.name} at ${tempo} BPM`, `${currentPlaylistItemIndex}-${currentTempoIndex}-${currentRepetition}`);
@@ -1055,7 +1078,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (randomTempoBtn)     randomTempoBtn.disabled       = false;
     if (autoRandomizeToggle) autoRandomizeToggle.disabled = false;
     if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
-    if (tempoSlider)        tempoSlider.disabled          = false;
+
+    // Restore slider interactivity without changing look
+    if (tempoSlider) {
+      tempoSlider.removeAttribute('aria-disabled');
+      tempoSlider.classList.remove('is-disabled');
+    }
 
     // Keep inputs visually cleared and ALSO reset internals again
     if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
@@ -1215,13 +1243,15 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.classList.add(theme === 'purple' ? 'picker--purple' : 'picker--orange');
 
       pickerTitle.textContent = title;
-pickerOverlay.hidden = false;
-pickerOverlay.setAttribute('aria-hidden', 'false');
-document.body.classList.add('modal-open');
+      pickerOverlay.hidden = false;
+      pickerOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
 
-pickerSearch.value = '';
-pickerSearch.placeholder = 'Search...';
+      try { pickerSearch.blur(); } catch {}
+      const sel = window.getSelection?.(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
 
+      pickerSearch.value = '';
+      pickerSearch.placeholder = 'Search...';
 
       let items = [];
       let activeIndex = -1;
@@ -1335,15 +1365,22 @@ pickerSearch.placeholder = 'Search...';
         document.removeEventListener('keydown', onKey);
         pickerOverlay.removeEventListener('click', onOverlayClick);
         pickerClose.removeEventListener('click', close);
+        document.removeEventListener('selectionchange', clearSelection);
       }
 
       pickerSearch.addEventListener('input', refresh);
-document.addEventListener('keydown', onKey);
-pickerOverlay.addEventListener('click', onOverlayClick);
-pickerClose.addEventListener('click', close);
+      document.addEventListener('keydown', onKey);
+      pickerOverlay.addEventListener('click', onOverlayClick);
+      pickerClose.addEventListener('click', close);
 
-refresh();
+      const clearSelection = () => {
+        if (pickerOverlay.hidden) return;
+        const sel2 = window.getSelection?.();
+        if (sel2 && sel2.rangeCount) sel2.removeAllRanges();
+      };
+      document.addEventListener('selectionchange', clearSelection);
 
+      refresh();
     });
   }
 
