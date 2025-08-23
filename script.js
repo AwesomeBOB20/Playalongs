@@ -1267,14 +1267,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       pickerTitle.textContent = title;
       pickerOverlay.hidden = false;
-      pickerOverlay.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
+pickerOverlay.setAttribute('aria-hidden', 'false');
+document.body.classList.add('modal-open');
 
-      try { pickerSearch.blur(); } catch {}
-      const sel = window.getSelection?.(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
+pickerSearch.value = '';
+pickerSearch.placeholder = 'Search...';
 
-      pickerSearch.value = '';
-      pickerSearch.placeholder = 'Search...';
+// Focus immediately so iOS shows the keyboard; desktop ready to type.
+try {
+  pickerSearch.readOnly = false;
+  pickerSearch.focus({ preventScroll: true });
+  const L = pickerSearch.value.length;
+  pickerSearch.setSelectionRange(L, L);
+} catch {}
+
 
       let items = [];
       let activeIndex = -1;
