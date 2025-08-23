@@ -146,6 +146,10 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .btn--purple:disabled{ background:var(--purple-dim); opacity:1; filter:brightness(.9) saturate(.95); }
 .btn-square{ width:45px; }
 
+/* Instant tactile feedback on press */
+.random-container .btn:active{ background: var(--orange-d); }
+#tempoStepContainer .btn:active{ background: var(--blue-d); }
+
 /* ===== Random container (Orange) ===== */
 .random-container{
   display:flex; align-items:center; border:2px solid var(--black); border-radius:5px; overflow:hidden;
@@ -644,4 +648,3 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
-
