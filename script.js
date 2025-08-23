@@ -243,26 +243,29 @@ document.addEventListener('DOMContentLoaded', function () {
     applyLoopMode();
   }
   resetPracticeControls();
-  window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
+    window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
-  // Make buttons "real buttons" and stop event leaks
-  [
-    'playPauseBtn','randomExerciseBtn','randomTempoBtn',
-    'prevExerciseBtn','nextExerciseBtn',
-    'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn',
-    'bumpTempoBtn'
-  ].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    try { el.type = 'button'; } catch {}
-    el.style.touchAction = 'manipulation';
-    const stop = (e) => e.stopPropagation();
+// Make buttons "real buttons" and stop event leaks
+[
+  'playPauseBtn','randomExerciseBtn','randomTempoBtn',
+  'prevExerciseBtn','nextExerciseBtn',
+  'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn',
+  'bumpTempoBtn'
+].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  try { el.type = 'button'; } catch {}
+  el.style.touchAction = 'manipulation';
+  const stop = (e) => e.stopPropagation();
+  if (id !== 'playPauseBtn') {
     el.addEventListener('pointerdown', stop, { passive: true });
     el.addEventListener('click', stop);
-  });
+  }
+});
 
-  // never let readOnly selector inputs keep a caret/focus
-  [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
+// never let readOnly selector inputs keep a caret/focus
+[categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
+
     if(!inp) return;
     try { inp.readOnly = true; } catch {}
     inp.setAttribute('inputmode','none');
