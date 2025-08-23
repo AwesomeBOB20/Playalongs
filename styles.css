@@ -42,20 +42,22 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 }
 .selector::selection{ background:transparent; }
 
-/* blanket suppression inside the picker overlay subtree */
-.picker, .picker *{
+/* blanket suppression inside the picker overlay subtree — EXCEPT inputs/textarea */
+.picker :not(input):not(textarea){
   -webkit-user-select:none; user-select:none; -moz-user-select:none;
   -webkit-touch-callout:none;
   caret-color:transparent;
 }
-/* allow normal text/caret in the search box when focused */
+/* allow normal text/caret in the search box (Safari-safe) */
 .picker__search,
 .picker__search:focus{
-  -webkit-user-select:text; user-select:text; -moz-user-select:text;
-  caret-color:auto;
+  -webkit-user-select:text !important; user-select:text !important; -moz-user-select:text !important;
+  -webkit-touch-callout:text !important;
+  caret-color:auto !important;
 }
 /* selection highlight off for any stray selection in overlay */
 .picker ::selection{ background:transparent; }
+
 
 /* iOS interaction guards */
 .bar{
@@ -220,10 +222,26 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .volume-slider::-webkit-slider-runnable-track, .tempo-slider::-webkit-slider-runnable-track,
 .volume-slider::-moz-range-track,              .tempo-slider::-moz-range-track{ background:transparent; border:none; }
 
-/* Disabled range visuals (Safari) */
-input[type="range"]:disabled{ opacity:1; }
-input[type="range"]:disabled::-webkit-slider-runnable-track{ background:#c7b8c5; }
-input[type="range"]:disabled::-webkit-slider-thumb{ background:#9b9b9b; }
+/* Disabled range visuals — keep identical look when disabled (Safari/iOS fix) */
+input[type="range"]:disabled{
+  opacity:1;                 /* no dimming */
+  pointer-events:none;       /* still un-interactable */
+}
+
+/* Track stays transparent so the input’s inline gradient shows */
+input[type="range"]:disabled::-webkit-slider-runnable-track{ background:transparent; }
+input[type="range"]:disabled::-moz-range-track{ background:transparent; }
+
+/* Thumb stays the same white circle with black border */
+input[type="range"]:disabled::-webkit-slider-thumb{
+  background:var(--white);
+  border:2px solid var(--black);
+}
+input[type="range"]:disabled::-moz-range-thumb{
+  background:var(--white);
+  border:2px solid var(--black);
+}
+
 
 /* ===== Layout (40px section spacing) ===== */
 .control-container{
