@@ -291,7 +291,7 @@ body.playlist-mode .btn-square:hover{ background:var(--purple-d); }
   background:var(--blue); color:#fff; gap:8px; white-space:nowrap;
 }
 #tempoStepContainer .auto-label:hover{ background:var(--blue-d); }
-#tempoStepContainer .auto-label input[type="checkbox"]{ accent-color:var(--blue); }
+#tempoStepContainer .auto-label input[type="checkbox"]{ accent-color:var(--purple); }
 #tempoStepContainer .btn:first-child{
   border-top-right-radius:0;
   border-bottom-right-radius:0;
@@ -644,3 +644,4 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
+
