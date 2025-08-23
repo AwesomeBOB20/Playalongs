@@ -10,12 +10,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const currentTimeDisplay  = document.getElementById('currentTime');
   const playPauseBtn        = document.getElementById('playPauseBtn');
   const tempoSlider         = document.getElementById('tempoSlider');
-  const tempoLabel          = document.getElementById('tempoLabel');
+    const tempoLabel          = document.getElementById('tempoLabel');
   const sheetMusicImg       = document.querySelector('.sheet-music img');
+
+  // Ensure Play button sits above any shields and is always clickable
+  if (playPauseBtn) {
+    try { playPauseBtn.type = 'button'; } catch {}
+    playPauseBtn.style.position = 'relative';
+    playPauseBtn.style.zIndex   = '1000';
+    playPauseBtn.style.pointerEvents = 'auto';
+  }
 
   // Progress bar
   const progressContainer   = document.querySelector('.progress-container .bar');
   let   progress            = document.getElementById('progress') || document.querySelector('.bar__fill');
+
 
   // Transport / randomize / limits
   const randomExerciseBtn   = document.getElementById('randomExerciseBtn');
