@@ -124,6 +124,28 @@ document.addEventListener('DOMContentLoaded', function () {
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
   }
 
+  // ===== FAST PRESS helper (fires on pointerdown, suppress following click) =====
+  function addFastPress(el, handler) {
+    if (!el) return;
+    let suppressClickUntil = 0;
+
+    el.addEventListener('pointerdown', (e) => {
+      // only primary pointer
+      if (e.button != null && e.button !== 0) return;
+      suppressClickUntil = performance.now() + 350;
+      handler(e);
+    }, { passive: true });
+
+    el.addEventListener('click', (e) => {
+      if (performance.now() < suppressClickUntil) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      handler(e);
+    });
+  }
+
   // ===== Utility: groups & resets =====
   function getOriginalRandomContainer() {
     const all = Array.from(document.querySelectorAll('.random-container'));
@@ -321,18 +343,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  bumpTempoBtn?.addEventListener('click', () => {
-    if (isPlayingPlaylist) return;
-    if (!tempoSlider) return;
-    const cur = parseInt(tempoSlider.value, 10);
-    const min = parseInt(tempoSlider.min, 10);
-    const max = parseInt(tempoSlider.max, 10);
-    const step = (typeof tempoStepStep === 'number') ? tempoStepStep : 0;
-    const next = Math.max(min, Math.min(max, cur + step));
-    setTempoThrottled(next, { blur:true });
-    resetTempoStepCounter();
-  });
-
   // ===== Buttons =====
   randomExerciseBtn?.addEventListener('click', function () {
     quietRandomize();
@@ -340,13 +350,27 @@ document.addEventListener('DOMContentLoaded', function () {
     pickRandomExercise();
   });
 
-  randomTempoBtn?.addEventListener('click', function () {
+  // >>> FAST, IMMEDIATE: Randomize Tempo (user press)
+  addFastPress(randomTempoBtn, function () {
     if (isPlayingPlaylist) return;
     const wasPlaying = audio && !audio.paused;
     quietRandomize();
-    pickRandomTempo();
+    pickRandomTempo(true);        // immediate, skip throttle on manual press
     resetTempoStepCounter();
     if (wasPlaying) startProgressTicker();
+  });
+
+  // >>> FAST, IMMEDIATE: Bump Tempo (user press)
+  addFastPress(bumpTempoBtn, function () {
+    if (isPlayingPlaylist) return;
+    if (!tempoSlider) return;
+    const cur  = parseInt(tempoSlider.value, 10);
+    const min  = parseInt(tempoSlider.min, 10);
+    const max  = parseInt(tempoSlider.max, 10);
+    const step = (typeof tempoStepStep === 'number') ? tempoStepStep : 0;
+    const next = Math.max(min, Math.min(max, cur + step));
+    setTempoSilently(next, { blur:true });  // immediate
+    resetTempoStepCounter();
   });
 
   if (playPauseBtn && audio) {
@@ -388,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentRepCount++;
         if (currentRepCount >= repsBeforeChange) {
           currentRepCount = 0;
-          pickRandomTempo();
+          pickRandomTempo();  // auto path stays throttled
         }
 
         resetProgressBarInstant();
@@ -734,10 +758,12 @@ document.addEventListener('DOMContentLoaded', function () {
     applyLoopMode();
   }
 
-  // ===== Robust Random Tempo =====
-  function pickRandomTempo() {
+  // ===== Robust Random Tempo (now supports immediate flag) =====
+  function pickRandomTempo(immediate = false) {
     if (!currentSelectedExercise || !tempoSlider) return;
     if (userIsAdjustingTempo) return;
+
+    const setNow = (val) => immediate ? setTempoSilently(val, { blur: true }) : setTempoThrottled(val, { blur: true });
 
     const sliderMin = Number(tempoSlider.min);
     const sliderMax = Number(tempoSlider.max);
@@ -755,12 +781,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Below-range or above-range hard clamps (no random pick)
     if (hasMin && hasMax && maxRaw < sliderMin) {
-      setTempoThrottled(sliderMin, { blur: true });
+      setNow(sliderMin);
       prevTempo = sliderMin;
       return;
     }
     if (hasMin && hasMax && minRaw > sliderMax) {
-      setTempoThrottled(sliderMax, { blur: true });
+      setNow(sliderMax);
       prevTempo = sliderMax;
       return;
     }
@@ -783,7 +809,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // If min==max -> direct set (and avoid "distance-from-prev" loop)
     if (minTempo === maxTempo) {
-      setTempoThrottled(minTempo, { blur: true });
+      setNow(minTempo);
       prevTempo = minTempo;
       return;
     }
@@ -810,7 +836,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     prevTempo = randomTempo;
-    setTempoThrottled(randomTempo, { blur: true });
+    setNow(randomTempo);
   }
 
   function pickRandomExercise() {
