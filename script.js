@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const autoRandomizeToggle = document.getElementById('autoRandomizeToggle');
   const repsPerTempoInput   = document.getElementById('repsPerTempo');
 
+  // Tempo Step (Dial)
+  const bumpTempoBtn        = document.getElementById('bumpTempoBtn');
+  const autoTempoStepToggle = document.getElementById('autoTempoStepToggle');
+  const dialRepsInput       = document.getElementById('dialReps');
+  const dialStepInput       = document.getElementById('dialStep');
+  const tempoStepContainer  = document.getElementById('tempoStepContainer');
+
   // Playlist buttons and progress
   const stopPlaylistBtn            = document.getElementById('stopPlaylistBtn');
   const prevPlaylistItemBtn        = document.getElementById('prevPlaylistItemBtn');
@@ -33,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistProgress           = document.getElementById('playlistProgress');
   const playlistProgressPercentage = document.getElementById('playlistProgressPercentage');
 
-  // Top selectors (we make these readonly to avoid mobile keyboard)
+  // Top selectors
   const categorySearchInput      = document.getElementById('categorySearch');
   const exerciseSearchInput      = document.getElementById('exerciseSearch');
   const playlistSearchInput      = document.getElementById('playlistSearch');
@@ -66,17 +73,23 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===== State =====
-  let isDragging              = false; // progress bar drag
-  let isPlayingPlaylist       = false;
-  let currentPlaylist         = null;
+  let isDragging               = false; // progress bar drag
+  let isPlayingPlaylist        = false;
+  let currentPlaylist          = null;
   let currentPlaylistItemIndex = 0;
-  let currentTempoIndex       = 0;
-  let currentRepetition       = 0;
-  let playlistQueueMap        = [];    // flattened queue
+  let currentTempoIndex        = 0;
+  let currentRepetition        = 0;
+  let playlistQueueMap         = [];    // flattened queue
 
-  let isRandomizeEnabled      = false;
-  let repsBeforeChange        = 1;
-  let currentRepCount         = 0;
+  let isRandomizeEnabled = false;
+  let repsBeforeChange   = 1;
+  let currentRepCount    = 0;
+
+  // Tempo Step (Dial) state
+  let tempoStepEnabled    = false; // mirrors autoTempoStepToggle
+  let tempoStepReps       = 1;     // >= 1
+  let tempoStepStep       = 0;     // can be negative
+  let tempoStepRepCounter = 0;     // counts track finishes since last reset
 
   let displayedExercises      = [];
   let currentExerciseIndex    = 0;
@@ -110,20 +123,101 @@ document.addEventListener('DOMContentLoaded', function () {
     if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
     if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
   }
-  function applyLoopMode() {
-    if (!audio) return;
-    audio.loop = !isPlayingPlaylist && !isRandomizeEnabled;
+
+  // ===== Utility: groups & resets =====
+  function getOriginalRandomContainer() {
+    const all = Array.from(document.querySelectorAll('.random-container'));
+    if (!all.length) return null;
+    if (!tempoStepContainer) return all[0];
+    const found = all.find(el => el !== tempoStepContainer);
+    return found || all[0];
   }
 
-  // Reset on first load and iOS back-forward cache
+  function lockRandomGroup(locked) {
+    const rc = getOriginalRandomContainer();
+    const al = rc?.querySelector('.auto-label');
+    if (locked) {
+      if (randomTempoBtn)        randomTempoBtn.disabled = true;
+      if (autoRandomizeToggle)   autoRandomizeToggle.disabled = true;
+      if (repsPerTempoInput)     repsPerTempoInput.disabled = true;
+      if (minTempoInput)         minTempoInput.disabled = true;
+      if (maxTempoInput)         maxTempoInput.disabled = true;
+      rc?.classList.add('disabled'); al?.classList.add('disabled');
+    } else if (!isPlayingPlaylist) {
+      if (randomTempoBtn)        randomTempoBtn.disabled = false;
+      if (autoRandomizeToggle)   autoRandomizeToggle.disabled = false;
+      if (repsPerTempoInput)     repsPerTempoInput.disabled = false;
+      if (minTempoInput)         minTempoInput.disabled = false;
+      if (maxTempoInput)         maxTempoInput.disabled = false;
+      rc?.classList.remove('disabled'); al?.classList.remove('disabled');
+    }
+  }
+
+  function lockTempoStepGroup(locked) {
+    if (!tempoStepContainer) return;
+    const al = tempoStepContainer.querySelector('.auto-label');
+    if (locked) {
+      if (bumpTempoBtn)          bumpTempoBtn.disabled = true;
+      if (autoTempoStepToggle)   autoTempoStepToggle.disabled = true;
+      if (dialRepsInput)         dialRepsInput.disabled = true;
+      if (dialStepInput)         dialStepInput.disabled = true;
+      tempoStepContainer.classList.add('disabled'); al?.classList.add('disabled');
+    } else if (!isPlayingPlaylist) {
+      if (bumpTempoBtn)          bumpTempoBtn.disabled = false;
+      if (autoTempoStepToggle)   autoTempoStepToggle.disabled = false;
+      if (dialRepsInput)         dialRepsInput.disabled = false; // editable outside playlist
+      if (dialStepInput)         dialStepInput.disabled = false; // editable outside playlist
+      tempoStepContainer.classList.remove('disabled'); al?.classList.remove('disabled');
+    }
+  }
+
+  function resetTempoStepCounter() { tempoStepRepCounter = 0; }
+
+  function resetRandomizeInternals() {
+    isRandomizeEnabled = false;
+    repsBeforeChange   = 1;
+    currentRepCount    = 0;
+  }
+
+  function resetTempoStepInternals() {
+    tempoStepEnabled    = false;
+    tempoStepReps       = 1;
+    tempoStepStep       = 0;
+    tempoStepRepCounter = 0;
+  }
+
+  function applyLoopMode() {
+    if (!audio) return;
+    audio.loop = !isPlayingPlaylist && !isRandomizeEnabled && !tempoStepEnabled;
+  }
+
+  // ===== Total time accuracy: update on metadata & rate changes =====
+  function refreshTimeDisplays() {
+    updateTotalTime();
+    updateCurrentTime();
+  }
+  if (audio) {
+    audio.addEventListener('loadedmetadata', refreshTimeDisplays);
+    audio.addEventListener('durationchange', refreshTimeDisplays);
+    audio.addEventListener('ratechange',     refreshTimeDisplays);
+    audio.addEventListener('loadeddata',     refreshTimeDisplays);
+    audio.addEventListener('canplay',        refreshTimeDisplays);
+  }
+
+  // ===== First-load reset =====
   function resetPracticeControls() {
     if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
     if (repsPerTempoInput)   repsPerTempoInput.value = '';
     if (minTempoInput)       minTempoInput.value = '';
     if (maxTempoInput)       maxTempoInput.value = '';
-    isRandomizeEnabled = false;
-    repsBeforeChange   = 1;
-    currentRepCount    = 0;
+    resetRandomizeInternals();
+
+    if (autoTempoStepToggle) autoTempoStepToggle.checked = false;
+    if (dialRepsInput) { dialRepsInput.value = ''; dialRepsInput.disabled = false; } // keep enabled on load
+    if (dialStepInput) { dialStepInput.value = ''; dialStepInput.disabled = false; } // keep enabled on load
+    if (bumpTempoBtn)  { bumpTempoBtn.disabled = false; }
+    resetTempoStepInternals();
+
     applyLoopMode();
   }
   resetPracticeControls();
@@ -133,7 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
   [
     'playPauseBtn','randomExerciseBtn','randomTempoBtn',
     'prevExerciseBtn','nextExerciseBtn',
-    'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn'
+    'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn',
+    'bumpTempoBtn'
   ].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -144,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     el.addEventListener('click', stop);
   });
 
-  // NEW: never let readOnly selector inputs keep a caret/focus
+  // never let readOnly selector inputs keep a caret/focus
   [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
     if(!inp) return;
     try { inp.readOnly = true; } catch {}
@@ -177,6 +272,14 @@ document.addEventListener('DOMContentLoaded', function () {
     autoRandomizeToggle.addEventListener('change', function () {
       isRandomizeEnabled = this.checked;
       currentRepCount = 0;
+
+      // Mutual exclusivity: turning Randomize Auto ON turns off Tempo Step Auto
+      if (isRandomizeEnabled) {
+        if (autoTempoStepToggle) autoTempoStepToggle.checked = false;
+        tempoStepEnabled = false;
+        // DO NOT disable/darken the tempo step controls here.
+      }
+
       applyLoopMode();
       if (isRandomizeEnabled) defocusSlider();
     });
@@ -187,6 +290,48 @@ document.addEventListener('DOMContentLoaded', function () {
       repsBeforeChange = (!isNaN(val) && val > 0) ? val : 1;
     });
   }
+
+  // ===== Tempo Step (Dial) wiring =====
+  if (autoTempoStepToggle) {
+    autoTempoStepToggle.addEventListener('change', function () {
+      tempoStepEnabled = this.checked;
+      resetTempoStepCounter();
+
+      // Do not disable or darken randomize controls outside playlist.
+      if (tempoStepEnabled) {
+        // Just turn off Randomize Auto internally.
+        if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
+        isRandomizeEnabled = false;
+      }
+
+      applyLoopMode();
+    });
+  }
+
+  if (dialRepsInput) {
+    dialRepsInput.addEventListener('input', () => {
+      const v = parseInt(dialRepsInput.value, 10);
+      tempoStepReps = (!isNaN(v) && v > 0) ? v : 1;
+    });
+  }
+  if (dialStepInput) {
+    dialStepInput.addEventListener('input', () => {
+      const v = parseInt(dialStepInput.value, 10);
+      tempoStepStep = (!isNaN(v)) ? v : 0;
+    });
+  }
+
+  bumpTempoBtn?.addEventListener('click', () => {
+    if (isPlayingPlaylist) return;
+    if (!tempoSlider) return;
+    const cur = parseInt(tempoSlider.value, 10);
+    const min = parseInt(tempoSlider.min, 10);
+    const max = parseInt(tempoSlider.max, 10);
+    const step = (typeof tempoStepStep === 'number') ? tempoStepStep : 0;
+    const next = Math.max(min, Math.min(max, cur + step));
+    setTempoThrottled(next, { blur:true });
+    resetTempoStepCounter();
+  });
 
   // ===== Buttons =====
   randomExerciseBtn?.addEventListener('click', function () {
@@ -200,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const wasPlaying = audio && !audio.paused;
     quietRandomize();
     pickRandomTempo();
+    resetTempoStepCounter();
     if (wasPlaying) startProgressTicker();
   });
 
@@ -226,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Audio ended (single exercise / randomize loop) =====
+  // ===== Audio ended (single exercise / auto modes) =====
   let autoStepLock = false;
   let playbackCycleId = 0;
   const onEnded = async () => {
@@ -237,11 +383,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const cycleId = ++playbackCycleId;
 
     try {
+      // Randomize Auto path
       if (isRandomizeEnabled && currentSelectedExercise) {
         currentRepCount++;
         if (currentRepCount >= repsBeforeChange) {
           currentRepCount = 0;
-          pickRandomTempo(); // throttled + blur
+          pickRandomTempo();
         }
 
         resetProgressBarInstant();
@@ -254,6 +401,31 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      // Tempo Step Auto path (mutually exclusive)
+      if (tempoStepEnabled && currentSelectedExercise) {
+        tempoStepRepCounter++;
+        if (tempoStepReps <= 0) tempoStepReps = 1;
+        if (tempoStepRepCounter % tempoStepReps === 0) {
+          const cur = parseInt(tempoSlider.value, 10);
+          const min = parseInt(tempoSlider.min, 10);
+          const max = parseInt(tempoSlider.max, 10);
+          const step = (typeof tempoStepStep === 'number') ? tempoStepStep : 0;
+          const next = Math.max(min, Math.min(max, cur + step));
+          setTempoThrottled(next, { blur:true });
+          tempoStepRepCounter = 0;
+        }
+
+        resetProgressBarInstant();
+        audio.currentTime = 0;
+        await new Promise(r => requestAnimationFrame(r));
+        if (cycleId !== playbackCycleId) return;
+        try { await audio.play(); } catch {}
+        if (playPauseBtn) playPauseBtn.textContent = 'Pause';
+        startProgressTicker();
+        return;
+      }
+
+      // No auto modes
       if (!audio.loop) {
         if (playPauseBtn) playPauseBtn.textContent = 'Play';
         resetProgressBarInstant();
@@ -313,6 +485,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tempoSlider.value = String(val);
       updatePlaybackRate();
       updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
+      resetTempoStepCounter();
     }
 
     function start(e) {
@@ -373,6 +546,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tempoSlider.addEventListener('input', function () {
       if (suppressTempoInput) return;
+      resetTempoStepCounter();
       updatePlaybackRate();
       updateSliderBackground(this, '#96318d', '#ffffff');
     });
@@ -516,7 +690,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function getSelectedCategory() {
-    // Prefer data-id on the input; fallback to placeholder mapping
     const id = getSelectorId(categorySearchInput);
     if (id) return id;
     const ph = categorySearchInput?.placeholder ?? 'All Categories';
@@ -550,9 +723,94 @@ document.addEventListener('DOMContentLoaded', function () {
       exerciseSearchInput.dataset.id = String(ex.id);
     }
 
+    // Make sure we update totals as soon as metadata is ready for THIS src
+    const onceUpdate = () => refreshTimeDisplays();
+    audio.addEventListener('loadedmetadata', onceUpdate, { once: true });
+    audio.addEventListener('canplay',        onceUpdate, { once: true });
+
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
+    resetTempoStepCounter();
     applyLoopMode();
+  }
+
+  // ===== Robust Random Tempo =====
+  function pickRandomTempo() {
+    if (!currentSelectedExercise || !tempoSlider) return;
+    if (userIsAdjustingTempo) return;
+
+    const sliderMin = Number(tempoSlider.min);
+    const sliderMax = Number(tempoSlider.max);
+
+    const minRaw = parseInt(minTempoInput?.value, 10);
+    const maxRaw = parseInt(maxTempoInput?.value, 10);
+
+    const hasMin = !isNaN(minRaw);
+    const hasMax = !isNaN(maxRaw);
+
+    // If both provided and reversed -> do nothing
+    if (hasMin && hasMax && minRaw > maxRaw) {
+      return; // leave tempo unchanged
+    }
+
+    // Below-range or above-range hard clamps (no random pick)
+    if (hasMin && hasMax && maxRaw < sliderMin) {
+      setTempoThrottled(sliderMin, { blur: true });
+      prevTempo = sliderMin;
+      return;
+    }
+    if (hasMin && hasMax && minRaw > sliderMax) {
+      setTempoThrottled(sliderMax, { blur: true });
+      prevTempo = sliderMax;
+      return;
+    }
+
+    // Defaults based on exercise if empty/invalid
+    const defMin = Math.floor(currentSelectedExercise.originalTempo / 2);
+    const defMax = currentSelectedExercise.originalTempo * 2;
+
+    let minTempo = hasMin ? minRaw : defMin;
+    let maxTempo = hasMax ? maxRaw : defMax;
+
+    // Clamp to slider range
+    minTempo = Math.max(sliderMin, Math.min(sliderMax, minTempo));
+    maxTempo = Math.max(sliderMin, Math.min(sliderMax, maxTempo));
+
+    // After clamp, if invalid ordering (e.g., only one was far out), treat as no-op
+    if (minTempo > maxTempo) {
+      return;
+    }
+
+    // If min==max -> direct set (and avoid "distance-from-prev" loop)
+    if (minTempo === maxTempo) {
+      setTempoThrottled(minTempo, { blur: true });
+      prevTempo = minTempo;
+      return;
+    }
+
+    // Random within [minTempo, maxTempo]
+    const span = maxTempo - minTempo;
+    let randomTempo;
+
+    // Avoid infinite loops when span is small: relax distance constraints
+    const needDistance = prevTempo != null && span >= 8;
+    if (!needDistance) {
+      randomTempo = Math.floor(Math.random() * (span + 1)) + minTempo;
+    } else {
+      const MAX_TRIES = 25;
+      let found = false;
+      for (let i = 0; i < MAX_TRIES; i++) {
+        const cand = Math.floor(Math.random() * (span + 1)) + minTempo;
+        const delta = Math.abs(cand - prevTempo);
+        if (delta >= 8 && delta <= 90) { randomTempo = cand; found = true; break; }
+      }
+      if (!found) {
+        randomTempo = Math.floor(Math.random() * (span + 1)) + minTempo;
+      }
+    }
+
+    prevTempo = randomTempo;
+    setTempoThrottled(randomTempo, { blur: true });
   }
 
   function pickRandomExercise() {
@@ -561,7 +819,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const idx = Math.floor(Math.random() * filtered.length);
     currentExerciseIndex    = idx;
     currentSelectedExercise = filtered[idx];
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; exerciseSearchInput.dataset.id = String(currentSelectedExercise.id); }
+    if (exerciseSearchInput) {
+      exerciseSearchInput.value = '';
+      exerciseSearchInput.placeholder = currentSelectedExercise.name;
+      exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
+    }
     initializeExercise(currentSelectedExercise);
     if (audio) { audio.pause(); resetProgressBarInstant(); }
     if (playPauseBtn) playPauseBtn.textContent = 'Play';
@@ -572,31 +834,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function pickRandomTempo() {
-    if (!currentSelectedExercise || !tempoSlider) return;
-    if (userIsAdjustingTempo) return;
-
-    let minTempo = parseInt(minTempoInput?.value, 10);
-    let maxTempo = parseInt(maxTempoInput?.value, 10);
-    const defMin = Math.floor(currentSelectedExercise.originalTempo / 2);
-    const defMax = currentSelectedExercise.originalTempo * 2;
-
-    if (isNaN(minTempo) || minTempo < 1 || minTempo > 999) minTempo = defMin;
-    if (isNaN(maxTempo) || maxTempo < 1 || maxTempo > 999) maxTempo = defMax;
-    if (minTempo > maxTempo) [minTempo, maxTempo] = [maxTempo, minTempo];
-
-    minTempo = Math.max(minTempo, Number(tempoSlider.min));
-    maxTempo = Math.min(maxTempo, Number(tempoSlider.max));
-
-    let randomTempo;
-    do {
-      randomTempo = Math.floor(Math.random() * (maxTempo - minTempo + 1)) + minTempo;
-    } while (prevTempo !== null && (Math.abs(randomTempo - prevTempo) < 8 || Math.abs(randomTempo - prevTempo) > 90));
-
-    prevTempo = randomTempo;
-    setTempoThrottled(randomTempo, { blur: true });
-  }
-
   function navigateExercise(step) {
     displayedExercises = filterExercisesForMode();
     if (displayedExercises.length === 0) return;
@@ -605,7 +842,11 @@ document.addEventListener('DOMContentLoaded', function () {
     currentExerciseIndex = (currentExerciseIndex + step + len) % len;
     currentSelectedExercise = displayedExercises[currentExerciseIndex];
 
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = currentSelectedExercise.name; exerciseSearchInput.dataset.id = String(currentSelectedExercise.id); }
+    if (exerciseSearchInput) {
+      exerciseSearchInput.value = '';
+      exerciseSearchInput.placeholder = currentSelectedExercise.name;
+      exerciseSearchInput.dataset.id = String(currentSelectedExercise.id);
+    }
 
     initializeExercise(currentSelectedExercise);
     if (audio) { audio.pause(); resetProgressBarInstant(); if (playPauseBtn) playPauseBtn.textContent = 'Play'; }
@@ -632,6 +873,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.body.classList.add('playlist-mode');
 
+    // Uncheck and lock both Autos, clear related fields + RESET INTERNALS
+    if (autoRandomizeToggle) { autoRandomizeToggle.checked = false; }
+    if (repsPerTempoInput)   { repsPerTempoInput.value = ''; repsPerTempoInput.disabled = true; }
+    if (minTempoInput)       { minTempoInput.value = ''; minTempoInput.disabled = true; }
+    if (maxTempoInput)       { maxTempoInput.value = ''; maxTempoInput.disabled = true; }
+    resetRandomizeInternals();
+
+    if (autoTempoStepToggle) { autoTempoStepToggle.checked = false; }
+    if (dialRepsInput)       { dialRepsInput.value = ''; dialRepsInput.disabled = true; }
+    if (dialStepInput)       { dialStepInput.value = ''; dialStepInput.disabled = true; }
+    if (bumpTempoBtn)        { bumpTempoBtn.disabled = true; }
+    resetTempoStepInternals();
+    prevTempo = null;
+
     // Force Category to "All Categories" and lock it during playlist
     if (categorySearchInput) {
       categorySearchInput.value = '';
@@ -641,18 +896,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Lock other controls
-    if (minTempoInput)         minTempoInput.disabled         = true;
-    if (maxTempoInput)         maxTempoInput.disabled         = true;
     if (randomExerciseBtn)     randomExerciseBtn.disabled     = true;
     if (randomTempoBtn)        randomTempoBtn.disabled        = true;
     if (autoRandomizeToggle)   autoRandomizeToggle.disabled   = true;
-    if (repsPerTempoInput)     repsPerTempoInput.disabled     = true;
     if (tempoSlider)           tempoSlider.disabled           = true;
 
-    const autoLabel = document.querySelector('.auto-label');
-    if (autoLabel) autoLabel.classList.add('disabled');
-    const randomContainer = document.querySelector('.random-container');
-    if (randomContainer) randomContainer.classList.add('disabled');
+    const autoLabelFirst = document.querySelector('.auto-label');
+    if (autoLabelFirst) autoLabelFirst.classList.add('disabled');
+    const randomContainerFirst = getOriginalRandomContainer();
+    if (randomContainerFirst) randomContainerFirst.classList.add('disabled');
+    lockTempoStepGroup(true);
 
     if (prevPlaylistItemBtn) prevPlaylistItemBtn.disabled = false;
     if (nextPlaylistItemBtn) nextPlaylistItemBtn.disabled = false;
@@ -672,7 +925,7 @@ document.addEventListener('DOMContentLoaded', function () {
       currentSelectedExercise = displayedExercises[0];
     }
 
-    updatePlaylistQueueDisplay(); // builds queue map
+    updatePlaylistQueueDisplay();
     playCurrentPlaylistItem();
     applyLoopMode();
   }
@@ -688,7 +941,11 @@ document.addEventListener('DOMContentLoaded', function () {
     displayedExercises      = filterExercisesForMode();
     currentExerciseIndex    = displayedExercises.indexOf(exercise);
 
-    if (exerciseSearchInput) { exerciseSearchInput.value = ''; exerciseSearchInput.placeholder = exercise.name; exerciseSearchInput.dataset.id = String(exercise.id); }
+    if (exerciseSearchInput) {
+      exerciseSearchInput.value = '';
+      exerciseSearchInput.placeholder = exercise.name;
+      exerciseSearchInput.dataset.id = String(exercise.id);
+    }
     initializeExercise(exercise);
 
     const tempo = item.tempos[currentTempoIndex];
@@ -758,10 +1015,28 @@ document.addEventListener('DOMContentLoaded', function () {
     if (repsPerTempoInput)  repsPerTempoInput.disabled    = false;
     if (tempoSlider)        tempoSlider.disabled          = false;
 
-    const autoLabel = document.querySelector('.auto-label');
-    if (autoLabel) autoLabel.classList.remove('disabled');
-    const randomContainer = document.querySelector('.random-container');
-    if (randomContainer) randomContainer.classList.remove('disabled');
+    // Keep inputs visually cleared and ALSO reset internals again
+    if (autoRandomizeToggle) autoRandomizeToggle.checked = false;
+    if (repsPerTempoInput)   repsPerTempoInput.value = '';
+    if (minTempoInput)       minTempoInput.value = '';
+    if (maxTempoInput)       maxTempoInput.value = '';
+    resetRandomizeInternals();
+
+    if (autoTempoStepToggle) autoTempoStepToggle.checked = false;
+    if (dialRepsInput)       { dialRepsInput.value = ''; dialRepsInput.disabled = false; }
+    if (dialStepInput)       { dialStepInput.value = ''; dialStepInput.disabled = false; }
+    if (bumpTempoBtn)        bumpTempoBtn.disabled = false;
+    resetTempoStepInternals();
+    prevTempo = null;
+
+    // Random group visuals back
+    const autoLabelFirst = document.querySelector('.auto-label');
+    if (autoLabelFirst) autoLabelFirst.classList.remove('disabled');
+    const randomContainerFirst = getOriginalRandomContainer();
+    if (randomContainerFirst) randomContainerFirst.classList.remove('disabled');
+
+    // Tempo Step group back
+    lockTempoStepGroup(false);
 
     document.body.classList.remove('playlist-mode');
 
@@ -818,7 +1093,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (prevPlaylistItemBtn)        prevPlaylistItemBtn.disabled = true;
     if (nextPlaylistItemBtn)        nextPlaylistItemBtn.disabled = true;
     if (playPauseBtn)               playPauseBtn.textContent = 'Play';
-    // Do NOT clear playlistSearchInput.value; keep last selection visible.
     if (playlistProgressContainer)  playlistProgressContainer.style.display = 'none';
     updatePlaylistQueueDisplay();
     updatePlaylistProgressBar();
@@ -895,23 +1169,19 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===== Picker overlay (no auto-focus; active item scrolls into view) =====
   function showPicker({ theme = 'orange', title = 'Select', getItems, onSelect, getActiveId, getInitialIndex }) {
     return new Promise((resolve) => {
-      // Theme
       pickerOverlay.classList.remove('picker--orange', 'picker--purple');
       pickerOverlay.classList.add(theme === 'purple' ? 'picker--purple' : 'picker--orange');
 
-      // Title + open
       pickerTitle.textContent = title;
       pickerOverlay.hidden = false;
       pickerOverlay.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
 
-      // ensure no residual caret/selection from previous interactions
       try { pickerSearch.blur(); } catch {}
       const sel = window.getSelection?.(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
 
       pickerSearch.value = '';
       pickerSearch.placeholder = 'Search...';
-      // IMPORTANT: do NOT focus automatically (prevents keyboard popup)
 
       let items = [];
       let activeIndex = -1;
@@ -933,7 +1203,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       function render() {
         pickerList.innerHTML = '';
-        // Hide list entirely when empty
         pickerOverlay.classList.toggle('picker--no-results', items.length === 0);
         if (!items.length) return;
 
@@ -947,8 +1216,6 @@ document.addEventListener('DOMContentLoaded', function () {
           li.textContent = it.label;
           li.style.touchAction = 'manipulation';
 
-          // Tap handling that avoids OS text-caret on Firefox Android,
-          // while preserving natural scroll.
           let startX=0, startY=0, moved=false;
           const THRESH = 8;
 
@@ -966,19 +1233,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
           li.addEventListener('touchend', (e) => {
             if (!moved) {
-              e.preventDefault(); // suppress native tap (no caret/blue chip)
+              e.preventDefault();
               choose(i);
             }
           }, { passive: false });
 
-          li.addEventListener('click', () => choose(i)); // desktop/mouse
-
-          li.addEventListener('contextmenu', (e) => e.preventDefault()); // long-press menu
+          li.addEventListener('click', () => choose(i));
+          li.addEventListener('contextmenu', (e) => e.preventDefault());
 
           pickerList.appendChild(li);
         });
 
-        // Keep active item in view on (re)render
         if (activeIndex >= 0) {
           const el = pickerList.querySelector(`[data-idx="${activeIndex}"]`);
           if (el) el.scrollIntoView({ block: 'nearest' });
@@ -1038,7 +1303,6 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.addEventListener('click', onOverlayClick);
       pickerClose.addEventListener('click', close);
 
-      // Clear any accidental selection while picker is open
       const clearSelection = () => {
         if (pickerOverlay.hidden) return;
         const sel2 = window.getSelection?.();
@@ -1138,7 +1402,6 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       onSelect: (it) => {
         if (!it) return;
-        // Ensure previous run is fully stopped before updating UI
         if (isPlayingPlaylist) stopPlaylist();
         startPlaylist(it.id);
         setSelectorValue(playlistSearchInput, it.label, it.id);
@@ -1176,7 +1439,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===== Open pickers from inputs (open on release; no keyboard) =====
+  // ===== Open pickers from inputs =====
   function wireOpener(input, fn) {
     if (!input) return;
     try { input.readOnly = true; } catch {}
@@ -1187,7 +1450,6 @@ document.addEventListener('DOMContentLoaded', function () {
       fn();
     });
 
-    // Keyboard support
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -1201,7 +1463,7 @@ document.addEventListener('DOMContentLoaded', function () {
   wireOpener(playlistSearchInput, openPlaylistPicker);
   wireOpener(playlistQueueSearchInput, openQueuePicker);
 
-  // ===== Picker-list only: extra guards =====
+  // Picker-list only: extra guards
   if (pickerList){
     pickerList.addEventListener('selectstart', (e) => e.preventDefault(), { passive:false });
     pickerList.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -1261,7 +1523,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const padTop    = parseFloat(cs.paddingTop)    || 0;
       const padBottom = parseFloat(cs.paddingBottom) || 0;
       const headerH   = header ? header.getBoundingClientRect().height : 0;
-      const gapBelowHeader = 10; // matches CSS grid gap
+      const gapBelowHeader = 10;
       const usable = vvh() - padTop - padBottom - headerH - gapBelowHeader;
       pickerList.style.maxHeight = px(usable);
     }
