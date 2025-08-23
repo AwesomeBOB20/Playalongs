@@ -246,25 +246,28 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('pageshow', (e) => { if (e.persisted) resetPracticeControls(); });
 
 // Make buttons "real buttons" and stop event leaks
-[
-  'playPauseBtn','randomExerciseBtn','randomTempoBtn',
-  'prevExerciseBtn','nextExerciseBtn',
-  'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn',
-  'bumpTempoBtn'
-].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  try { el.type = 'button'; } catch {}
-  el.style.touchAction = 'manipulation';
-  const stop = (e) => e.stopPropagation();
-  if (id !== 'playPauseBtn') {
-    el.addEventListener('pointerdown', stop, { passive: true });
-    el.addEventListener('click', stop);
-  }
-});
+  // Make buttons "real buttons" and stop event leaks
+  [
+    'playPauseBtn','randomExerciseBtn','randomTempoBtn',
+    'prevExerciseBtn','nextExerciseBtn',
+    'prevPlaylistItemBtn','nextPlaylistItemBtn','stopPlaylistBtn',
+    'bumpTempoBtn'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    try { el.type = 'button'; } catch {}
+    el.style.touchAction = 'manipulation';
+    const stop = (e) => e.stopPropagation();
 
-// never let readOnly selector inputs keep a caret/focus
-[categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
+    // IMPORTANT: don't swallow Play button events
+    if (id !== 'playPauseBtn') {
+      el.addEventListener('pointerdown', stop, { passive: true });
+      el.addEventListener('click', stop);
+    }
+  });
+
+  // never let readOnly selector inputs keep a caret/focus
+  [categorySearchInput, exerciseSearchInput, playlistSearchInput, playlistQueueSearchInput].forEach(inp=>{
 
     if(!inp) return;
     try { inp.readOnly = true; } catch {}
@@ -376,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resetTempoStepCounter();
   });
 
-  if (playPauseBtn && audio) {
+    if (playPauseBtn && audio) {
     playPauseBtn.addEventListener('click', function () {
       if (audio.ended || (isFinite(audio.duration) && audio.currentTime >= audio.duration)) {
         audio.currentTime = 0;
@@ -396,10 +399,11 @@ document.addEventListener('DOMContentLoaded', function () {
         audio.pause();
         this.textContent = 'Play';
       }
-    });
+    }, { capture: true }); // <-- ensure Play always receives the click
   }
 
   // ===== Audio ended (single exercise / auto modes) =====
+
   let autoStepLock = false;
   let playbackCycleId = 0;
   const onEnded = async () => {
