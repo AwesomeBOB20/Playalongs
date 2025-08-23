@@ -5,7 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Playalongs</title>
-  <link rel="stylesheet" href="https://awesomebob20.github.io/Playalongs/styles.css" type="text/css"></head>
+	<link rel="stylesheet" href="https://awesomebob20.github.io/Playalongs/styles.css">
+</head>
 <body>
   <div class="container">
 
@@ -98,7 +99,24 @@
       <input type="number" id="repsPerTempo" class="tempo-input" placeholder="Reps" min="1" />
       <input type="number" id="minTempo" class="tempo-input" placeholder="Min BPM" min="1" max="999" />
       <input type="number" id="maxTempo" class="tempo-input" placeholder="Max BPM" min="1" max="999" />
-    </div>
+        </div>
+
+    <!-- Tempo Step (Dial) -->
+    <div class="control-container">
+  <div class="random-container" id="tempoStepContainer">
+    <button id="bumpTempoBtn" class="btn btn--orange">Bump Tempo</button>
+    <div class="vertical-divider" aria-hidden="true"></div>
+    <label for="autoTempoStepToggle" class="auto-label">
+      <input type="checkbox" id="autoTempoStepToggle" /> Auto
+    </label>
+  </div>
+
+  <div class="tempo-step-fields">
+    <input type="number" id="dialReps" class="tempo-input" placeholder="Reps" min="1" />
+    <input type="number" id="dialStep" class="tempo-input" placeholder="±BPM" step="1" min="-999" max="999" />
+  </div>
+</div>
+
 
     <!-- Tempo slider -->
     <div class="tempo-control">
@@ -146,8 +164,9 @@
 
 
   <!-- Local assets only -->
- <script defer src="https://awesomebob20.github.io/Playalongs/data.js"></script>
-  <script defer src="https://awesomebob20.github.io/Playalongs/scripts.js"></script>
+  <script defer src="https://awesomebob20.github.io/Playalongs/data.js"></script>
+	<script defer src="https://awesomebob20.github.io/Playalongs/script.js"></script>
+
 
   <noscript>This app needs JavaScript enabled.</noscript>
 </body>
