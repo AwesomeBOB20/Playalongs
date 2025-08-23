@@ -1199,15 +1199,13 @@ document.addEventListener('DOMContentLoaded', function () {
       pickerOverlay.classList.add(theme === 'purple' ? 'picker--purple' : 'picker--orange');
 
       pickerTitle.textContent = title;
-      pickerOverlay.hidden = false;
-      pickerOverlay.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
+pickerOverlay.hidden = false;
+pickerOverlay.setAttribute('aria-hidden', 'false');
+document.body.classList.add('modal-open');
 
-      try { pickerSearch.blur(); } catch {}
-      const sel = window.getSelection?.(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
+pickerSearch.value = '';
+pickerSearch.placeholder = 'Search...';
 
-      pickerSearch.value = '';
-      pickerSearch.placeholder = 'Search...';
 
       let items = [];
       let activeIndex = -1;
@@ -1321,22 +1319,15 @@ document.addEventListener('DOMContentLoaded', function () {
         document.removeEventListener('keydown', onKey);
         pickerOverlay.removeEventListener('click', onOverlayClick);
         pickerClose.removeEventListener('click', close);
-        document.removeEventListener('selectionchange', clearSelection);
       }
 
       pickerSearch.addEventListener('input', refresh);
-      document.addEventListener('keydown', onKey);
-      pickerOverlay.addEventListener('click', onOverlayClick);
-      pickerClose.addEventListener('click', close);
+document.addEventListener('keydown', onKey);
+pickerOverlay.addEventListener('click', onOverlayClick);
+pickerClose.addEventListener('click', close);
 
-      const clearSelection = () => {
-        if (pickerOverlay.hidden) return;
-        const sel2 = window.getSelection?.();
-        if (sel2 && sel2.rangeCount) sel2.removeAllRanges();
-      };
-      document.addEventListener('selectionchange', clearSelection);
+refresh();
 
-      refresh();
     });
   }
 
