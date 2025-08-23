@@ -9,9 +9,9 @@
   --gray-1:#ddd; --gray-2:#808080; --gray-3:#53525d;
 
   /* Tempo Bump blue palette */
-  --blue:#06aeb9;     /* main */
-  --blue-d:#05949d;   /* hover/active */
-  --blue-dim:#047a82; /* disabled/playlist */
+  --blue:#058890;
+  --blue-d:#04767e;
+  --blue-dim:#03656b;
 }
 
 /* ===== Global ===== */
@@ -663,3 +663,4 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
+
