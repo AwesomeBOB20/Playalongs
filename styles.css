@@ -148,9 +148,17 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .btn--purple:disabled{ background:var(--purple-dim); opacity:1; filter:brightness(.9) saturate(.95); }
 .btn-square{ width:45px; }
 
+/* Keep Play button always on top of any accidental overlays */
+#playPauseBtn{
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
 /* Instant tactile feedback on press */
 .random-container .btn:active{ background: var(--orange-d); }
 #tempoStepContainer .btn:active{ background: var(--blue-d); }
+
 
 /* ===== Random container (Orange) ===== */
 .random-container{
