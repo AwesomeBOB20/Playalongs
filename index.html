@@ -96,13 +96,14 @@
         </label>
       </div>
 
-      <input type="number" id="repsPerTempo" class="tempo-input" placeholder="Reps" min="1" />
-      <input type="number" id="minTempo" class="tempo-input" placeholder="Min BPM" min="1" max="999" />
-      <input type="number" id="maxTempo" class="tempo-input" placeholder="Max BPM" min="1" max="999" />
-        </div>
+      <input type="text" id="repsPerTempo" class="tempo-input" placeholder="Reps" />
+      <input type="text" id="minTempo" class="tempo-input" placeholder="Min BPM" />
+      <input type="text" id="maxTempo" class="tempo-input" placeholder="Max BPM" />
+    </div>
 
     <!-- Tempo Step (Dial) -->
     <div class="control-container">
+
   <div class="random-container" id="tempoStepContainer">
     <button id="bumpTempoBtn" class="btn btn--orange">Bump Tempo</button>
     <div class="vertical-divider" aria-hidden="true"></div>
@@ -112,9 +113,10 @@
   </div>
 
   <div class="tempo-step-fields">
-    <input type="number" id="dialReps" class="tempo-input" placeholder="Reps" min="1" />
-    <input type="number" id="dialStep" class="tempo-input" placeholder="±BPM" step="1" min="-999" max="999" />
-  </div>
+  <input type="text" id="dialReps" class="tempo-input" placeholder="Reps" />
+  <input type="text" id="dialStep" class="tempo-input" placeholder="±BPM" />
+</div>
+
 </div>
 
 
