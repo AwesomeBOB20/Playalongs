@@ -1118,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (autoTempoStepToggle) autoTempoStepToggle.checked = false;
     if (dialRepsInput)       { dialRepsInput.value = ''; dialRepsInput.disabled = false; }
     if (dialStepInput)       { dialStepInput.value = ''; dialStepInput.disabled = false; }
-    if (bumpTempoBtn)        bumpTempoBtn.disabled = false;
+    if (bumpTempoBtn)        { bumpTempoBtn.disabled = false; }
     resetTempoStepInternals();
     prevTempo = null;
 
@@ -1668,6 +1668,59 @@ document.addEventListener('selectionchange', clearSelection, { passive: true });
     mo.observe(pickerOverlay, { attributes:true, attributeFilter:['hidden','aria-hidden','class','style'] });
 
     if (isOpen()) bind();
+  })();
+
+  // ===== Keyboard shortcuts: Space = Play/Pause; Arrows = tempo (±1, Shift=±5) =====
+  (function () {
+    const isTextInput = (el) => {
+      if (!el) return false;
+      const tag = (el.tagName || '').toLowerCase();
+      return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+    };
+
+    const overlayOpen = () =>
+      !!(pickerOverlay && !pickerOverlay.hidden && pickerOverlay.getAttribute('aria-hidden') !== 'true');
+
+    function adjustTempo(delta) {
+      if (!tempoSlider) return;
+      // Respect disabled / aria-disabled (e.g., during playlist mode)
+      if (tempoSlider.disabled || tempoSlider.getAttribute('aria-disabled') === 'true') return;
+
+      const min = Number(tempoSlider.min || 0);
+      const max = Number(tempoSlider.max || 999);
+      const cur = Number(tempoSlider.value || 0);
+      const next = Math.max(min, Math.min(max, cur + delta));
+
+      if (next === cur) return;
+      setTempoSilently(next, { blur: true });
+      resetTempoStepCounter();
+    }
+
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        // Ignore when typing or when picker modal is open
+        if (isTextInput(document.activeElement) || overlayOpen()) return;
+
+        // Space toggles play/pause
+        if (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          if (playPauseBtn) playPauseBtn.click();
+          return;
+        }
+
+        // Arrow keys adjust tempo (Shift = ±5)
+        const step = e.shiftKey ? 5 : 1;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          adjustTempo(step);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          adjustTempo(-step);
+        }
+      },
+      { passive: false }
+    );
   })();
 
 });
