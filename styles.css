@@ -8,8 +8,8 @@
   --purple:#96318d; --purple-d:#81227a; --purple-dim:#752070;
   --gray-1:#ddd; --gray-2:#808080; --gray-3:#53525d;
 
-  /* Tempo Bump blue palette */
-  --blue:#058890;
+  /* Darker blue palette (better contrast on white text) */
+--blue:#058890;
   --blue-d:#04767e;
   --blue-dim:#03656b;
 }
@@ -218,7 +218,7 @@ body.modal-open{ overflow:hidden; touch-action:none; }
   margin:20px auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
 }
 .tempo-slider{
-  -webkit-appearance:none; appearance:none; width:100%; max-width:100%; height:12px; border-radius:5px;
+  -webkit-appearance:none; appearance:none; width:100%; max-width:100%; height:16px; border-radius:5px;
   margin:0 auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
 }
 .volume-slider::-webkit-slider-thumb, .tempo-slider::-webkit-slider-thumb,
@@ -663,4 +663,3 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
-
