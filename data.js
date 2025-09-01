@@ -455,7 +455,73 @@ window.PLAYLISTS = [
         ]
     },
 
-    // Paradiddle Warm Up Easy
+    // Flam Warm Up Easy
+    {
+        name: 'Flam Warm Up Easy',
+        items: [
+            // Flams - Flam Taps (Exercise ID: 32)
+            { exerciseId: 32, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
+            { exerciseId: 32, tempos: [140, 150], repetitionsPerTempo: 3 },
+            // Flams - Swisses (Exercise ID: 33)
+            { exerciseId: 33, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
+            { exerciseId: 33, tempos: [140, 150], repetitionsPerTempo: 3 },
+            // Flam Accent Builder (Exercise ID: 28)
+            { exerciseId: 28, tempos: [105, 120], repetitionsPerTempo: 3 },
+            { exerciseId: 28, tempos: [135, 150], repetitionsPerTempo: 2 },
+            // Add A Flam (Exercise ID: 17)
+            { exerciseId: 17, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+            { exerciseId: 17, tempos: [100, 110], repetitionsPerTempo: 2 },
+            // Flam Tap Builder (Exercise ID: 31)
+            { exerciseId: 31, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
+            { exerciseId: 31, tempos: [110], repetitionsPerTempo: 2 },
+            // Swiss Taps (Exercise ID: 78)
+            { exerciseId: 78, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
+            // Flam Accent Grid (Exercise ID: 29)
+            { exerciseId: 29, tempos: [80, 90, 100], repetitionsPerTempo: 4 },
+            { exerciseId: 29, tempos: [110, 120], repetitionsPerTempo: 3 },
+            // Flam Accent Grid Backwards (Exercise ID: 30)
+            { exerciseId: 30, tempos: [80, 90, 100], repetitionsPerTempo: 4 },
+            { exerciseId: 30, tempos: [110, 120], repetitionsPerTempo: 3 },
+            // The Big Three (Exercise ID: 48)
+            { exerciseId: 48, tempos: [80, 95, 110], repetitionsPerTempo: 3 },
+            { exerciseId: 48, tempos: [125, 140], repetitionsPerTempo: 2 }
+        ]
+    },
+
+    // Flam Warm Up Hard
+    {
+        name: 'Flam Warm Up Hard',
+        items: [
+            // Flams - Flam Taps (Exercise ID: 32)
+            { exerciseId: 32, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
+            { exerciseId: 32, tempos: [175, 190], repetitionsPerTempo: 3 },
+            // Flams - Swisses (Exercise ID: 33)
+            { exerciseId: 33, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
+            { exerciseId: 33, tempos: [175, 190], repetitionsPerTempo: 3 },
+            // Flam Accent Builder (Exercise ID: 28)
+            { exerciseId: 28, tempos: [135, 140], repetitionsPerTempo: 3 },
+            { exerciseId: 28, tempos: [155, 170], repetitionsPerTempo: 2 },
+            // Add A Flam (Exercise ID: 17)
+            { exerciseId: 17, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
+            { exerciseId: 17, tempos: [130, 140], repetitionsPerTempo: 2 },
+            // Flam Tap Builder (Exercise ID: 31)
+            { exerciseId: 31, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
+            { exerciseId: 31, tempos: [130], repetitionsPerTempo: 2 },
+            // Swiss Taps (Exercise ID: 78)
+            { exerciseId: 78, tempos: [105, 120, 135, 150], repetitionsPerTempo: 3 },
+            // Flam Accent Grid (Exercise ID: 29)
+            { exerciseId: 29, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
+            { exerciseId: 29, tempos: [145, 160], repetitionsPerTempo: 3 },
+            // Flam Accent Grid Backwards (Exercise ID: 30)
+            { exerciseId: 30, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
+            { exerciseId: 30, tempos: [145, 160], repetitionsPerTempo: 3 },
+            // The Big Three (Exercise ID: 48)
+            { exerciseId: 48, tempos: [120, 135, 150], repetitionsPerTempo: 3 },
+            { exerciseId: 48, tempos: [165, 180], repetitionsPerTempo: 2 }
+        ]
+    },
+    
+// Paradiddle Warm Up Easy
 {
   name: 'Paradiddle Warm Up Easy',
   items: [
@@ -555,71 +621,6 @@ window.PLAYLISTS = [
         ]
     },
 
-    // Flam Warm Up Easy
-    {
-        name: 'Flam Warm Up Easy',
-        items: [
-            // Flams - Flam Taps (Exercise ID: 32)
-            { exerciseId: 32, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
-            { exerciseId: 32, tempos: [140, 150], repetitionsPerTempo: 3 },
-            // Flams - Swisses (Exercise ID: 33)
-            { exerciseId: 33, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
-            { exerciseId: 33, tempos: [140, 150], repetitionsPerTempo: 3 },
-            // Flam Accent Builder (Exercise ID: 28)
-            { exerciseId: 28, tempos: [105, 120], repetitionsPerTempo: 3 },
-            { exerciseId: 28, tempos: [135, 150], repetitionsPerTempo: 2 },
-            // Add A Flam (Exercise ID: 17)
-            { exerciseId: 17, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
-            { exerciseId: 17, tempos: [100, 110], repetitionsPerTempo: 2 },
-            // Flam Tap Builder (Exercise ID: 31)
-            { exerciseId: 31, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
-            { exerciseId: 31, tempos: [110], repetitionsPerTempo: 2 },
-            // Swiss Taps (Exercise ID: 78)
-            { exerciseId: 78, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
-            // Flam Accent Grid (Exercise ID: 29)
-            { exerciseId: 29, tempos: [80, 90, 100], repetitionsPerTempo: 4 },
-            { exerciseId: 29, tempos: [110, 120], repetitionsPerTempo: 3 },
-            // Flam Accent Grid Backwards (Exercise ID: 30)
-            { exerciseId: 30, tempos: [80, 90, 100], repetitionsPerTempo: 4 },
-            { exerciseId: 30, tempos: [110, 120], repetitionsPerTempo: 3 },
-            // The Big Three (Exercise ID: 48)
-            { exerciseId: 48, tempos: [80, 95, 110], repetitionsPerTempo: 3 },
-            { exerciseId: 48, tempos: [125, 140], repetitionsPerTempo: 2 }
-        ]
-    },
-
-    // Flam Warm Up Hard
-    {
-        name: 'Flam Warm Up Hard',
-        items: [
-            // Flams - Flam Taps (Exercise ID: 32)
-            { exerciseId: 32, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
-            { exerciseId: 32, tempos: [175, 190], repetitionsPerTempo: 3 },
-            // Flams - Swisses (Exercise ID: 33)
-            { exerciseId: 33, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
-            { exerciseId: 33, tempos: [175, 190], repetitionsPerTempo: 3 },
-            // Flam Accent Builder (Exercise ID: 28)
-            { exerciseId: 28, tempos: [135, 140], repetitionsPerTempo: 3 },
-            { exerciseId: 28, tempos: [155, 170], repetitionsPerTempo: 2 },
-            // Add A Flam (Exercise ID: 17)
-            { exerciseId: 17, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
-            { exerciseId: 17, tempos: [130, 140], repetitionsPerTempo: 2 },
-            // Flam Tap Builder (Exercise ID: 31)
-            { exerciseId: 31, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
-            { exerciseId: 31, tempos: [130], repetitionsPerTempo: 2 },
-            // Swiss Taps (Exercise ID: 78)
-            { exerciseId: 78, tempos: [105, 120, 135, 150], repetitionsPerTempo: 3 },
-            // Flam Accent Grid (Exercise ID: 29)
-            { exerciseId: 29, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
-            { exerciseId: 29, tempos: [145, 160], repetitionsPerTempo: 3 },
-            // Flam Accent Grid Backwards (Exercise ID: 30)
-            { exerciseId: 30, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
-            { exerciseId: 30, tempos: [145, 160], repetitionsPerTempo: 3 },
-            // The Big Three (Exercise ID: 48)
-            { exerciseId: 48, tempos: [120, 135, 150], repetitionsPerTempo: 3 },
-            { exerciseId: 48, tempos: [165, 180], repetitionsPerTempo: 2 }
-        ]
-    },
 
     // The 5 Fundamental Exercises Easy
     {
@@ -660,6 +661,7 @@ window.PLAYLISTS = [
     }
 
 ];
+
 
 
 
