@@ -407,41 +407,41 @@ window.EXERCISES = [
         ];
 
 window.PLAYLISTS = [
-  // === Basic Timing — Easy ===
+  // === 5 Fundamentals — Easy ===
   {
-    name: 'Timing Easy',
+    name: '5 Fundamentals Easy',
     items: [
-      // 16th 1 note (Exercise ID: 13)
-      { exerciseId: 13, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // 16th 2 note (Exercise ID: 14)
-      { exerciseId: 14, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // 16th 3 note (Exercise ID: 15)
-      { exerciseId: 15, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // Triplet 1 note (Exercise ID: 51)
-      { exerciseId: 51, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
-      // Triplet 2 note (Exercise ID: 52)
-      { exerciseId: 52, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
-      // Triplet 3 note (Exercise ID: 53)
-      { exerciseId: 53, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // Eights (Exercise ID: 26)
+      { exerciseId: 26, tempos: [100, 120, 140, 160, 180, 200], repetitionsPerTempo: 4 },
+      // Bucks (Exercise ID: 18)
+      { exerciseId: 18, tempos: [100, 110, 120], repetitionsPerTempo: 4 },
+      { exerciseId: 18, tempos: [130, 140], repetitionsPerTempo: 3 },
+      // Double Beat (Exercise ID: 24)
+      { exerciseId: 24, tempos: [90, 100, 110], repetitionsPerTempo: 4 },
+      { exerciseId: 24, tempos: [120, 130], repetitionsPerTempo: 3 },
+      // Huggadics (Exercise ID: 37)
+      { exerciseId: 37, tempos: [80, 90, 100, 110], repetitionsPerTempo: 4 },
+      // Huckgadics (Exercise ID: 36)
+      { exerciseId: 36, tempos: [70, 85, 100, 120], repetitionsPerTempo: 4 },
     ],
   },
 
-  // === Basic Timing — Hard ===
+  // === 5 Fundamentals — Hard ===
   {
-    name: 'Timing Hard',
+    name: '5 Fundamentals Hard',
     items: [
-      // 16th 1 note (Exercise ID: 13)
-      { exerciseId: 13, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // 16th 2 note (Exercise ID: 14)
-      { exerciseId: 14, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // 16th 3 note (Exercise ID: 15)
-      { exerciseId: 15, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // Triplet 1 note (Exercise ID: 51)
-      { exerciseId: 51, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
-      // Triplet 2 note (Exercise ID: 52)
-      { exerciseId: 52, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
-      // Triplet 3 note (Exercise ID: 53)
-      { exerciseId: 53, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // Eights (Exercise ID: 26)
+      { exerciseId: 26, tempos: [150, 170, 190, 210, 230, 250], repetitionsPerTempo: 4 },
+      // Bucks (Exercise ID: 18)
+      { exerciseId: 18, tempos: [120, 135, 150], repetitionsPerTempo: 4 },
+      { exerciseId: 18, tempos: [165, 180], repetitionsPerTempo: 3 },
+      // Double Beat (Exercise ID: 24)
+      { exerciseId: 24, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
+      { exerciseId: 24, tempos: [150, 160], repetitionsPerTempo: 3 },
+      // Huggadics (Exercise ID: 37)
+      { exerciseId: 37, tempos: [100, 110, 120, 130], repetitionsPerTempo: 4 },
+      // Huckgadics (Exercise ID: 36)
+      { exerciseId: 36, tempos: [90, 110, 130, 150], repetitionsPerTempo: 4 },
     ],
   },
 
@@ -634,6 +634,44 @@ window.PLAYLISTS = [
       // Triplet Diddle (Exercise ID: 55)
       { exerciseId: 55, tempos: [110, 125, 140], repetitionsPerTempo: 4 },
       { exerciseId: 55, tempos: [155, 170], repetitionsPerTempo: 3 },
+    ],
+  },
+
+  // === Basic Timing — Easy ===
+  {
+    name: 'Timing Easy',
+    items: [
+      // 16th 1 note (Exercise ID: 13)
+      { exerciseId: 13, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // 16th 2 note (Exercise ID: 14)
+      { exerciseId: 14, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // 16th 3 note (Exercise ID: 15)
+      { exerciseId: 15, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // Triplet 1 note (Exercise ID: 51)
+      { exerciseId: 51, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // Triplet 2 note (Exercise ID: 52)
+      { exerciseId: 52, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // Triplet 3 note (Exercise ID: 53)
+      { exerciseId: 53, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+    ],
+  },
+
+  // === Basic Timing — Hard ===
+  {
+    name: 'Timing Hard',
+    items: [
+      // 16th 1 note (Exercise ID: 13)
+      { exerciseId: 13, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // 16th 2 note (Exercise ID: 14)
+      { exerciseId: 14, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // 16th 3 note (Exercise ID: 15)
+      { exerciseId: 15, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // Triplet 1 note (Exercise ID: 51)
+      { exerciseId: 51, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // Triplet 2 note (Exercise ID: 52)
+      { exerciseId: 52, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // Triplet 3 note (Exercise ID: 53)
+      { exerciseId: 53, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
     ],
   },
 ];
