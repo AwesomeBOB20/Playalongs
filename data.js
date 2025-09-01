@@ -500,23 +500,23 @@ window.PLAYLISTS = [
       // Quarter Triplet - Triplet (Exercise ID: 357)
       { exerciseId: 357, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // Quarter Triplet - 16th (Exercise ID: 356)
-      { exerciseId: 356, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
+      { exerciseId: 356, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // 8th - Triplet (Exercise ID: 11)
       { exerciseId: 11, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // 8th - 16th (Exercise ID: 304)
-      { exerciseId: 304, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
+      { exerciseId: 304, tempos: [130, 150, 170], repetitionsPerTempo: 3 },
       // Triplet - 16th (Exercise ID: 59)
-      { exerciseId: 59, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
+      { exerciseId: 59, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // Triplet - 9let (Exercise ID: 360)
-      { exerciseId: 360, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+      { exerciseId: 360, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
       // 16th - 5let (Exercise ID: 315)
-      { exerciseId: 315, tempos: [60, 70, 80], repetitionsPerTempo: 3 },
+      { exerciseId: 315, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
       // 16th - 6let (Exercise ID: 352)
-      { exerciseId: 352, tempos: [60, 70, 80], repetitionsPerTempo: 3 },
+      { exerciseId: 352, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
       // 8th - 5let (Exercise ID: 349)
-      { exerciseId: 349, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+      { exerciseId: 349, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
       // 8th - 6let (Exercise ID: 350)
-      { exerciseId: 350, tempos: [60, 70, 80], repetitionsPerTempo: 3 },
+      { exerciseId: 350, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -527,25 +527,25 @@ window.PLAYLISTS = [
       // Quarter Triplet - 8th (Exercise ID: 355)
       { exerciseId: 355, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
       // Quarter Triplet - 9let (Exercise ID: 361)
-      { exerciseId: 361, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+      { exerciseId: 361, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // 8th - 8th 5let (Exercise ID: 302)
-      { exerciseId: 302, tempos: [130, 145, 160], repetitionsPerTempo: 3 },
+      { exerciseId: 302, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
       // 8th - 8th 9let (Exercise ID: 351)
       { exerciseId: 351, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
       // 8th 5let - Triplet (Exercise ID: 312)
-      { exerciseId: 312, tempos: [120, 135, 150], repetitionsPerTempo: 3 },
+      { exerciseId: 312, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
       // 8th 5let - 16th (Exercise ID: 309)
-      { exerciseId: 309, tempos: [110, 120, 130], repetitionsPerTempo: 3 },
+      { exerciseId: 309, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
       // 8th 5let - 5let (Exercise ID: 307)
-      { exerciseId: 307, tempos: [60, 70, 80], repetitionsPerTempo: 3 },
+      { exerciseId: 307, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
       // Triplet - 5let (Exercise ID: 167)
-      { exerciseId: 167, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
+      { exerciseId: 167, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
       // Triplet - 6let (Exercise ID: 358)
-      { exerciseId: 358, tempos: [60, 70, 80], repetitionsPerTempo: 3 },
+      { exerciseId: 358, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
       // 16th - 9let (Exercise ID: 354)
-      { exerciseId: 354, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+      { exerciseId: 354, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
       // 16th - 8th 7let (Exercise ID: 353)
-      { exerciseId: 353, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
+      { exerciseId: 353, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -675,3 +675,4 @@ window.PLAYLISTS = [
     ],
   },
 ];
+
