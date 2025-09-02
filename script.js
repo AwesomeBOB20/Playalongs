@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const tempoLabel          = document.getElementById('tempoLabel');
   const sheetMusicImg       = document.querySelector('.sheet-music img');
 
-  // Progress bar
+  // Progress bar (track)
   const progressContainer   = document.querySelector('.progress-container .bar');
   let   progress            = document.getElementById('progress') || document.querySelector('.bar__fill');
 
@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const playlistProgressContainer  = document.querySelector('.playlist-progress-container');
   const playlistProgress           = document.getElementById('playlistProgress');
   const playlistProgressPercentage = document.getElementById('playlistProgressPercentage');
+
+  // Overlay root (text container centered over playlist bar)
+  const playlistTimeOverlay = document.querySelector('.playlist-time-overlay');
 
   // Top selectors
   const categorySearchInput      = document.getElementById('categorySearch');
@@ -100,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let suppressTempoInput      = false;
   let lastTempoChangeAt       = 0;
   let prevTempo               = null;
+
+  // NEW: overlay display mode (default to time)
+  let playlistOverlayMode = 'time'; // 'time' | 'percent'
+
+  // NEW: exercise lookups and duration cache (seconds @ 1x per exercise)
+  const exById = new Map(exercises.map(e => [e.id, e]));
+  const durationCache = new Map();
 
   // Category set & display names
   let displayedCategories = [
@@ -337,34 +347,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   if (dialStepInput) {
-  // allow one leading "-" and digits; clamp to [-999, 999]
-  dialStepInput.addEventListener('input', () => {
-    let s = dialStepInput.value || '';
-    s = s.replace(/[^\d-]/g, '');        // strip non-digits/non-minus
-    s = s.replace(/(?!^)-/g, '');        // only one minus, and only at start
-    if (s === '-' || s === '') {         // user mid-typing
-      tempoStepStep = 0;
+    // allow one leading "-" and digits; clamp to [-999, 999]
+    dialStepInput.addEventListener('input', () => {
+      let s = dialStepInput.value || '';
+      s = s.replace(/[^\d-]/g, '');        // strip non-digits/non-minus
+      s = s.replace(/(?!^)-/g, '');        // only one minus, and only at start
+      if (s === '-' || s === '') {         // user mid-typing
+        tempoStepStep = 0;
+        dialStepInput.setCustomValidity('');
+        return;
+      }
+      let v = parseInt(s, 10);
+      if (isNaN(v)) v = 0;
+      if (v > 999) v = 999;
+      if (v < -999) v = -999;
+      dialStepInput.value = String(v);
+      tempoStepStep = v;
       dialStepInput.setCustomValidity('');
-      return;
-    }
-    let v = parseInt(s, 10);
-    if (isNaN(v)) v = 0;
-    if (v > 999) v = 999;
-    if (v < -999) v = -999;
-    dialStepInput.value = String(v);
-    tempoStepStep = v;
-    dialStepInput.setCustomValidity('');
-  });
+    });
 
-  // keep "-" only at position 0 during typing
-  dialStepInput.addEventListener('beforeinput', (e) => {
-    if (e.inputType === 'insertText' && e.data === '-') {
-      const pos = dialStepInput.selectionStart ?? 0;
-      if (pos !== 0) e.preventDefault();
-    }
-  });
-}
-
+    // keep "-" only at position 0 during typing
+    dialStepInput.addEventListener('beforeinput', (e) => {
+      if (e.inputType === 'insertText' && e.data === '-') {
+        const pos = dialStepInput.selectionStart ?? 0;
+        if (pos !== 0) e.preventDefault();
+      }
+    });
+  }
 
   // ===== Buttons =====
   randomExerciseBtn?.addEventListener('click', function () {
@@ -604,7 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
     tempoSlider.addEventListener('change', defocusSlider);
   }
 
-  // ===== Progress bar =====
+  // ===== Progress bar (track) =====
   let progressRafId = null;
   if (progress) {
     progress.style.transformOrigin = 'left center';
@@ -616,6 +625,73 @@ document.addEventListener('DOMContentLoaded', function () {
     void progress.offsetWidth;
     if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
   }
+
+  // ======= Playlist cumulative time helpers =======
+  function computePlaylistTimes() {
+    // Returns { elapsed, total } in seconds, tempo-adjusted across the entire queue.
+    if (!isPlayingPlaylist || !currentPlaylist || playlistQueueMap.length === 0) {
+      const rate = audio?.playbackRate || 1;
+      const elapsed = (audio?.currentTime || 0) / rate;
+      const total   = (isFinite(audio?.duration) && audio.duration > 0) ? (audio.duration / rate) : 0;
+      return { elapsed, total };
+    }
+
+    const curIdx = Math.max(0, getCurrentPlaylistQueueIndex());
+    let total = 0;
+    let elapsed = 0;
+
+    for (let i = 0; i < playlistQueueMap.length; i++) {
+      const pos = playlistQueueMap[i];
+      const pItem = currentPlaylist.items[pos.playlistItemIndex];
+      const ex = exById.get(pItem.exerciseId);
+      if (!ex) continue;
+
+      const dur1x = durationCache.get(ex.id);
+      const tempo = pItem.tempos[pos.tempoIndex];
+      if (!dur1x || !tempo || !ex.originalTempo) continue;
+
+      const rate = tempo / ex.originalTempo;
+      const playSeconds = dur1x / (rate || 1);
+
+      total += playSeconds;
+      if (i < curIdx) elapsed += playSeconds;
+    }
+
+    // Add partial progress of current item (at its current playbackRate)
+    const rateNow = audio?.playbackRate || 1;
+    const curElapsed = (audio?.currentTime || 0) / rateNow;
+    if (isFinite(curElapsed)) elapsed += curElapsed;
+
+    return { elapsed, total };
+  }
+
+  function fmtMMSS(s) {
+    const m = Math.floor((s || 0) / 60);
+    const sec = Math.max(0, Math.floor((s || 0) % 60)).toString().padStart(2, '0');
+    return `${m}:${sec}`;
+  }
+
+  // Render playlist overlay text (time or percent)
+  function renderPlaylistOverlay() {
+    if (!playlistProgressPercentage) return;
+
+    if (playlistOverlayMode === 'percent') {
+      if (!isPlayingPlaylist || !currentPlaylist || playlistQueueMap.length === 0) {
+        playlistProgressPercentage.textContent = '0%';
+        return;
+      }
+      const idx = getCurrentPlaylistQueueIndex();
+      const total = playlistQueueMap.length;
+      const pct = (idx >= 0 && total > 0) ? ((idx + 1) / total) * 100 : 0;
+      playlistProgressPercentage.textContent = Math.floor(pct) + '%';
+      return;
+    }
+
+    // TIME mode (cumulative across playlist, tempo-adjusted)
+    const { elapsed, total } = computePlaylistTimes();
+    playlistProgressPercentage.textContent = `${fmtMMSS(elapsed)} / ${fmtMMSS(total)}`;
+  }
+
   function startProgressTicker() {
     if (!audio || !progress) return;
     cancelAnimationFrame(progressRafId);
@@ -625,6 +701,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const pct = Math.min(1, Math.max(0, (audio.currentTime || 0) / dur));
       progress.style.transform = `scaleX(${pct})`;
       updateCurrentTime();
+
+      // Keep playlist overlay fresh (esp. for cumulative time)
+      renderPlaylistOverlay();
+
       if (!audio.paused && !audio.ended) {
         progressRafId = requestAnimationFrame(tick);
       }
@@ -808,6 +888,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const onceUpdate = () => refreshTimeDisplays();
     audio.addEventListener('loadedmetadata', onceUpdate, { once: true });
     audio.addEventListener('canplay',        onceUpdate, { once: true });
+
+    // Cache this exercise's 1x duration once we know it
+    const cacheDurationOnce = () => {
+      if (isFinite(audio.duration) && audio.duration > 0) {
+        durationCache.set(ex.id, audio.duration);
+        renderPlaylistOverlay(); // totals may improve once known
+      }
+    };
+    audio.addEventListener('loadedmetadata', cacheDurationOnce, { once: true });
 
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
@@ -1014,8 +1103,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     updatePlaylistQueueDisplay();
+
+    // NEW: prefetch 1x durations for this playlist's exercises
+    prefetchExerciseDurationsForPlaylist();
+
     playCurrentPlaylistItem();
     applyLoopMode();
+  }
+
+  function prefetchExerciseDurationsForPlaylist() {
+    if (!currentPlaylist) return;
+    const uniqueIds = [...new Set(currentPlaylist.items.map(i => i.exerciseId))];
+    uniqueIds.forEach((id) => {
+      if (durationCache.has(id)) return;
+      const ex = exById.get(id);
+      if (!ex) return;
+      const url = resolveAssetUrl(ex.audioSrc);
+      const aud = new Audio();
+      aud.preload = 'metadata';
+      aud.src = url;
+      aud.addEventListener('loadedmetadata', () => {
+        if (isFinite(aud.duration) && aud.duration > 0) {
+          durationCache.set(id, aud.duration);
+          renderPlaylistOverlay(); // totals improve as metadata lands
+        }
+        // cleanup
+        aud.src = '';
+      }, { once: true });
+      aud.addEventListener('error', () => { /* ignore */ }, { once: true });
+    });
   }
 
   function playCurrentPlaylistItem() {
@@ -1216,19 +1332,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!playlistProgress || !playlistProgressPercentage) return;
     if (!isPlayingPlaylist || !currentPlaylist || playlistQueueMap.length === 0) {
       playlistProgress.style.width = '0%';
-      playlistProgressPercentage.textContent = '0%';
+      renderPlaylistOverlay();
       return;
     }
     const currentIndex = getCurrentPlaylistQueueIndex();
-    if (currentIndex === -1) {
-      playlistProgress.style.width = '0%';
-      playlistProgressPercentage.textContent = '0%';
-      return;
-    }
     const totalItems = playlistQueueMap.length;
-    const progressPercent = ((currentIndex + 1) / totalItems) * 100;
+    const progressPercent = (currentIndex >= 0 && totalItems > 0)
+      ? ((currentIndex + 1) / totalItems) * 100
+      : 0;
+
     playlistProgress.style.width = progressPercent + '%';
-    playlistProgressPercentage.textContent = Math.floor(progressPercent) + '%';
+
+    // Text shows time or percent based on toggle
+    renderPlaylistOverlay();
   }
 
   function syncPlaylistIndexToExercise(exerciseId) {
@@ -1267,20 +1383,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
       pickerTitle.textContent = title;
       pickerOverlay.hidden = false;
-pickerOverlay.setAttribute('aria-hidden', 'false');
-document.body.classList.add('modal-open');
+      pickerOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
 
-pickerSearch.value = '';
-pickerSearch.placeholder = 'Search...';
+      pickerSearch.value = '';
+      pickerSearch.placeholder = 'Search...';
 
-// Focus immediately so iOS shows the keyboard; desktop ready to type.
-try {
-  pickerSearch.readOnly = false;
-  pickerSearch.focus({ preventScroll: true });
-  const L = pickerSearch.value.length;
-  pickerSearch.setSelectionRange(L, L);
-} catch {}
-
+      // Focus immediately so iOS shows the keyboard; desktop ready to type.
+      try {
+        pickerSearch.readOnly = false;
+        pickerSearch.focus({ preventScroll: true });
+        const L = pickerSearch.value.length;
+        pickerSearch.setSelectionRange(L, L);
+      } catch {}
 
       let items = [];
       let activeIndex = -1;
@@ -1403,24 +1518,23 @@ try {
       pickerClose.addEventListener('click', close);
 
       const clearSelection = () => {
-  if (pickerOverlay.hidden) return;
+        if (pickerOverlay.hidden) return;
 
-  // If caret/selection is in the search box, do nothing
-  const ae = document.activeElement;
-  if (ae && (ae === pickerSearch || ae.closest?.('.picker__search'))) return;
+        // If caret/selection is in the search box, do nothing
+        const ae = document.activeElement;
+        if (ae && (ae === pickerSearch || ae.closest?.('.picker__search'))) return;
 
-  const sel2 = window.getSelection?.();
-  if (!sel2) return;
+        const sel2 = window.getSelection?.();
+        if (!sel2) return;
 
-  const anchor = sel2.anchorNode;
-  if (anchor) {
-    const node = anchor.nodeType === 3 ? anchor.parentNode : anchor;
-    if (node && (node === pickerSearch || node.closest?.('.picker__search'))) return;
-  }
-  if (sel2.rangeCount) sel2.removeAllRanges();
-};
-document.addEventListener('selectionchange', clearSelection, { passive: true });
-
+        const anchor = sel2.anchorNode;
+        if (anchor) {
+          const node = anchor.nodeType === 3 ? anchor.parentNode : anchor;
+          if (node && (node === pickerSearch || node.closest?.('.picker__search'))) return;
+        }
+        if (sel2.rangeCount) sel2.removeAllRanges();
+      };
+      document.addEventListener('selectionchange', clearSelection, { passive: true });
 
       refresh();
     });
@@ -1723,4 +1837,35 @@ document.addEventListener('selectionchange', clearSelection, { passive: true });
     );
   })();
 
+  // ===== Click-to-toggle on playlist overlay / bar =====
+  function togglePlaylistOverlayMode() {
+    playlistOverlayMode = (playlistOverlayMode === 'time') ? 'percent' : 'time';
+    renderPlaylistOverlay();
+  }
+
+  // Make sure overlay can receive clicks (hardening if CSS was restrictive)
+  if (playlistTimeOverlay) {
+    try {
+      playlistTimeOverlay.style.pointerEvents = 'auto';
+      playlistTimeOverlay.style.cursor = 'pointer';
+      playlistTimeOverlay.style.userSelect = 'none';
+    } catch {}
+  }
+
+  // Click targets: whole playlist progress area + overlay text itself
+  [playlistProgressContainer, playlistTimeOverlay, playlistProgressPercentage].forEach((el) => {
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      togglePlaylistOverlayMode();
+    });
+    // prevent accidental text selection on pointerdown
+    el.addEventListener('pointerdown', (e) => {
+      if (e.button === 0) { e.preventDefault(); e.stopPropagation(); }
+    }, { passive: false });
+  });
+
+  // Initial paint of overlay (default = cumulative time)
+  renderPlaylistOverlay();
 });
