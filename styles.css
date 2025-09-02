@@ -663,3 +663,10 @@ input[type="number"]:disabled{
   }
   .picker__item:focus { outline: none; }
 }
+
+/* Make playlist overlay text clickable (keeps same typography) */
+.playlist-time-overlay{
+  pointer-events:auto;   /* overrides shared rule that disables pointers */
+  cursor:pointer;
+  user-select:none;
+}
