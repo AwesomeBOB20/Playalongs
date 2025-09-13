@@ -115,13 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let displayedCategories = [
     "all","one-handers","accent-tap","rhythms","rudiments","timing",
     "paradiddles","singles","rolls","natural-decays","flams","hybrids",
-    "78-grids","exercises","etudes","requests"
+    "78-grids","juxtapositions","exercises","etudes","requests"
   ];
   const categoryDisplayMap = {
     "accent-tap":"Accent Tap","rhythms":"Rhythms","rudiments":"Rudiments","requests":"Requests",
     "one-handers":"One Handers","timing":"Timing","paradiddles":"Paradiddles","singles":"Singles",
     "rolls":"Rolls","natural-decays":"Natural Decays","flams":"Flams","hybrids":"Hybrids",
-    "78-grids":"7/8 Grids","exercises":"Exercises","etudes":"Etudes","all":"All Categories"
+    "78-grids":"7/8 Grids","juxtapositions":"Juxtapositions","exercises":"Exercises","etudes":"Etudes","all":"All Categories"
   };
 
   const displayedPlaylists = playlists.map((p, i) => ({ index: i, name: p.name }));
@@ -1869,3 +1869,4 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initial paint of overlay (default = cumulative time)
   renderPlaylistOverlay();
 });
+
