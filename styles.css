@@ -245,24 +245,30 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .slider-fill{ --fill: var(--purple); }
 .slider--orange{ --fill: var(--orange); }
 
-/* Unified thumbs */
+/* Unified thumbs (same size + centered everywhere) */
 .tempo-slider::-webkit-slider-thumb,
 .volume-slider::-webkit-slider-thumb{
-  -webkit-appearance:none; appearance:none;
-  width:var(--thumb); height:var(--thumb);
+  -webkit-appearance:none;
+  appearance:none;
+  width:var(--thumb);
+  height:var(--thumb);
   background:var(--white);
   border:2px solid var(--black);
   border-radius:50%;
   cursor:pointer;
+  margin-top: calc((16px - var(--thumb)) / 2); /* centers thumb vertically on 16px track */
 }
+
 .tempo-slider::-moz-range-thumb,
 .volume-slider::-moz-range-thumb{
-  width:var(--thumb); height:var(--thumb);
+  width:var(--thumb);
+  height:var(--thumb);
   background:var(--white);
   border:2px solid var(--black);
   border-radius:50%;
   cursor:pointer;
 }
+
 
 /* Transparent tracks */
 .tempo-slider::-webkit-slider-runnable-track,
