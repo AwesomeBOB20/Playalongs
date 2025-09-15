@@ -212,21 +212,91 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .auto-label input[type="checkbox"]{ margin:0; accent-color:var(--purple); }
 .auto-label.disabled{ background:var(--orange-dim); cursor:not-allowed; }
 
-/* ===== Sliders ===== */
+
+
+
+
+
+
+/* ===== Sliders (final even thickness both sides) ===== */
+
+:root{ --thumb:24px; }
+
+.tempo-slider,
 .volume-slider{
-  -webkit-appearance:none; appearance:none; width:75%; max-width:600px; height:12px; border-radius:5px;
-  margin:20px auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
+  -webkit-appearance:none; appearance:none;
+  width:100%; max-width:100%;
+  height:16px; border-radius:10px;
+  background:var(--gray-1);
+  box-shadow:inset 0 0 0 2px var(--black);
+  cursor:pointer;
+  margin:0 auto;
 }
+
+/* Tempo slider gets gradient fill */
 .tempo-slider{
-  -webkit-appearance:none; appearance:none; width:100%; max-width:100%; height:16px; border-radius:5px;
-  margin:0 auto; box-shadow:inset 0 0 0 2px var(--black); background:var(--gray-1); cursor:pointer;
+  --fill: var(--purple);
+  --bg-pos: 0%;
+  background:
+    linear-gradient(to right, var(--fill) 0 var(--bg-pos), var(--gray-1) var(--bg-pos) 100%) no-repeat;
 }
-.volume-slider::-webkit-slider-thumb, .tempo-slider::-webkit-slider-thumb,
-.volume-slider::-moz-range-thumb,   .tempo-slider::-moz-range-thumb{
-  width:20px; height:20px; background:var(--white); border-radius:50%; border:2px solid var(--black); cursor:pointer;
+
+/* Fill variants */
+.slider-fill{ --fill: var(--purple); }
+.slider--orange{ --fill: var(--orange); }
+
+/* Unified thumbs */
+.tempo-slider::-webkit-slider-thumb,
+.volume-slider::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none;
+  width:var(--thumb); height:var(--thumb);
+  background:var(--white);
+  border:2px solid var(--black);
+  border-radius:50%;
+  cursor:pointer;
 }
-.volume-slider::-webkit-slider-runnable-track, .tempo-slider::-webkit-slider-runnable-track,
-.volume-slider::-moz-range-track,              .tempo-slider::-moz-range-track{ background:transparent; border:none; }
+.tempo-slider::-moz-range-thumb,
+.volume-slider::-moz-range-thumb{
+  width:var(--thumb); height:var(--thumb);
+  background:var(--white);
+  border:2px solid var(--black);
+  border-radius:50%;
+  cursor:pointer;
+}
+
+/* Transparent tracks */
+.tempo-slider::-webkit-slider-runnable-track,
+.volume-slider::-webkit-slider-runnable-track{
+  -webkit-appearance:none;
+  background:transparent;
+  border:none;
+  height:16px;
+}
+.tempo-slider::-moz-range-track,
+.volume-slider::-moz-range-track{
+  background:transparent;
+  border:none;
+  height:16px;
+}
+
+/* Don’t use ::-moz-range-progress (causes fat left side) */
+
+/* iOS quirk: thumb only interactive */
+@media (hover:none) and (pointer:coarse){
+  .tempo-slider, .volume-slider{ pointer-events:none; }
+  .tempo-slider::-webkit-slider-thumb,
+  .tempo-slider::-moz-range-thumb,
+  .volume-slider::-webkit-slider-thumb,
+  .volume-slider::-moz-range-thumb{ pointer-events:auto; }
+}
+
+
+
+
+
+
+
+
 
 /* Disabled range visuals (Safari) */
 input[type="range"]:disabled{ opacity:1; }
