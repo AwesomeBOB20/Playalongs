@@ -115,12 +115,12 @@ document.addEventListener('DOMContentLoaded', function () {
   let displayedCategories = [
     "all","one-handers","accent-tap","rhythms","rudiments","timing",
     "paradiddles","singles","rolls","natural-decays","flams","hybrids",
-    "78-grids","juxtapositions","exercises","etudes","requests"
+    "78-grids","juxtapositions","exercises","etudes","requests","instagram"
   ];
   const categoryDisplayMap = {
     "accent-tap":"Accent Tap","rhythms":"Rhythms","rudiments":"Rudiments","requests":"Requests",
     "one-handers":"One Handers","timing":"Timing","paradiddles":"Paradiddles","singles":"Singles",
-    "rolls":"Rolls","natural-decays":"Natural Decays","flams":"Flams","hybrids":"Hybrids",
+    "rolls":"Rolls","natural-decays":"Natural Decays","flams":"Flams","hybrids":"Hybrids","instagram":"Instagram",
     "78-grids":"7/8 Grids","juxtapositions":"Juxtapositions","exercises":"Exercises","etudes":"Etudes","all":"All Categories"
   };
 
