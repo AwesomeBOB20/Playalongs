@@ -487,18 +487,18 @@ window.PLAYLISTS = [
   {
     name: '5 Fundamentals Easy',
     items: [
-      // Eights (Exercise ID: 26)
-      { exerciseId: 26, tempos: [100, 120, 140, 160, 180, 200], repetitionsPerTempo: 4 },
-      // Bucks (Exercise ID: 18)
-      { exerciseId: 18, tempos: [100, 110, 120], repetitionsPerTempo: 4 },
-      { exerciseId: 18, tempos: [130, 140], repetitionsPerTempo: 3 },
-      // Double Beat (Exercise ID: 24)
-      { exerciseId: 24, tempos: [90, 100, 110], repetitionsPerTempo: 4 },
-      { exerciseId: 24, tempos: [120, 130], repetitionsPerTempo: 3 },
-      // Huggadics (Exercise ID: 37)
-      { exerciseId: 37, tempos: [80, 90, 100, 110], repetitionsPerTempo: 4 },
-      // Huckgadics (Exercise ID: 36)
-      { exerciseId: 36, tempos: [70, 85, 100, 120], repetitionsPerTempo: 4 },
+      // Eights (ID: 252)
+      { exerciseId: 252, tempos: [100, 120, 140, 160, 180, 200], repetitionsPerTempo: 4 },
+      // Bucks (ID: 196)
+      { exerciseId: 196, tempos: [100, 110, 120], repetitionsPerTempo: 4 },
+      { exerciseId: 196, tempos: [130, 140], repetitionsPerTempo: 3 },
+      // Double Beat (ID: 229)
+      { exerciseId: 229, tempos: [90, 100, 110], repetitionsPerTempo: 4 },
+      { exerciseId: 229, tempos: [120, 130], repetitionsPerTempo: 3 },
+      // Huggadics (ID: 304)
+      { exerciseId: 304, tempos: [80, 90, 100, 110], repetitionsPerTempo: 4 },
+      // Huckgadics (ID: 302)
+      { exerciseId: 302, tempos: [70, 85, 100, 120], repetitionsPerTempo: 4 },
     ],
   },
 
@@ -506,18 +506,18 @@ window.PLAYLISTS = [
   {
     name: '5 Fundamentals Hard',
     items: [
-      // Eights (Exercise ID: 26)
-      { exerciseId: 26, tempos: [150, 170, 190, 210, 230, 250], repetitionsPerTempo: 4 },
-      // Bucks (Exercise ID: 18)
-      { exerciseId: 18, tempos: [120, 135, 150], repetitionsPerTempo: 4 },
-      { exerciseId: 18, tempos: [165, 180], repetitionsPerTempo: 3 },
-      // Double Beat (Exercise ID: 24)
-      { exerciseId: 24, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
-      { exerciseId: 24, tempos: [150, 160], repetitionsPerTempo: 3 },
-      // Huggadics (Exercise ID: 37)
-      { exerciseId: 37, tempos: [100, 110, 120, 130], repetitionsPerTempo: 4 },
-      // Huckgadics (Exercise ID: 36)
-      { exerciseId: 36, tempos: [90, 110, 130, 150], repetitionsPerTempo: 4 },
+      // Eights (ID: 252)
+      { exerciseId: 252, tempos: [150, 170, 190, 210, 230, 250], repetitionsPerTempo: 4 },
+      // Bucks (ID: 196)
+      { exerciseId: 196, tempos: [120, 135, 150], repetitionsPerTempo: 4 },
+      { exerciseId: 196, tempos: [165, 180], repetitionsPerTempo: 3 },
+      // Double Beat (ID: 229)
+      { exerciseId: 229, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
+      { exerciseId: 229, tempos: [150, 160], repetitionsPerTempo: 3 },
+      // Huggadics (ID: 304)
+      { exerciseId: 304, tempos: [100, 110, 120, 130], repetitionsPerTempo: 4 },
+      // Huckgadics (ID: 302)
+      { exerciseId: 302, tempos: [90, 110, 130, 150], repetitionsPerTempo: 4 },
     ],
   },
 
@@ -525,23 +525,23 @@ window.PLAYLISTS = [
   {
     name: 'Flams Easy',
     items: [
-      // Flams - Flam Taps (Exercise ID: 32)
-      { exerciseId: 32, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
-      { exerciseId: 32, tempos: [140, 150], repetitionsPerTempo: 3 },
-      // Flams - Swisses (Exercise ID: 33)
-      { exerciseId: 33, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
-      { exerciseId: 33, tempos: [140, 150], repetitionsPerTempo: 3 },
-      // Flam Accent Builder (Exercise ID: 28)
-      { exerciseId: 28, tempos: [105, 120], repetitionsPerTempo: 3 },
-      { exerciseId: 28, tempos: [135, 150], repetitionsPerTempo: 2 },
-      // Add A Flam (Exercise ID: 17)
-      { exerciseId: 17, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
-      { exerciseId: 17, tempos: [100, 110], repetitionsPerTempo: 2 },
-      // Flam Tap Builder (Exercise ID: 31)
-      { exerciseId: 31, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
-      { exerciseId: 31, tempos: [110], repetitionsPerTempo: 2 },
-      // Swiss Taps (Exercise ID: 78)
-      { exerciseId: 78, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
+      // Flams - Flam Taps (ID: 280)
+      { exerciseId: 280, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
+      { exerciseId: 280, tempos: [140, 150], repetitionsPerTempo: 3 },
+      // Flams - Swisses (ID: 282)
+      { exerciseId: 282, tempos: [110, 120, 130], repetitionsPerTempo: 4 },
+      { exerciseId: 282, tempos: [140, 150], repetitionsPerTempo: 3 },
+      // Flam Accent Builder (ID: 258)
+      { exerciseId: 258, tempos: [105, 120], repetitionsPerTempo: 3 },
+      { exerciseId: 258, tempos: [135, 150], repetitionsPerTempo: 2 },
+      // Add A Flam (ID: 187)
+      { exerciseId: 187, tempos: [70, 80, 90], repetitionsPerTempo: 3 },
+      { exerciseId: 187, tempos: [100, 110], repetitionsPerTempo: 2 },
+      // Flam Tap Builder (ID: 276)
+      { exerciseId: 276, tempos: [80, 90, 100], repetitionsPerTempo: 3 },
+      { exerciseId: 276, tempos: [110], repetitionsPerTempo: 2 },
+      // Swiss Taps (ID: 410)
+      { exerciseId: 410, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -549,23 +549,23 @@ window.PLAYLISTS = [
   {
     name: 'Flams Hard',
     items: [
-      // Flams - Flam Taps (Exercise ID: 32)
-      { exerciseId: 32, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
-      { exerciseId: 32, tempos: [175, 190], repetitionsPerTempo: 3 },
-      // Flams - Swisses (Exercise ID: 33)
-      { exerciseId: 33, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
-      { exerciseId: 33, tempos: [175, 190], repetitionsPerTempo: 3 },
-      // Flam Accent Builder (Exercise ID: 28)
-      { exerciseId: 28, tempos: [135, 140], repetitionsPerTempo: 3 },
-      { exerciseId: 28, tempos: [155, 170], repetitionsPerTempo: 2 },
-      // Add A Flam (Exercise ID: 17)
-      { exerciseId: 17, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
-      { exerciseId: 17, tempos: [130, 140], repetitionsPerTempo: 2 },
-      // Flam Tap Builder (Exercise ID: 31)
-      { exerciseId: 31, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
-      { exerciseId: 31, tempos: [130], repetitionsPerTempo: 2 },
-      // Swiss Taps (Exercise ID: 78)
-      { exerciseId: 78, tempos: [105, 120, 135, 150], repetitionsPerTempo: 3 },
+      // Flams - Flam Taps (ID: 280)
+      { exerciseId: 280, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
+      { exerciseId: 280, tempos: [175, 190], repetitionsPerTempo: 3 },
+      // Flams - Swisses (ID: 282)
+      { exerciseId: 282, tempos: [130, 145, 160], repetitionsPerTempo: 4 },
+      { exerciseId: 282, tempos: [175, 190], repetitionsPerTempo: 3 },
+      // Flam Accent Builder (ID: 258)
+      { exerciseId: 258, tempos: [135, 140], repetitionsPerTempo: 3 },
+      { exerciseId: 258, tempos: [155, 170], repetitionsPerTempo: 2 },
+      // Add A Flam (ID: 187)
+      { exerciseId: 187, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
+      { exerciseId: 187, tempos: [130, 140], repetitionsPerTempo: 2 },
+      // Flam Tap Builder (ID: 276)
+      { exerciseId: 276, tempos: [100, 110, 120], repetitionsPerTempo: 3 },
+      { exerciseId: 276, tempos: [130], repetitionsPerTempo: 2 },
+      // Swiss Taps (ID: 410)
+      { exerciseId: 410, tempos: [105, 120, 135, 150], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -573,26 +573,26 @@ window.PLAYLISTS = [
   {
     name: 'Modulations Easy',
     items: [
-      // Quarter Triplet - Triplet (Exercise ID: 357)
-      { exerciseId: 357, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // Quarter Triplet - 16th (Exercise ID: 356)
-      { exerciseId: 356, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // 8th - Triplet (Exercise ID: 11)
-      { exerciseId: 11, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // 8th - 16th (Exercise ID: 304)
-      { exerciseId: 304, tempos: [130, 150, 170], repetitionsPerTempo: 3 },
-      // Triplet - 16th (Exercise ID: 59)
-      { exerciseId: 59, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // Triplet - 9let (Exercise ID: 360)
-      { exerciseId: 360, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
-      // 16th - 5let (Exercise ID: 315)
-      { exerciseId: 315, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
-      // 16th - 6let (Exercise ID: 352)
-      { exerciseId: 352, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
-      // 8th - 5let (Exercise ID: 349)
-      { exerciseId: 349, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
-      // 8th - 6let (Exercise ID: 350)
-      { exerciseId: 350, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
+      // Quarter Triplet - Triplet (ID: 366)
+      { exerciseId: 366, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // Quarter Triplet - 16th (ID: 363)
+      { exerciseId: 363, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // 8th - Triplet (ID: 149)
+      { exerciseId: 149, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // 8th - 16th (ID: 141)
+      { exerciseId: 141, tempos: [130, 150, 170], repetitionsPerTempo: 3 },
+      // Triplet - 16th (ID: 441)
+      { exerciseId: 441, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // Triplet - 9let (ID: 448)
+      { exerciseId: 448, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
+      // 16th - 5let (ID: 164)
+      { exerciseId: 164, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
+      // 16th - 6let (ID: 165)
+      { exerciseId: 165, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
+      // 8th - 5let (ID: 143)
+      { exerciseId: 143, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
+      // 8th - 6let (ID: 144)
+      { exerciseId: 144, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -600,28 +600,28 @@ window.PLAYLISTS = [
   {
     name: 'Modulations Hard',
     items: [
-      // Quarter Triplet - 8th (Exercise ID: 355)
-      { exerciseId: 355, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
-      // Quarter Triplet - 9let (Exercise ID: 361)
-      { exerciseId: 361, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // 8th - 8th 5let (Exercise ID: 302)
-      { exerciseId: 302, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
-      // 8th - 8th 9let (Exercise ID: 351)
-      { exerciseId: 351, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
-      // 8th 5let - Triplet (Exercise ID: 312)
-      { exerciseId: 312, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
-      // 8th 5let - 16th (Exercise ID: 309)
-      { exerciseId: 309, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
-      // 8th 5let - 5let (Exercise ID: 307)
-      { exerciseId: 307, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
-      // Triplet - 5let (Exercise ID: 167)
+      // Quarter Triplet - 8th (ID: 364)
+      { exerciseId: 364, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
+      // Quarter Triplet - 9let (ID: 365)
+      { exerciseId: 365, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // 8th - 8th 5let (ID: 145)
+      { exerciseId: 145, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
+      // 8th - 8th 9let (ID: 147)
+      { exerciseId: 147, tempos: [160, 180, 200], repetitionsPerTempo: 3 },
+      // 8th 5let - Triplet (ID: 155)
+      { exerciseId: 155, tempos: [120, 150, 180], repetitionsPerTempo: 3 },
+      // 8th 5let - 16th (ID: 151)
+      { exerciseId: 151, tempos: [120, 140, 160], repetitionsPerTempo: 3 },
+      // 8th 5let - 5let (ID: 153)
+      { exerciseId: 153, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
+      // Triplet - 5let (ID: 444)
+      { exerciseId: 444, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
+      // Triplet - 6let (ID: 445)
+      { exerciseId: 445, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
+      // 16th - 9let (ID: 168)
+      { exerciseId: 168, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
+      // 16th - 8th 7let (ID: 167)
       { exerciseId: 167, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
-      // Triplet - 6let (Exercise ID: 358)
-      { exerciseId: 358, tempos: [100, 120, 140], repetitionsPerTempo: 3 },
-      // 16th - 9let (Exercise ID: 354)
-      { exerciseId: 354, tempos: [100, 125, 150], repetitionsPerTempo: 3 },
-      // 16th - 8th 7let (Exercise ID: 353)
-      { exerciseId: 353, tempos: [110, 130, 150], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -629,20 +629,20 @@ window.PLAYLISTS = [
   {
     name: 'Paradiddles Easy',
     items: [
-      // Paradiddle Builder (Exercise ID: 185)
-      { exerciseId: 185, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
-      // Double Paradiddle Builder (Exercise ID: 266)
-      { exerciseId: 266, tempos: [70, 90, 110], repetitionsPerTempo: 3 },
-      // Paradiddle Diddle Builder (Exercise ID: 73)
-      { exerciseId: 73, tempos: [80, 100, 120], repetitionsPerTempo: 3 },
-      // Paradiddle Pyramid (Exercise ID: 86)
-      { exerciseId: 86, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
-      // Paradiddle Filler (Exercise ID: 85)
-      { exerciseId: 85, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
-      // Paradiddle Diddle Pyramid (Exercise ID: 175)
-      { exerciseId: 175, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
-      // PDD + PD (Exercise ID: 79)
-      { exerciseId: 79, tempos: [50, 60, 70, 80], repetitionsPerTempo: 3 },
+      // Paradiddle Builder (ID: 344)
+      { exerciseId: 344, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
+      // Double Paradiddle Builder (ID: 231)
+      { exerciseId: 231, tempos: [70, 90, 110], repetitionsPerTempo: 3 },
+      // Paradiddle Diddle Builder (ID: 345)
+      { exerciseId: 345, tempos: [80, 100, 120], repetitionsPerTempo: 3 },
+      // Paradiddle Pyramid (ID: 353)
+      { exerciseId: 353, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
+      // Paradiddle Filler (ID: 350)
+      { exerciseId: 350, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
+      // Paradiddle Diddle Pyramid (ID: 347)
+      { exerciseId: 347, tempos: [100, 130, 160], repetitionsPerTempo: 3 },
+      // PDD + PD (ID: 357)
+      { exerciseId: 357, tempos: [50, 60, 70, 80], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -650,20 +650,20 @@ window.PLAYLISTS = [
   {
     name: 'Paradiddles Hard',
     items: [
-      // Paradiddle Builder (Exercise ID: 185)
-      { exerciseId: 185, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
-      // Double Paradiddle Builder (Exercise ID: 266)
-      { exerciseId: 266, tempos: [90, 110, 130, 150], repetitionsPerTempo: 3 },
-      // Paradiddle Diddle Builder (Exercise ID: 73)
-      { exerciseId: 73, tempos: [100, 120, 140, 160], repetitionsPerTempo: 3 },
-      // Paradiddle Pyramid (Exercise ID: 86)
-      { exerciseId: 86, tempos: [140, 160, 180, 200], repetitionsPerTempo: 3 },
-      // Paradiddle Filler (Exercise ID: 85)
-      { exerciseId: 85, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
-      // Paradiddle Diddle Pyramid (Exercise ID: 175)
-      { exerciseId: 175, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
-      // PDD + PD (Exercise ID: 79)
-      { exerciseId: 79, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
+      // Paradiddle Builder (ID: 344)
+      { exerciseId: 344, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
+      // Double Paradiddle Builder (ID: 231)
+      { exerciseId: 231, tempos: [90, 110, 130, 150], repetitionsPerTempo: 3 },
+      // Paradiddle Diddle Builder (ID: 345)
+      { exerciseId: 345, tempos: [100, 120, 140, 160], repetitionsPerTempo: 3 },
+      // Paradiddle Pyramid (ID: 353)
+      { exerciseId: 353, tempos: [140, 160, 180, 200], repetitionsPerTempo: 3 },
+      // Paradiddle Filler (ID: 350)
+      { exerciseId: 350, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
+      // Paradiddle Diddle Pyramid (ID: 347)
+      { exerciseId: 347, tempos: [150, 170, 190, 210], repetitionsPerTempo: 3 },
+      // PDD + PD (ID: 357)
+      { exerciseId: 357, tempos: [80, 90, 100, 110], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -671,22 +671,22 @@ window.PLAYLISTS = [
   {
     name: 'Rolls Easy',
     items: [
-      // Double Beat (Exercise ID: 24)
-      { exerciseId: 24, tempos: [90, 100, 110], repetitionsPerTempo: 4 },
-      { exerciseId: 24, tempos: [120, 130], repetitionsPerTempo: 3 },
-      // Irish Spring (Exercise ID: 39)
-      { exerciseId: 39, tempos: [130, 140, 150, 160], repetitionsPerTempo: 3 },
-      // Gallop (Exercise ID: 34)
-      { exerciseId: 34, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
-      { exerciseId: 34, tempos: [150, 160], repetitionsPerTempo: 3 },
-      // Triplet 7's (Exercise ID: 54)
-      { exerciseId: 54, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
-      { exerciseId: 54, tempos: [145, 160], repetitionsPerTempo: 3 },
-      // Diddle Diddle 5 9 (Exercise ID: 63)
-      { exerciseId: 63, tempos: [90, 100, 110, 120], repetitionsPerTempo: 4 },
-      // Triplet Diddle (Exercise ID: 55)
-      { exerciseId: 55, tempos: [90, 105, 120], repetitionsPerTempo: 4 },
-      { exerciseId: 55, tempos: [135, 150], repetitionsPerTempo: 3 },
+      // Double Beat (ID: 229)
+      { exerciseId: 229, tempos: [90, 100, 110], repetitionsPerTempo: 4 },
+      { exerciseId: 229, tempos: [120, 130], repetitionsPerTempo: 3 },
+      // Irish Spring (ID: 316)
+      { exerciseId: 316, tempos: [130, 140, 150, 160], repetitionsPerTempo: 3 },
+      // Gallop (ID: 287)
+      { exerciseId: 287, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
+      { exerciseId: 287, tempos: [150, 160], repetitionsPerTempo: 3 },
+      // Triplet Sevens (ID: 472)
+      { exerciseId: 472, tempos: [100, 115, 130], repetitionsPerTempo: 4 },
+      { exerciseId: 472, tempos: [145, 160], repetitionsPerTempo: 3 },
+      // Diddle Diddle Five Nine (ID: 218)
+      { exerciseId: 218, tempos: [90, 100, 110, 120], repetitionsPerTempo: 4 },
+      // Triplet Diddle (ID: 463)
+      { exerciseId: 463, tempos: [90, 105, 120], repetitionsPerTempo: 4 },
+      { exerciseId: 463, tempos: [135, 150], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -694,22 +694,22 @@ window.PLAYLISTS = [
   {
     name: 'Rolls Hard',
     items: [
-      // Double Beat (Exercise ID: 24)
-      { exerciseId: 24, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
-      { exerciseId: 24, tempos: [150, 160], repetitionsPerTempo: 3 },
-      // Irish Spring (Exercise ID: 39)
-      { exerciseId: 39, tempos: [140, 155, 170, 180], repetitionsPerTempo: 3 },
-      // Gallop (Exercise ID: 34)
-      { exerciseId: 34, tempos: [160, 175, 190, 200], repetitionsPerTempo: 4 },
-      { exerciseId: 34, tempos: [215], repetitionsPerTempo: 3 },
-      // Triplet 7's (Exercise ID: 54)
-      { exerciseId: 54, tempos: [140, 155, 170], repetitionsPerTempo: 4 },
-      { exerciseId: 54, tempos: [185, 200], repetitionsPerTempo: 3 },
-      // Diddle Diddle 5 9 (Exercise ID: 63)
-      { exerciseId: 63, tempos: [100, 120, 135, 150], repetitionsPerTempo: 4 },
-      // Triplet Diddle (Exercise ID: 55)
-      { exerciseId: 55, tempos: [110, 125, 140], repetitionsPerTempo: 4 },
-      { exerciseId: 55, tempos: [155, 170], repetitionsPerTempo: 3 },
+      // Double Beat (ID: 229)
+      { exerciseId: 229, tempos: [120, 130, 140], repetitionsPerTempo: 4 },
+      { exerciseId: 229, tempos: [150, 160], repetitionsPerTempo: 3 },
+      // Irish Spring (ID: 316)
+      { exerciseId: 316, tempos: [140, 155, 170, 180], repetitionsPerTempo: 3 },
+      // Gallop (ID: 287)
+      { exerciseId: 287, tempos: [160, 175, 190, 200], repetitionsPerTempo: 4 },
+      { exerciseId: 287, tempos: [215], repetitionsPerTempo: 3 },
+      // Triplet Sevens (ID: 472)
+      { exerciseId: 472, tempos: [140, 155, 170], repetitionsPerTempo: 4 },
+      { exerciseId: 472, tempos: [185, 200], repetitionsPerTempo: 3 },
+      // Diddle Diddle Five Nine (ID: 218)
+      { exerciseId: 218, tempos: [100, 120, 135, 150], repetitionsPerTempo: 4 },
+      // Triplet Diddle (ID: 463)
+      { exerciseId: 463, tempos: [110, 125, 140], repetitionsPerTempo: 4 },
+      { exerciseId: 463, tempos: [155, 170], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -717,18 +717,18 @@ window.PLAYLISTS = [
   {
     name: 'Timing Easy',
     items: [
-      // 16th 1 note (Exercise ID: 13)
-      { exerciseId: 13, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // 16th 2 note (Exercise ID: 14)
-      { exerciseId: 14, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // 16th 3 note (Exercise ID: 15)
-      { exerciseId: 15, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
-      // Triplet 1 note (Exercise ID: 51)
-      { exerciseId: 51, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
-      // Triplet 2 note (Exercise ID: 52)
-      { exerciseId: 52, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
-      // Triplet 3 note (Exercise ID: 53)
-      { exerciseId: 53, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // 16th 1 Note (ID: 173)
+      { exerciseId: 173, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // 16th 2 Note (ID: 176)
+      { exerciseId: 176, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // 16th 3 Note (ID: 180)
+      { exerciseId: 180, tempos: [90, 110, 130], repetitionsPerTempo: 3 },
+      // Triplet 1 Note (ID: 454)
+      { exerciseId: 454, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // Triplet 2 Note (ID: 457)
+      { exerciseId: 457, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
+      // Triplet 3 Note (ID: 460)
+      { exerciseId: 460, tempos: [110, 125, 140], repetitionsPerTempo: 3 },
     ],
   },
 
@@ -736,18 +736,18 @@ window.PLAYLISTS = [
   {
     name: 'Timing Hard',
     items: [
-      // 16th 1 note (Exercise ID: 13)
-      { exerciseId: 13, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // 16th 2 note (Exercise ID: 14)
-      { exerciseId: 14, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // 16th 3 note (Exercise ID: 15)
-      { exerciseId: 15, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
-      // Triplet 1 note (Exercise ID: 51)
-      { exerciseId: 51, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
-      // Triplet 2 note (Exercise ID: 52)
-      { exerciseId: 52, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
-      // Triplet 3 note (Exercise ID: 53)
-      { exerciseId: 53, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // 16th 1 Note (ID: 173)
+      { exerciseId: 173, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // 16th 2 Note (ID: 176)
+      { exerciseId: 176, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // 16th 3 Note (ID: 180)
+      { exerciseId: 180, tempos: [120, 145, 170], repetitionsPerTempo: 3 },
+      // Triplet 1 Note (ID: 454)
+      { exerciseId: 454, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // Triplet 2 Note (ID: 457)
+      { exerciseId: 457, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
+      // Triplet 3 Note (ID: 460)
+      { exerciseId: 460, tempos: [150, 170, 190], repetitionsPerTempo: 3 },
     ],
   },
 ];
