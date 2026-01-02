@@ -80,19 +80,8 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 #tempoLabel, .tempo-control label{ pointer-events:none; }
 
 /* ===== Sheet music ===== */
-.sheet-music{
-  margin:40px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.sheet-music img{
-  max-width:100%;
-  height:auto;
-  border:2px solid var(--black);
-  background: rgba(255, 255, 255, 0.1); /* Subtle placeholder bg */
-  display: block; /* Removes bottom gap */
-}
+.sheet-music{ margin:40px 0; }
+.sheet-music img{ max-width:100%; height:auto; border:2px solid var(--black); }
 
 /* ===== Inputs ===== */
 .selector{
@@ -237,7 +226,7 @@ body.modal-open{ overflow:hidden; touch-action:none; }
 .volume-slider{
   -webkit-appearance:none; appearance:none;
   width:100%; max-width:100%;
-  height:16px; border-radius:6px;
+  height:16px; border-radius:10px;
   background:var(--gray-1);
   box-shadow:inset 0 0 0 2px var(--black);
   cursor:pointer;
@@ -757,5 +746,3 @@ input[type="number"]:disabled{
   cursor:pointer;
   user-select:none;
 }
-
-
