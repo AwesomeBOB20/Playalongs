@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const exercises  = Array.isArray(window.EXERCISES)  ? window.EXERCISES  : [];
   const playlists  = Array.isArray(window.PLAYLISTS)  ? window.PLAYLISTS  : [];
 
-// DOM
+  // ===== DOM =====
+  // Core UI
   const audio               = document.getElementById('audio');
   const totalTimeDisplay    = document.getElementById('totalTime');
   const currentTimeDisplay  = document.getElementById('currentTime');
@@ -411,12 +412,16 @@ document.addEventListener('DOMContentLoaded', function () {
         resetProgressBarInstant();
       }
       if (audio.paused) {
-        // Fix: Removed audio.load() to prevent Safari lag. Audio.play() handles buffering automatically.
+        if (audio.readyState < 3) audio.load();
         audio.play().then(() => {
           this.textContent = 'Pause';
           startProgressTicker();
         }).catch((error) => {
-          console.error('Error playing audio:', error);
+          console.error('Error playing audio:', error, {
+            src: audio.currentSrc || audio.src,
+            readyState: audio.readyState
+          });
+          alert('Audio is not ready yet. Please wait a moment.');
         });
       } else {
         quietRandomize();
@@ -778,10 +783,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!audio || !tempoSlider || !currentOriginalTempo) return;
     const currentTempo = parseInt(tempoSlider.value, 10);
     const playbackRate = currentTempo / currentOriginalTempo;
-
-    // Fix: Removed repeated setting of preservesPitch which causes stuttering on iOS.
-    // (This is already handled in the 'Audio defaults' block at the top of the script).
-
     audio.playbackRate = playbackRate;
     if (tempoLabel) tempoLabel.textContent = 'BPM: ' + currentTempo;
     updateTotalTime();
@@ -861,41 +862,20 @@ document.addEventListener('DOMContentLoaded', function () {
   function initializeExercise(ex) {
     if (!audio || !tempoSlider || !tempoLabel || !sheetMusicImg) return;
 
-    // --- FIX 2: Prevent redundant audio reloading ---
-    const newSrc = resolveAssetUrl(ex.audioSrc);
-    // Create a temporary anchor to resolve the absolute URL for comparison
-    const tempAnchor = document.createElement('a');
-    tempAnchor.href = newSrc;
-    
-    // Only reload if the source is actually different
-    if (audio.src !== tempAnchor.href) {
-      audio.src = newSrc;
-      audio.preload = 'auto';
-      audio.load();
+    audio.src     = resolveAssetUrl(ex.audioSrc);
+    audio.preload = 'auto';
+    audio.load();
 
-      const onceUpdate = () => refreshTimeDisplays();
-      audio.addEventListener('loadedmetadata', onceUpdate, { once: true });
-      audio.addEventListener('canplay',        onceUpdate, { once: true });
-      
-      const cacheDurationOnce = () => {
-        if (isFinite(audio.duration) && audio.duration > 0) {
-          durationCache.set(ex.id, audio.duration);
-          renderPlaylistOverlay();
-        }
-      };
-      audio.addEventListener('loadedmetadata', cacheDurationOnce, { once: true });
-    }
+    if ('preservesPitch' in audio)       audio.preservesPitch = true;
+    if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
+    if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
 
     sheetMusicImg.src = resolveAssetUrl(ex.sheetMusicSrc);
 
     currentOriginalTempo = ex.originalTempo;
-
-    // --- REVERTED LOGIC: /2 and x2 ---
-    tempoSlider.min = Math.floor(ex.originalTempo / 2);
-    tempoSlider.max = Math.floor(ex.originalTempo * 2);
-    
-    // Set visual value
-    tempoSlider.value = ex.originalTempo;
+    tempoSlider.min      = ex.originalTempo / 2;
+    tempoSlider.max      = ex.originalTempo * 2;
+    tempoSlider.value    = ex.originalTempo;
     tempoLabel.textContent = 'BPM: ' + ex.originalTempo;
 
     if (exerciseSearchInput) {
@@ -904,12 +884,25 @@ document.addEventListener('DOMContentLoaded', function () {
       exerciseSearchInput.dataset.id = String(ex.id);
     }
 
+    // Make sure we update totals as soon as metadata is ready for THIS src
+    const onceUpdate = () => refreshTimeDisplays();
+    audio.addEventListener('loadedmetadata', onceUpdate, { once: true });
+    audio.addEventListener('canplay',        onceUpdate, { once: true });
+
+    // Cache this exercise's 1x duration once we know it
+    const cacheDurationOnce = () => {
+      if (isFinite(audio.duration) && audio.duration > 0) {
+        durationCache.set(ex.id, audio.duration);
+        renderPlaylistOverlay(); // totals may improve once known
+      }
+    };
+    audio.addEventListener('loadedmetadata', cacheDurationOnce, { once: true });
+
     updatePlaybackRate();
     updateSliderBackground(tempoSlider, '#96318d', '#ffffff');
     resetTempoStepCounter();
     applyLoopMode();
   }
-
 
   // ===== Robust Random Tempo (now supports immediate flag) =====
   function pickRandomTempo(immediate = false) {
@@ -1590,34 +1583,9 @@ document.addEventListener('DOMContentLoaded', function () {
     showPicker({
       theme: document.body.classList.contains('playlist-mode') ? 'purple' : 'orange',
       title: 'Select Exercise',
-      getItems: (q) => {
-        // 1. Prepare Number Mapping (1 <-> One)
-        const numMap = {
-          '0':['zero'], '1':['one'], '2':['two'], '3':['three'], '4':['four'],
-          '5':['five'], '6':['six'], '7':['seven'], '8':['eight'], '9':['nine'],
-          '10':['ten'], '11':['eleven'], '12':['twelve']
-        };
-        // Add reverse mapping (One -> 1)
-        Object.entries(numMap).forEach(([digit, words]) => {
-          words.forEach(w => { if(!numMap[w]) numMap[w] = []; numMap[w].push(digit); });
-        });
-
-        // 2. Create Search "Groups"
-        // e.g. "5 stroke" -> [ ["5", "five"], ["stroke"] ]
-        const terms = q.toLowerCase().split(/\s+/).filter(t => t.length > 0);
-        const searchGroups = terms.map(term => {
-          const synonyms = numMap[term] || [];
-          return [term, ...synonyms];
-        });
-
-        return filterExercisesForMode()
-          .filter(ex => {
-            const name = ex.name.toLowerCase();
-            // Match if Name contains AT LEAST ONE version of EVERY typed term
-            return searchGroups.every(group => group.some(t => name.includes(t)));
-          })
-          .map(ex => ({ id: ex.id, label: ex.name, ex }));
-      },
+      getItems: (q) => filterExercisesForMode()
+        .filter(ex => ex.name.toLowerCase().includes(q))
+        .map(ex => ({ id: ex.id, label: ex.name, ex })),
       getActiveId: () => currentSelectedExercise?.id ?? exerciseSearchInput?.dataset?.id ?? null,
       onSelect: (it) => {
         if (!it) return;
@@ -1901,26 +1869,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial paint of overlay (default = cumulative time)
   renderPlaylistOverlay();
-
-
-// ===== Quality of Life: "Enter" key blurs inputs to confirm values =====
-  const numericInputs = [
-    repsPerTempoInput, minTempoInput, maxTempoInput,
-    dialRepsInput, dialStepInput
-  ];
-  
-  numericInputs.forEach(input => {
-    if (!input) return;
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        input.blur(); // Triggers the 'change'/'input' logic and restores keyboard shortcuts
-      }
-    });
-  });
-
-
-
-
-
 });
