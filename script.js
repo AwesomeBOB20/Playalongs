@@ -411,16 +411,12 @@ document.addEventListener('DOMContentLoaded', function () {
         resetProgressBarInstant();
       }
       if (audio.paused) {
-        if (audio.readyState < 3) audio.load();
+        // Fix: Removed audio.load() to prevent Safari lag. Audio.play() handles buffering automatically.
         audio.play().then(() => {
           this.textContent = 'Pause';
           startProgressTicker();
         }).catch((error) => {
-          console.error('Error playing audio:', error, {
-            src: audio.currentSrc || audio.src,
-            readyState: audio.readyState
-          });
-          alert('Audio is not ready yet. Please wait a moment.');
+          console.error('Error playing audio:', error);
         });
       } else {
         quietRandomize();
@@ -783,10 +779,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentTempo = parseInt(tempoSlider.value, 10);
     const playbackRate = currentTempo / currentOriginalTempo;
 
-    // Force "Preserve Pitch" to avoid the deep/low demon sound
-    if ('preservesPitch' in audio)       audio.preservesPitch = true;
-    if ('webkitPreservesPitch' in audio) audio.webkitPreservesPitch = true;
-    if ('mozPreservesPitch' in audio)    audio.mozPreservesPitch = true;
+    // Fix: Removed repeated setting of preservesPitch which causes stuttering on iOS.
+    // (This is already handled in the 'Audio defaults' block at the top of the script).
 
     audio.playbackRate = playbackRate;
     if (tempoLabel) tempoLabel.textContent = 'BPM: ' + currentTempo;
