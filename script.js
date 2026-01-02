@@ -5,41 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // DOM
   const audio               = document.getElementById('audio');
-
-// === START VOLUME NORMALIZATION (GENTLE MODE) ===
-  try {
-    audio.crossOrigin = "anonymous"; 
-    
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    const audioCtx = new AudioContext();
-    
-    // 1. Compressor: Softer settings to reduce "pumping" and "glitch" amplification
-    const compressor = audioCtx.createDynamicsCompressor();
-    compressor.threshold.setValueAtTime(-18, audioCtx.currentTime); 
-    compressor.knee.setValueAtTime(40, audioCtx.currentTime);      // Soft knee
-    compressor.ratio.setValueAtTime(3, audioCtx.currentTime);      // Lower ratio (3:1 instead of 12:1)
-    compressor.attack.setValueAtTime(0.05, audioCtx.currentTime);  // Slower attack to let transients punch
-    compressor.release.setValueAtTime(0.25, audioCtx.currentTime);  
-
-    // 2. Make-up Gain: Moderate boost (200% instead of 400%)
-    const makeupGain = audioCtx.createGain();
-    makeupGain.gain.value = 2.0; 
-
-    // Connect: Audio -> Compressor -> Gain -> Speakers
-    const source = audioCtx.createMediaElementSource(audio);
-    source.connect(compressor);
-    compressor.connect(makeupGain);
-    makeupGain.connect(audioCtx.destination);
-
-    document.addEventListener('click', function() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-    }, { once: true });
-
-  } catch (e) {
-    console.log("Web Audio API issue:", e);
-  }
-  // === END VOLUME NORMALIZATION ===
-  const totalTimeDisplay    = document.getElementById('totalTime');  const currentTimeDisplay  = document.getElementById('currentTime');
+  const totalTimeDisplay    = document.getElementById('totalTime');
+  const currentTimeDisplay  = document.getElementById('currentTime');
   const playPauseBtn        = document.getElementById('playPauseBtn');
   const tempoSlider         = document.getElementById('tempoSlider');
   const tempoLabel          = document.getElementById('tempoLabel');
