@@ -1,487 +1,5164 @@
 // data.js
 window.EXERCISES = [
-{"id": 2, "name": "2 Accent Bucks", "category": ["accent-tap", "one-handers"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/2 Accent Bucks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/2 Accent Bucks.png"},
-{"id": 3, "name": "3 Note Rhythm Groupings", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3 Note Rhythm Groupings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3 Note Rhythm Groupings.png"},
-{"id": 4, "name": "3 Note Stickings", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3 Note Stickings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3 Note Stickings.png"},
-{"id": 5, "name": "3/4 Double Beat", "category": ["one-handers", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3_4 Double Beat.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3_4 Double Beat.png"},
-{"id": 6, "name": "4 Note Rhythm Groupings", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4 Note Rhythm Groupings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4 Note Rhythm Groupings.png"},
-{"id": 7, "name": "4 Note Stickings", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4 Note Stickings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4 Note Stickings.png"},
-{"id": 8, "name": "4:3 Accents", "category": ["timing", "accent-tap"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4_3 Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4_3 Accents.png"},
-{"id": 9, "name": "4:3 Builder Doubles", "category": ["timing", "rolls"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1508860410fc0180951.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9781b64965e86358ea0.png"},
-{"id": 10, "name": "4:3 Builder Paradiddle", "category": ["timing", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150d8e95d730c3af994.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e315685c6df52.png"},
-{"id": 11, "name": "4:3 Builder Singles", "category": ["timing", "singles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1509dd6410eae08caa7.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9781b6496e000358e9f.png"},
-{"id": 12, "name": "4:3s", "category": ["rhythms"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4.3s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4.3s.png"},
-{"id": 13, "name": "4let Roll Builder", "category": ["rolls", "timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4let Roll Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4let Roll Builder.png"},
-{"id": 14, "name": "5 Note Rhythm Groupings", "category": ["timing"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Note Rhythm Groupings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Note Rhythm Groupings.png"},
-{"id": 15, "name": "5 Note Stickings", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Note Stickings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Note Stickings.png"},
-{"id": 16, "name": "5 Stroke Roll Interp Gauntlet", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Stroke Roll Interp Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Stroke Roll Interp Gauntlet.png"},
-{"id": 17, "name": "5:3 Accents", "category": ["timing", "accent-tap"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_3 Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_3 Accents.png"},
-{"id": 18, "name": "5:3 Builder Paradiddle Tap", "category": ["timing", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150689e4044cfef7206.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9781b64963b6a358e9e.png"},
-{"id": 19, "name": "5:3 Builder Singles", "category": ["timing", "singles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1501b6496164c3592e6.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34bae1cac2c72a4.png"},
-{"id": 20, "name": "5:3 Builder Slurred Tap 5s", "category": ["timing", "rolls"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150689e409555ef7205.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34bae151a2c7296.png"},
-{"id": 21, "name": "5:3s", "category": ["rhythms"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.3s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.3s.png"},
-{"id": 22, "name": "5:6 Builder", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.6 Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.6 Builder.png"},
-{"id": 23, "name": "5:6s", "category": ["rhythms"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.6s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.6s.png"},
-{"id": 24, "name": "5/4 Double Beat", "category": ["one-handers", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_4 Double Beat.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_4 Double Beat.png"},
-{"id": 25, "name": "5let - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 16th Roll.png"},
-{"id": 26, "name": "5let - 6let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 6let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 6let.png"},
-{"id": 27, "name": "5let - 8th 5let Roll", "category": ["timing", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 8th 5let Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 8th 5let Roll.png"},
-{"id": 28, "name": "5let - 9let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 9let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 9let.png"},
-{"id": 29, "name": "5let - Duple Roll", "category": ["timing", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - Duple Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - Duple Roll.png"},
-{"id": 30, "name": "5let - Triplet Roll", "category": ["timing", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - Triplet Roll.png"},
-{"id": 31, "name": "5let 1 Accent Grid", "category": ["accent-tap"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Accent Grid.png"},
-{"id": 32, "name": "5let 1 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Accent Grid Backwards.png"},
-{"id": 33, "name": "5let 1 Note", "category": ["timing"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Note.png"},
-{"id": 34, "name": "5let 2 Accent Grid", "category": ["accent-tap"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Accent Grid.png"},
-{"id": 35, "name": "5let 2 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Accent Grid Backwards.png"},
-{"id": 36, "name": "5let 2 Note", "category": ["timing"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Note.png"},
-{"id": 37, "name": "5let 3 Note", "category": ["timing"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 3 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 3 Note.png"},
-{"id": 38, "name": "5let 4 Note", "category": ["timing"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 4 note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 4 note.png"},
-{"id": 39, "name": "5let Builder", "category": ["timing", "accent-tap"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let Builder.png"},
-{"id": 40, "name": "5let Ratamacues - Inverted Double Paradiddles", "category": ["juxtapositions"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let Ratamacues - Inverted Double Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let Ratamacues - Inverted Double Paradiddles.png"},
-{"id": 41, "name": "5lets", "category": ["rhythms"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5lets.png"},
-{"id": 42, "name": "6 Note Rhythm Groupings", "category": ["timing"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6 Note Rhythm Groupings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6 Note Rhythm Groupings.png"},
-{"id": 43, "name": "6 Note Stickings", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6 Note Stickings.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6 Note Stickings.png"},
-{"id": 44, "name": "6lets", "category": ["rhythms"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6lets.png"},
-{"id": 485, "name": "7-5-4 Double Beat", "category": ["exercises", "rolls", "timing", "one-handers"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7-5-4 Double Beat.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7-5-4 Double Beat.png"},
-{"id": 45, "name": "7:3 Builder Paradiddle Diddle Tap", "category": ["timing", "paradiddles"], "originalTempo": 80, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd15048c0c380f60c0a92.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9789dd641469408c598.png"},
-{"id": 46, "name": "7:3 Builder Singles", "category": ["timing", "singles"], "originalTempo": 80, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150d8e95dc02f3af997.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34baeee0e2c72a2.png"},
-{"id": 47, "name": "7:3 Builder Slurred Tap Sevens", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150f70e31f883c6e39b.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978689e40bdddef6e77.png"},
-{"id": 48, "name": "7:3s", "category": ["rhythms"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7.3s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7.3s.png"},
-{"id": 50, "name": "7:6s", "category": ["rhythms"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7.6s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7.6s.png"},
-{"id": 51, "name": "7/8 4let - 5let", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let - 5let.png"},
-{"id": 52, "name": "7/8 4let - 8th", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let - 8th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let - 8th.png"},
-{"id": 53, "name": "7/8 4let - Triplet", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let + Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let + Triplet.png"},
-{"id": 54, "name": "7/8 4lets", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4lets.png"},
-{"id": 55, "name": "7/8 5let - 4let", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let + 4let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let + 4let.png"},
-{"id": 56, "name": "7/8 5let - 5:3", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let - 5.3.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let - 5.3.png"},
-{"id": 57, "name": "7/8 5let - 8th", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let - 8th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let - 8th.png"},
-{"id": 59, "name": "7/8 5let - Triplet", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let + Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let + Triplet.png"},
-{"id": 60, "name": "7/8 5lets", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5lets.png"},
-{"id": 61, "name": "7/8 8th - 4let", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 4let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 4let.png"},
-{"id": 62, "name": "7/8 8th - 5:3", "category": ["78-grids", "timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 5.3.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 5.3.png"},
-{"id": 63, "name": "7/8 8th - 5let", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 5let.png"},
-{"id": 64, "name": "7/8 8th - Deviled Eggs", "category": ["78-grids", "hybrids"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - Deviled Eggs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - Deviled Eggs.png"},
-{"id": 65, "name": "7/8 8th - Triplet", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - Triplet.png"},
-{"id": 66, "name": "7/8 Blue Cheeses - Catapults", "category": ["78-grids", "hybrids"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Blue Cheeses + Catapults.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Blue Cheeses + Catapults.png"},
-{"id": 67, "name": "7/8 Blue Cheeses - Waterfalls", "category": ["78-grids", "hybrids"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Blue Cheeses - Waterfalls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Blue Cheeses - Waterfalls.png"},
-{"id": 68, "name": "7/8 Book Report Thing", "category": ["78-grids", "hybrids"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Book Report Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Book Report Thing.png"},
-{"id": 69, "name": "7/8 Cheeses", "category": ["78-grids", "hybrids"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Cheeses.png"},
-{"id": 70, "name": "7/8 Deviled Eggs - Waterfalls", "category": ["78-grids", "hybrids"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Deviled Eggs + Waterfalls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Deviled Eggs + Waterfalls.png"},
-{"id": 71, "name": "7/8 Drags", "category": ["78-grids", "rolls"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Drags.png"},
-{"id": 72, "name": "7/8 Eggbeater Combo - Paradiddle Diddles", "category": ["78-grids", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Combo - Paradiddle Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Combo - Paradiddle Diddles.png"},
-{"id": 73, "name": "7/8 Eggbeater Combo - Shirley Murphys", "category": ["78-grids", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Combo - Shirley Murphys.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Combo - Shirley Murphys.png"},
-{"id": 74, "name": "7/8 Eggbeater Modulation", "category": ["78-grids", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Modulation.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Modulation.png"},
-{"id": 75, "name": "7/8 Eggbeater Turnaround", "category": ["78-grids", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Turnaround.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Turnaround.png"},
-{"id": 76, "name": "7/8 Flam Accents", "category": ["78-grids", "flams"], "originalTempo": 170, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102b2eae15da4dfd39c.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971090bcca0a21d806cc3.png"},
-{"id": 77, "name": "7/8 Flam Drags", "category": ["78-grids"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Drags.png"},
-{"id": 78, "name": "7/8 Flam Drags - Double Flam Drags", "category": ["78-grids"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Drags - Double Flam Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Drags - Double Flam Drags.png"},
-{"id": 79, "name": "7/8 Flam Five Pataflaflas - Flam Fives", "category": ["78-grids", "hybrids"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Five Pataflaflas + Flam Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Five Pataflaflas + Flam Fives.png"},
-{"id": 80, "name": "7/8 Flam Fives", "category": ["78-grids", "hybrids"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Fives.png"},
-{"id": 81, "name": "7/8 Flam Taps - Flam Accents", "category": ["78-grids", "flams", "natural-decays"], "originalTempo": 170, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Flam Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Flam Accents.png"},
-{"id": 82, "name": "7/8 Flam Taps - Flam-Flam Taps", "category": ["78-grids", "flams", "natural-decays"], "originalTempo": 170, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Flam Flam Taps.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Flam Flam Taps.png"},
-{"id": 83, "name": "7/8 Flam Taps - Swisses", "category": ["78-grids", "flams", "natural-decays"], "originalTempo": 170, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Swisses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Swisses.png"},
-{"id": 84, "name": "7/8 Flamacues - Flam Accents", "category": ["78-grids", "flams"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102f81de4e317aa4ded.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971097e6211a1d6b26376.png"},
-{"id": 85, "name": "7/8 Flammed Doubles - Flammed Threes", "category": ["78-grids", "flams"], "originalTempo": 130, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102b2eae13e67dfd39b.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971097e62118592b26377.png"},
-{"id": 86, "name": "7/8 Flammed Threes Thing", "category": ["78-grids", "hybrids", "flams", "natural-decays"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfbf7a5c4c35ed686071.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfb4540e179a175f8422.png"},
-{"id": 87, "name": "7/8 Floppy Flams - Flammed Threes", "category": ["78-grids", "flams"], "originalTempo": 130, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710246935153a255a32f.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109b2eae14e41dfd3a8.png"},
-{"id": 88, "name": "7/8 Herta Modulation", "category": ["78-grids", "hybrids", "singles"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Herta Modulation.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Herta Modulation.png"},
-{"id": 89, "name": "7/8 Herta Modulation w/ Accents", "category": ["78-grids", "singles"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Herta Modulation w Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Herta Modulation w Accents.png"},
-{"id": 90, "name": "7/8 Hertas", "category": ["78-grids", "singles"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Hertas.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Hertas.png"},
-{"id": 91, "name": "7/8 Invert Cheeses - Cheese Chutichuhs", "category": ["78-grids", "hybrids"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheese Chutichuhs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheese Chutichuhs.png"},
-{"id": 92, "name": "7/8 Invert Cheeses - Cheese Fubars", "category": ["78-grids", "hybrids"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheese Fubars.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheese Fubars.png"},
-{"id": 93, "name": "7/8 Invert Cheeses - Cheeses", "category": ["78-grids", "hybrids"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheeses.png"},
-{"id": 94, "name": "7/8 Invert Flam Taps - Chutichuhs", "category": ["78-grids", "flams"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Chutichuhs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Chutichuhs.png"},
-{"id": 95, "name": "7/8 Invert Flam Taps - Flam Accents", "category": ["78-grids", "flams"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Flam Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Flam Accents.png"},
-{"id": 96, "name": "7/8 Invert Flam Taps - Fubars", "category": ["78-grids", "flams"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Fubars.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Fubars.png"},
-{"id": 97, "name": "7/8 Legatos - Doubles", "category": ["78-grids", "rolls"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Legatos + Doubles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Legatos + Doubles.png"},
-{"id": 98, "name": "7/8 Para-rolls - Grandmas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102087a9c67cd29b9ae.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710960f859b66d0f119f.png"},
-{"id": 99, "name": "7/8 Para-rolls - Inside Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971024693515e2355a330.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971092fc195e9144bf1a5.png"},
-{"id": 100, "name": "7/8 Para-rolls - Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710260f85932e10f1195.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971090bcca09ef1806cc7.png"},
-{"id": 101, "name": "7/8 Para-rolls - Pudadas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102db171cf5f3c6d61d.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109f81de45f05aa4dfb.png"},
-{"id": 102, "name": "7/8 Para-rolls - Shirley Murphys", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710260f8598d090f1198.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109fb63bc070f6d473f.png"},
-{"id": 103, "name": "7/8 Paradiddle", "category": ["paradiddles", "78-grids"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Paradiddle.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Paradiddle.png"},
-{"id": 104, "name": "7/8 Paradiddle Flam Thing", "category": ["78-grids", "hybrids", "paradiddles", "flams"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfbf2ec4eb5ba84c1d35.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfb47a5c4cad55685d30.png"},
-{"id": 105, "name": "7/8 Paradiddle Modulation", "category": ["78-grids", "hybrids", "paradiddles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddle Modulation.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddle Modulation.png"},
-{"id": 106, "name": "7/8 Paradiddle Upstroke", "category": ["78-grids", "hybrids", "paradiddles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddle Upstroke.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddle Upstroke.png"},
-{"id": 107, "name": "7/8 Paradiddles - Fat Muffins", "category": ["78-grids", "hybrids", "paradiddles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles - Fat Muffins.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles - Fat Muffins.png"},
-{"id": 108, "name": "7/8 Paradiddles - Grandmas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710260f8599f530f1194.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971097e62110163b26374.png"},
-{"id": 109, "name": "7/8 Paradiddles - Inside Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971020bcca0c1fb806cb8.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109db171c8e55c6d623.png"},
-{"id": 110, "name": "7/8 Paradiddles - Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102f81de4280eaa4def.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109469351a66555a336.png"},
-{"id": 111, "name": "7/8 Paradiddles - Pudadas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Pudadas.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Pudadas.png"},
-{"id": 112, "name": "7/8 Paradiddles - Shirley Murphys", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Shirley Murphys.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Shirley Murphys.png"},
-{"id": 113, "name": "7/8 Shirley Temples - Eggbeaters", "category": ["78-grids", "hybrids", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Shirley Temples + Eggbeaters.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Shirley Temples + Eggbeaters.png"},
-{"id": 114, "name": "7/8 Single Stroke Fives", "category": ["78-grids", "singles"], "originalTempo": 140, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102087a9c2de329b9ac.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971092fc1953d684bf1a1.png"},
-{"id": 115, "name": "7/8 Singles", "category": ["78-grids", "singles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles.png"},
-{"id": 116, "name": "7/8 Singles - Doubles", "category": ["78-grids", "singles", "rolls"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles + Doubles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles + Doubles.png"},
-{"id": 117, "name": "7/8 Slow Paradiddles - Grandmas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971032fc1952e574bf19b.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6769710960f859fc260f119d.png"},
-{"id": 118, "name": "7/8 Slow Paradiddles - Inside Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971020bcca0ebf9806cba.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971090bcca0b899806cc6.png"},
-{"id": 119, "name": "7/8 Slow Paradiddles - Paradiddle Diddles", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102b2eae1c9c3dfd3a3.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109469351954e55a339.png"},
-{"id": 120, "name": "7/8 Slow Paradiddles - Pudadas", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102087a9c326d29b9ad.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109469351f93c55a338.png"},
-{"id": 121, "name": "7/8 Slow Paradiddles - Shirley Murphys", "category": ["78-grids", "paradiddles"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971022fc195fa6c4bf199.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697109fb63bc4e016d473d.png"},
-{"id": 122, "name": "7/8 Spree 1", "category": ["instagram"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Spree 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Spree 1.png"},
-{"id": 123, "name": "7/8 Spree 2", "category": ["instagram"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Spree 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Spree 2.png"},
-{"id": 124, "name": "7/8 Stock", "category": ["78-grids", "accent-tap"], "originalTempo": 220, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Stock.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Stock.png"},
-{"id": 125, "name": "7/8 Swiss Thing", "category": ["78-grids", "hybrids", "flams", "natural-decays"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Swiss Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Swiss Thing.png"},
-{"id": 126, "name": "7/8 Swiss Thing w/ Kick", "category": ["78-grids", "hybrids", "flams", "natural-decays"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Swiss Thing w Kick.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Swiss Thing w Kick.png"},
-{"id": 127, "name": "7/8 Tap Drags", "category": ["78-grids", "rolls"], "originalTempo": 140, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67697102fb63bcc4936d4733.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676971097e62115326b26379.png"},
-{"id": 128, "name": "7/8 Tap Fives", "category": ["78-grids", "rolls"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfbf540e1704e05f842a.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfb42ec4eb3bd84c1d2b.png"},
-{"id": 129, "name": "7/8 Tap Fives - Para-rolls", "category": ["78-grids", "rolls", "paradiddles"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfbf540e1728a55f8426.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfb4540e1732c65f8423.png"},
-{"id": 130, "name": "7/8 Tap Fives - Tap Rolls", "category": ["78-grids", "rolls"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfbf2ec4eb5d874c1d33.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676bdfb42ec4ebe9094c1d2c.png"},
-{"id": 131, "name": "7/8 Tap Rolls", "category": ["78-grids", "rolls"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Tap Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Tap Rolls.png"},
-{"id": 132, "name": "7/8 Triplet - 4let", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 4let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet + 4let.png"},
-{"id": 133, "name": "7/8 Triplet - 5:3", "category": ["78-grids", "timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 5.3.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet + 5.3.png"},
-{"id": 134, "name": "7/8 Triplet - 5let", "category": ["78-grids", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet - 5let.png"},
-{"id": 135, "name": "7/8 Triplet - 8th", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 8th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet - 8th.png"},
-{"id": 136, "name": "7/8 Triplet Roll Combo", "category": ["78-grids", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet Roll Combo.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet Roll Combo.png"},
-{"id": 137, "name": "7/8 Triplets", "category": ["78-grids", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplets.png"},
-{"id": 138, "name": "7let Builder", "category": ["timing", "accent-tap"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7let Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7let Builder.png"},
-{"id": 139, "name": "7lets", "category": ["rhythms"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7lets.png"},
-{"id": 140, "name": "8:6s", "category": ["rhythms"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8.6s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8.6s.png"},
-{"id": 141, "name": "8th - 16th", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 16th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 16th.png"},
-{"id": 142, "name": "8th - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 16th Roll.png"},
-{"id": 143, "name": "8th - 5let", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 5let.png"},
-{"id": 144, "name": "8th - 6let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 6let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 6let.png"},
-{"id": 145, "name": "8th - 8th 5let", "category": ["timing"], "originalTempo": 160, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255b41ad0a8226.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a13cda55301d41da6f.png"},
-{"id": 146, "name": "8th - 8th 5let Roll", "category": ["rolls", "timing"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b03cda55b96341da8a.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a182382448d3dbeb2a.png"},
-{"id": 147, "name": "8th - 8th 9let", "category": ["timing"], "originalTempo": 200, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 8th 9let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 8th 9let.png"},
-{"id": 148, "name": "8th - Duple Roll", "category": ["timing", "rolls"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Duple Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Duple Roll.png"},
-{"id": 149, "name": "8th - Triplet", "category": ["timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Triplet.png"},
-{"id": 150, "name": "8th - Triplet Roll", "category": ["timing", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Triplet Roll.png"},
-{"id": 151, "name": "8th 5let - 16th", "category": ["timing"], "originalTempo": 130, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255b0f290a8225.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a1f9e1e1aabf191fb7.png"},
-{"id": 152, "name": "8th 5let - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - 16th Roll.png"},
-{"id": 153, "name": "8th 5let - 5let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - 5let.png"},
-{"id": 154, "name": "8th 5let - Duple Roll", "category": ["timing", "rolls"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Duple Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Duple Roll.png"},
-{"id": 155, "name": "8th 5let - Triplet", "category": ["timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Triplet.png"},
-{"id": 156, "name": "8th 5let - Triplet Roll", "category": ["timing", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Triplet Roll.png"},
-{"id": 157, "name": "8th 5let Roll - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let Roll - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let Roll - 16th Roll.png"},
-{"id": 158, "name": "8th 5lets", "category": ["rhythms"], "originalTempo": 180, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67788b79c290c60a0bbff9fc.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67788b867e4aa68342b96a4d.png"},
-{"id": 159, "name": "8ths", "category": ["rhythms"], "originalTempo": 200, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8ths.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8ths.png"},
-{"id": 160, "name": "9let Builder", "category": ["timing"], "originalTempo": 180, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/9let Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/9let Builder.png"},
-{"id": 161, "name": "9let Singles", "category": ["timing", "singles"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1501b649609883592e5.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34baea8552c7297.png"},
-{"id": 162, "name": "9lets", "category": ["rhythms"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/9lets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/9lets.png"},
-{"id": 163, "name": "16th - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 16th Roll.png"},
-{"id": 164, "name": "16th - 5let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 5let.png"},
-{"id": 165, "name": "16th - 6let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 6let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 6let.png"},
-{"id": 166, "name": "16th - 8th 5let Roll", "category": ["timing", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 8th 5let Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 8th 5let Roll.png"},
-{"id": 167, "name": "16th - 8th 7let", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 8th 7let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 8th 7let.png"},
-{"id": 168, "name": "16th - 9let", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 9let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 9let.png"},
-{"id": 169, "name": "16th - Duple Roll", "category": ["timing", "rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - Duple Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - Duple Roll.png"},
-{"id": 170, "name": "16th - Triplet Roll", "category": ["timing", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - Triplet Roll.png"},
-{"id": 171, "name": "16th 1 Accent Grid", "category": ["accent-tap"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/660de00d25bbbb56bc4d2d5f.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/662d5a89277a3844187db7fa.png"},
-{"id": 172, "name": "16th 1 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 1 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 1 Accent Grid Backwards.png"},
-{"id": 173, "name": "16th 1 Note", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 1 note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 1 note.png"},
-{"id": 174, "name": "16th 2 Accent Grid", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Accent Grid.png"},
-{"id": 175, "name": "16th 2 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Accent Grid Backwards.png"},
-{"id": 176, "name": "16th 2 Note", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Note.png"},
-{"id": 178, "name": "16th 3 Accent Grid", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 Accent Grid.png"},
-{"id": 179, "name": "16th 3 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 Accent Grid Backwards.png"},
-{"id": 180, "name": "16th 3 Note", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 note.png"},
-{"id": 181, "name": "16th Diddles", "category": ["rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th Diddles.png"},
-{"id": 182, "name": "16th Taps Gauntlet", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th Taps Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th Taps Gauntlet.png"},
-{"id": 183, "name": "16ths", "category": ["rhythms"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16ths.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16ths.png"},
-{"id": 184, "name": "32nds", "category": ["rhythms"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/32nds.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/32nds.png"},
-{"id": 185, "name": "A.R.C.E", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/A.R.C.E.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/A.R.C.E.png"},
-{"id": 186, "name": "Add A Decay", "category": ["one-handers", "natural-decays"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Decay.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Decay.png"},
-{"id": 187, "name": "Add A Flam", "category": ["flams"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Flam.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Flam.png"},
-{"id": 188, "name": "Add A Flam Tap", "category": ["flams", "natural-decays"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Flam Tap.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Flam Tap.png"},
-{"id": 189, "name": "Add A Note", "category": ["one-handers"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Note.png"},
-{"id": 190, "name": "Add A Tap", "category": ["one-handers", "accent-tap"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Tap.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Tap.png"},
-{"id": 191, "name": "Basic Rhythms Etude #1", "category": ["etudes"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Basic Rhythms Etude 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Basic Rhythms Etude 1.png"},
-{"id": 192, "name": "Basic Rhythms Etude #2", "category": ["etudes"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Basic Rhythms Etude 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Basic Rhythms Etude 2.png"},
-{"id": 193, "name": "BD Flams", "category": ["exercises"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/BD Flams.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/BD Flams.png"},
-{"id": 194, "name": "BD Triplet Partial", "category": ["exercises"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1508860410e7718094d.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9789dd641085608c5a1.png"},
-{"id": 195, "name": "Book Report Builder", "category": ["hybrids"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Book Report Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Book Report Builder.png"},
-{"id": 196, "name": "Bucks", "category": ["one-handers", "accent-tap"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/bucks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/bucks.png"},
-{"id": 197, "name": "Bucks Filled In", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Bucks Filled In.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Bucks Filled In.png"},
-{"id": 198, "name": "Bucks Hugs", "category": ["one-handers", "accent-tap", "natural-decays"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Bucks Hugs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Bucks Hugs.png"},
-{"id": 199, "name": "Buzzed Bucks", "category": ["accent-tap", "one-handers"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Buzzed Bucks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Buzzed Bucks.png"},
-{"id": 200, "name": "Catapult Builder", "category": ["hybrids"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Catapult Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Catapult Builder.png"},
-{"id": 201, "name": "Cheese Chutichuh Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheese Chutichuh Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheese Chutichuh Grid.png"},
-{"id": 202, "name": "Cheese Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheese Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheese Grid.png"},
-{"id": 203, "name": "Cheeses - Bad Cheeses", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Bad Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Bad Cheeses.png"},
-{"id": 204, "name": "Cheeses - Flammed Mills", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Flammed Mills.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Flammed Mills.png"},
-{"id": 205, "name": "Cheeses - Slurred Cheeses", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Slurred Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Slurred Cheeses.png"},
-{"id": 206, "name": "Cheeses - Tight Cheeses", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Tight Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Tight Cheeses.png"},
-{"id": 207, "name": "Cheesy Poofs", "category": ["exercises"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheesy Poofs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheesy Poofs.png"},
-{"id": 208, "name": "Chicken & A Roll", "category": ["rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/chicken_&_a_roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/chicken_&_a_roll.png"},
-{"id": 209, "name": "Choo Choos - Slurred Tap Fives", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Choo Choos - Slurred Tap Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Choo Choos - Slurred Tap Fives.png"},
-{"id": 210, "name": "Chuggada Swiss", "category": ["flams", "natural-decays"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/668a21bd4a187686401d4d73.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/668a22808f5b1248070038cf.png"},
-{"id": 211, "name": "Chutichuh Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Chutichuh Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Chutichuh Grid.png"},
-{"id": 212, "name": "Clean Attacks", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Clean Attacks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Clean Attacks.png"},
-{"id": 213, "name": "Cloned Single Strokes - Cloned Double Strokes", "category": ["juxtapositions", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cloned Single Strokes - Cloned Double Strokes.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cloned Single Strokes - Cloned Double Strokes.png"},
-{"id": 214, "name": "Cloned Six Stroke Rolls - Doublestop Huckgadics", "category": ["juxtapositions", "hybrids", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cloned Six Stroke Rolls - Doublestop Huckgadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cloned Six Stroke Rolls - Doublestop Huckgadics.png"},
-{"id": 215, "name": "Colt Forty Five", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Colt Forty Five.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Colt Forty Five.png"},
-{"id": 216, "name": "Crazy Fives", "category": ["rolls"], "originalTempo": 80, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/674ffbac251b39214bf08692.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66b1977c3129355e2473e833.png"},
-{"id": 217, "name": "Crazy Threes", "category": ["accent-tap", "timing", "natural-decays"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150c34bae98132c76b8.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e31fc1ac6df57.png"},
-{"id": 218, "name": "Diddle Diddle Five Nine", "category": ["rolls"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89e0c6a839f6d950a5d9.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89ec7172d76f6173b993.png"},
-{"id": 219, "name": "Diddle Primer", "category": ["rolls", "natural-decays"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddle Primer.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddle Primer.png"},
-{"id": 220, "name": "Diddle Space Control", "category": ["rolls", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddle Space Control.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddle Space Control.png"},
-{"id": 221, "name": "Diddles - Singles", "category": ["rolls", "singles"], "originalTempo": 70, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6759773153bb95196ead8ec7.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6759773653bb95464dad8ec9.png"},
-{"id": 222, "name": "Dotted 8th - Quarter Triplet Interp Grid", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted 8th - Quarter Triplet Interp Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted 8th - Quarter Triplet Interp Grid.png"},
-{"id": 223, "name": "Dotted 8ths", "category": ["rhythms"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted 8ths.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted 8ths.png"},
-{"id": 224, "name": "Dotted Rhythms Builder #1", "category": ["timing"], "originalTempo": 180, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Builder 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Builder 1.png"},
-{"id": 225, "name": "Dotted Rhythms Builder #2", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Builder 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Builder 2.png"},
-{"id": 226, "name": "Dotted Rhythms Etude #1", "category": ["etudes"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Etude 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Etude 1.png"},
-{"id": 227, "name": "Dotted Rhythms Etude #2", "category": ["etudes"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Etude 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Etude 2.png"},
-{"id": 228, "name": "Double Accent Paradiddles", "category": ["rudiments"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Accent Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Accent Paradiddles.png"},
-{"id": 229, "name": "Double Beat", "category": ["one-handers", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/double_beat.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/double_beat.png"},
-{"id": 230, "name": "Double Flammed Swisses - Eggbeaters", "category": ["juxtapositions", "hybrids", "flams", "natural-decays"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Flammed Swisses - Eggbeaters.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Flammed Swisses - Eggbeaters.png"},
-{"id": 231, "name": "Double Paradiddle Builder", "category": ["paradiddles", "accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Builder.png"},
-{"id": 232, "name": "Double Paradiddle Grid", "category": ["paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Grid.png"},
-{"id": 233, "name": "Double Paradiddle Grid Backwards", "category": ["paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Grid Backwards.png"},
-{"id": 234, "name": "Double Paradiddles - 5let Herta Thing", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - 5let Herta Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - 5let Herta Thing.png"},
-{"id": 235, "name": "Double Paradiddles - 5let Ruff Thing", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - 5let Ruff Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - 5let Ruff Thing.png"},
-{"id": 236, "name": "Double Paradiddles - Herta Thing #1", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Herta Thing 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Herta Thing 1.png"},
-{"id": 237, "name": "Double Paradiddles - Herta Thing #2", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Herta Thing 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Herta Thing 2.png"},
-{"id": 238, "name": "Double Paradiddles - Modified Ratamacues", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Modified Ratamacues.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Modified Ratamacues.png"},
-{"id": 239, "name": "Double Ratamacues - Slurred Double Ratamacues", "category": ["juxtapositions", "hybrids"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Ratamacues - Slurred Double Ratamacues.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Ratamacues - Slurred Double Ratamacues.png"},
-{"id": 240, "name": "Down Up", "category": ["one-handers"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/down_up.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/down_up.png"},
-{"id": 241, "name": "Downbeat Drags - Downbeat Slurred Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Downbeat Slurred Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Downbeat Slurred Drags.png"},
-{"id": 242, "name": "Downbeat Drags - Downbeat Tight Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Downbeat Tight Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Downbeat Tight Drags.png"},
-{"id": 243, "name": "Downbeat Drags - Mills", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Mills.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Mills.png"},
-{"id": 244, "name": "Downbeat Drags - Same Diddle, Different Release", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Same Diddle, Different Release.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Same Diddle, Different Release.png"},
-{"id": 245, "name": "Drag Paradiddles - Slurred Drag Paradiddles", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Drag Paradiddles - Slurred Drag Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Drag Paradiddles - Slurred Drag Paradiddles.png"},
-{"id": 246, "name": "Duple Lead Hand Drags - Slurred Lead Hand Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Lead Hand Drags - Slurred Lead Hand Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Lead Hand Drags - Slurred Lead Hand Drags.png"},
-{"id": 247, "name": "Duple Off Hand Drags - Slurred Ruffs", "category": ["juxtapositions", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Off Hand Drags - Slurred Ruffs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Off Hand Drags - Slurred Ruffs.png"},
-{"id": 248, "name": "Duple Roll - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - 16th Roll.png"},
-{"id": 249, "name": "Duple Roll - 8th 5let Roll", "category": ["timing", "rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - 8th 5let Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - 8th 5let Roll.png"},
-{"id": 250, "name": "Duple Roll - Triplet Roll", "category": ["timing", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - Triplet Roll.png"},
-{"id": 251, "name": "Egg Beater Mission", "category": ["flams", "natural-decays"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Eggbeater Mission.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Eggbeater Mission.png"},
-{"id": 252, "name": "Eights", "category": ["one-handers"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/eights.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/eights.png"},
-{"id": 253, "name": "Fat Rabbit", "category": ["one-handers", "timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Fat Rabbit.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Fat Rabbit.png"},
-{"id": 254, "name": "Finger Yoga Double Beat", "category": ["one-handers", "rolls", "singles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Finger Yoga Double Beat.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Finger Yoga Double Beat.png"},
-{"id": 255, "name": "Five Stroke Pickups - Paradiddle Diddles", "category": ["juxtapositions", "hybrids", "rolls", "paradiddles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Pickups - Paradiddle Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Pickups - Paradiddle Diddles.png"},
-{"id": 256, "name": "Five Stroke Rolls - Slurred Five Stroke Rolls", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Rolls - Slurred Five Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Rolls - Slurred Five Stroke Rolls.png"},
-{"id": 257, "name": "Five Stroke Rolls - Tight Five Stroke Rolls", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Rolls - Tight Five Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Rolls - Tight Five Stroke Rolls.png"},
-{"id": 258, "name": "Flam Accent Builder", "category": ["flams"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Builder.png"},
-{"id": 259, "name": "Flam Accent Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Grid.png"},
-{"id": 260, "name": "Flam Accent Grid Backwards", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Grid Backwards.png"},
-{"id": 261, "name": "Flam Accent Timing Gauntlet", "category": ["flams", "timing"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150f9358b424d1d1da8.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9781b6496dcd4358ea7.png"},
-{"id": 262, "name": "Flam Accents", "category": ["rudiments"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents.png"},
-{"id": 263, "name": "Flam Accents - Flat Flam Accents", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Flat Flam Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Flat Flam Accents.png"},
-{"id": 264, "name": "Flam Accents - Modified Hertas", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Modified Hertas.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Modified Hertas.png"},
-{"id": 265, "name": "Flam Accents - Shifted Paradiddles", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Shifted Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Shifted Paradiddles.png"},
-{"id": 266, "name": "Flam Drag Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drag Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drag Grid.png"},
-{"id": 267, "name": "Flam Drags - Inverted Flam Paradiddles", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Inverted Flam Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Inverted Flam Paradiddles.png"},
-{"id": 268, "name": "Flam Drags - Modified Paradiddles", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Modified Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Modified Paradiddles.png"},
-{"id": 269, "name": "Flam Drags - Slurred Flam Drags", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Slurred Flam Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Slurred Flam Drags.png"},
-{"id": 270, "name": "Flam Drags - Tight Flam Drags", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Tight Flam Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Tight Flam Drags.png"},
-{"id": 271, "name": "Flam Five Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Five Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Five Grid.png"},
-{"id": 272, "name": "Flam Fives - Bad Flam Fives", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Bad Flam Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Bad Flam Fives.png"},
-{"id": 273, "name": "Flam Fives - Slurred Flam Fives", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Slurred Flam Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Slurred Flam Fives.png"},
-{"id": 274, "name": "Flam Fives - Tight Flam Fives", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Tight Flam Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Tight Flam Fives.png"},
-{"id": 275, "name": "Flam Paradiddles - Not Shirley Murphys", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Paradiddles - Not Shirley Murphys.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Paradiddles - Not Shirley Murphys.png"},
-{"id": 276, "name": "Flam Tap Builder", "category": ["flams", "natural-decays"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Tap Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Tap Builder.png"},
-{"id": 277, "name": "Flam Taps", "category": ["rudiments"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Taps.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Taps.png"},
-{"id": 278, "name": "Flam Taps - Triple Stroke Rolls", "category": ["juxtapositions", "flams", "natural-decays"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Taps - Triple Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Taps - Triple Stroke Rolls.png"},
-{"id": 279, "name": "Flammus", "category": ["flams", "exercises"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flammus.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flammus.png"},
-{"id": 280, "name": "Flams - Flam Taps", "category": ["flams", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Flam Taps.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Flam Taps.png"},
-{"id": 281, "name": "Flams - Flam Taps - Triple Stroke Rolls", "category": ["flams", "natural-decays"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3bd4d60669f5531e964.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/684ea3c24d606641a531e966.png"},
-{"id": 282, "name": "Flams - Swisses", "category": ["flams", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Swisses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Swisses.png"},
-{"id": 283, "name": "Flams - Swung 16th Notes", "category": ["juxtapositions", "flams"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Swung 16th Notes.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Swung 16th Notes.png"},
-{"id": 284, "name": "Forte Piano Exercise", "category": ["accent-tap", "timing"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832cf53bb956cfbaba9e0.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832c0070071ee21f456fa.png"},
-{"id": 285, "name": "Four Stroke Rolls - Open Roll", "category": ["juxtapositions", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Four Stroke Rolls - Open Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Four Stroke Rolls - Open Roll.png"},
-{"id": 286, "name": "Fulcrum Freddie", "category": ["rolls", "singles", "flams"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Fulcrum Freddie.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Fulcrum Freddie.png"},
-{"id": 287, "name": "Gallop", "category": ["rolls"], "originalTempo": 180, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/gallop.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/gallop.png"},
-{"id": 288, "name": "Genesis 2025 Part One", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Genesis 2025 Part One.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Genesis 2025 Part One.png"},
-{"id": 289, "name": "Genesis 2025 Part Two", "category": ["requests"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Genesis 2025 Part Two.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Genesis 2025 Part Two.png"},
-{"id": 290, "name": "Grandma Interp Grid", "category": ["timing", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Grandma Interp Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Grandma Interp Grid.png"},
-{"id": 291, "name": "Grandpa Interp Grid", "category": ["timing", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Grandpa Interp Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Grandpa Interp Grid.png"},
-{"id": 292, "name": "Herta 1 Accent Grid", "category": ["singles"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta 1 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta 1 Accent Grid.png"},
-{"id": 293, "name": "Herta 2 Accent Grid", "category": ["singles"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta 2 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta 2 Accent Grid.png"},
-{"id": 294, "name": "Herta Builder", "category": ["singles"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Builder.png"},
-{"id": 295, "name": "Herta Builder Grid", "category": ["singles"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Builder Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Builder Grid.png"},
-{"id": 296, "name": "Herta Diddles Slurred", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Diddles Slurred.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Diddles Slurred.png"},
-{"id": 297, "name": "Herta Diddles Straight", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Diddles Straight.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Diddles Straight.png"},
-{"id": 298, "name": "Hertas", "category": ["rudiments"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas.png"},
-{"id": 299, "name": "Hertas - Single Stroke Fours", "category": ["juxtapositions", "singles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas - Single Stroke Fours.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas - Single Stroke Fours.png"},
-{"id": 300, "name": "Hertas - Slurred Hertas", "category": ["juxtapositions", "singles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas - Slurred Hertas.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas - Slurred Hertas.png"},
-{"id": 301, "name": "Huckdigadics", "category": ["one-handers", "accent-tap"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Huckdigadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Huckdigadics.png"},
-{"id": 302, "name": "Huckgadics", "category": ["one-handers", "accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/huckgadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/huckgadics.png"},
-{"id": 303, "name": "Huckgadics Roll", "category": ["timing", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Huckgadics Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Huckgadics Roll.png"},
-{"id": 304, "name": "Huggadics", "category": ["one-handers", "accent-tap", "natural-decays"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/huggadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/huggadics.png"},
-{"id": 305, "name": "Huggadiddles", "category": ["one-handers", "hybrids"], "originalTempo": 80, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255b2a750a8227.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a1be84ab7fe5c5abcc.png"},
-{"id": 306, "name": "Inside Diddle Interp Gauntlet", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd1508860411959180950.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9789dd641e4f908c59c.png"},
-{"id": 307, "name": "Inside Paradiddle Diddles", "category": ["rudiments"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Diddles.png"},
-{"id": 308, "name": "Inside Paradiddle Filler", "category": ["paradiddles"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Filler.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Filler.png"},
-{"id": 309, "name": "Inside Paradiddles", "category": ["rudiments"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddles.png"},
-{"id": 310, "name": "Inverted Flam Taps - Triplet Accents", "category": ["juxtapositions", "flams"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Flam Taps - Triplet Accents.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Flam Taps - Triplet Accents.png"},
-{"id": 311, "name": "Inverted Flam Taps & Cheeses", "category": ["flams", "hybrids"], "originalTempo": 60, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd15088604140ca18094f.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34bae1bdb2c72a1.png"},
-{"id": 312, "name": "Inverted Huggadics", "category": ["one-handers", "accent-tap"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Huggadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Huggadics.png"},
-{"id": 313, "name": "Inverted Huggadiddles", "category": ["one-handers", "hybrids"], "originalTempo": 70, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255b54920a822a.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a18238242935dbeb2c.png"},
-{"id": 314, "name": "Inverted Roll Gauntlet", "category": ["rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Roll Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Roll Gauntlet.png"},
-{"id": 315, "name": "Inverted Swiss Army Triplets - Cheese Inverts", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Swiss Army Triplets - Cheese Inverts.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Swiss Army Triplets - Cheese Inverts.png"},
-{"id": 316, "name": "Irish Spring", "category": ["one-handers"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Irish Spring.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Irish Spring.png"},
-{"id": 317, "name": "J.A.H", "category": ["hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/J.A.H.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/J.A.H.png"},
-{"id": 318, "name": "Jedi 8's", "category": ["one-handers", "timing"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s.png"},
-{"id": 319, "name": "Jedi 8's 2 Note", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s 2 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s 2 Note.png"},
-{"id": 320, "name": "Jedi 8's Dotted Quarters", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s Dotted Quarters.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s Dotted Quarters.png"},
-{"id": 321, "name": "Jedi 8's Quarters", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s Quarters.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s Quarters.png"},
-{"id": 322, "name": "Jeepers Creepers", "category": ["rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jeepers Creepers.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jeepers Creepers.png"},
-{"id": 323, "name": "Kicked Paradiddles", "category": ["rudiments"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Kicked Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Kicked Paradiddles.png"},
-{"id": 324, "name": "Kicked Swisses - Flams", "category": ["juxtapositions", "hybrids", "flams"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Kicked Swisses - Flams.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Kicked Swisses - Flams.png"},
-{"id": 325, "name": "Legato Pyramid", "category": ["natural-decays"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676d141b7a5c4ca669697b14.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/676d1416cd5e7254c0c90c33.png"},
-{"id": 326, "name": "Mansfield HS 2025 Part One 1-13", "category": ["requests"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 1-13.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 1-13.png"},
-{"id": 327, "name": "Mansfield HS 2025 Part One 20-35", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 20-35.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 20-35.png"},
-{"id": 328, "name": "Mansfield HS 2025 Part One 45-55", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 45-55.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 45-55.png"},
-{"id": 329, "name": "Mansfield HS 2025 Part One 59-67", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 59-67.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 59-67.png"},
-{"id": 330, "name": "Mansfield HS 2025 Part One 70-85", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 70-85.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 70-85.png"},
-{"id": 331, "name": "Memphis Blues Paradiddle #1", "category": ["paradiddles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Memphis Blues Paradiddle #1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Memphis Blues Paradiddle #1.png"},
-{"id": 332, "name": "Memphis Blues Paradiddle #2", "category": ["paradiddles"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Memphis Blues Paradiddle #2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Memphis Blues Paradiddle #2.png"},
-{"id": 333, "name": "Modified Double Paradiddles - Ratamacues", "category": ["juxtapositions", "hybrids", "paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Modified Double Paradiddles - Ratamacues.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Modified Double Paradiddles - Ratamacues.png"},
-{"id": 334, "name": "Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles", "category": ["juxtapositions", "rolls", "paradiddles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles.png"},
-{"id": 335, "name": "Moeller Modulations", "category": ["exercises", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Moeller Modulations.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Moeller Modulations.png"},
-{"id": 336, "name": "Neo Metric", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Neo Metric.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Neo Metric.png"},
-{"id": 337, "name": "Nested 5let & 7let Builder", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested 5let & 7let Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested 5let & 7let Builder.png"},
-{"id": 338, "name": "Nested Triplet & 5let Builder", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested Triplet & 5let Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested Triplet & 5let Builder.png"},
-{"id": 339, "name": "Nested Triplet Builder", "category": ["timing"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested Triplet Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested Triplet Builder.png"},
-{"id": 340, "name": "North Texas Ram", "category": ["requests"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/North Texas Ram.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/North Texas Ram.png"},
-{"id": 341, "name": "Old School Pudadas", "category": ["accent-tap"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675977313c5cd5f779b1b3fc.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67597736da8c3997ca40a08a.png"},
-{"id": 342, "name": "Pantera", "category": ["singles", "exercises"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pantera.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pantera.png"},
-{"id": 343, "name": "Para Pyramid", "category": ["paradiddles", "hybrids"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Para Pyramid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Para Pyramid.png"},
-{"id": 344, "name": "Paradiddle Builder", "category": ["paradiddles"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Builder.png"},
-{"id": 345, "name": "Paradiddle Diddle Builder", "category": ["paradiddles"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddle Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddle Builder.png"},
-{"id": 346, "name": "Paradiddle Diddle Filler", "category": ["paradiddles"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66f64c18c293c457713f7774.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66f64c1dc293c4b8823f7775.png"},
-{"id": 347, "name": "Paradiddle Diddle Pyramid", "category": ["paradiddles"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddle Pyramid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddle Pyramid.png"},
-{"id": 348, "name": "Paradiddle Diddles - 5let Drag Thing", "category": ["juxtapositions", "paradiddles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddles - 5let Drag Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddles - 5let Drag Thing.png"},
-{"id": 349, "name": "Paradiddle Diddles - 5let Ruff Thing", "category": ["juxtapositions", "paradiddles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddles - 5let Ruff Thing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddles - 5let Ruff Thing.png"},
-{"id": 350, "name": "Paradiddle Filler", "category": ["paradiddles"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Filler.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Filler.png"},
-{"id": 351, "name": "Paradiddle Interp Gauntlet", "category": ["paradiddles", "timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Interp Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Interp Gauntlet.png"},
-{"id": 352, "name": "Paradiddle Pudada Filler", "category": ["paradiddles"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6759773153bb959bf0ad8ec8.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67597736da8c39615240a08e.png"},
-{"id": 353, "name": "Paradiddle Pyramid", "category": ["paradiddles"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Pyramid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Pyramid.png"},
-{"id": 354, "name": "Paradiddles", "category": ["rudiments"], "originalTempo": 140, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddles.png"},
-{"id": 355, "name": "Pataflaflas - Modified Paradiddle Diddles", "category": ["juxtapositions", "paradiddles", "flams"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pataflaflas - Modified Paradiddle Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pataflaflas - Modified Paradiddle Diddles.png"},
-{"id": 356, "name": "Pats", "category": ["rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pats.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pats.png"},
-{"id": 357, "name": "PDD + PD", "category": ["paradiddles"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/PDD + PD.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/PDD + PD.png"},
-{"id": 484, "name": "Phantom Rolls", "category": ["exercises", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Phantom Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Phantom Rolls.png"},
-{"id": 358, "name": "Polyrhythm Breakdown", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89e07172d7af0273b98b.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89ec48bae42de899a9d9.png"},
-{"id": 359, "name": "Polyrhythm Builder #1", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b0be84ab307bc5abe9.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a1f9e1e117a4191fbb.png"},
-{"id": 360, "name": "Polyrhythm Builder #2", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5b081255bc41d0a8229.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/6780c5a1be84ab8131c5abc8.png"},
-{"id": 361, "name": "Pudada Filler", "category": ["accent-tap", "paradiddles"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832cf0700712011f4571a.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832c053bb9522a6aba9d5.png"},
-{"id": 362, "name": "Puhduhdiddle", "category": ["exercises"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Puhduhdiddle.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Puhduhdiddle.png"},
-{"id": 363, "name": "Quarter Triplet - 16th", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 16th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 16th.png"},
-{"id": 364, "name": "Quarter Triplet - 8th", "category": ["timing"], "originalTempo": 200, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 8th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 8th.png"},
-{"id": 365, "name": "Quarter Triplet - 9let", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 9let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 9let.png"},
-{"id": 366, "name": "Quarter Triplet - Triplet", "category": ["timing"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - Triplet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - Triplet.png"},
-{"id": 367, "name": "Quarter Triplets", "category": ["rhythms"], "originalTempo": 180, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplets.png"},
-{"id": 368, "name": "Quarters", "category": ["rhythms"], "originalTempo": 200, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarters.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarters.png"},
-{"id": 369, "name": "Racketeer Interp Grid", "category": ["accent-tap", "paradiddles", "hybrids"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Racketeer Interp Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Racketeer Interp Grid.png"},
-{"id": 370, "name": "Ratio Rhythms Builder #1", "category": ["timing"], "originalTempo": 180, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 1.png"},
-{"id": 371, "name": "Ratio Rhythms Builder #2", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 2.png"},
-{"id": 372, "name": "Ratio Rhythms Builder #3", "category": ["timing"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 3.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 3.png"},
-{"id": 373, "name": "Ratio Rhythms Etude #1", "category": ["etudes"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Etude 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Etude 1.png"},
-{"id": 374, "name": "Ratio Rhythms Etude #2", "category": ["etudes"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Etude 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Etude 2.png"},
-{"id": 375, "name": "Rhythm X 2025 Audition Lick", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Rhythm X 2025 Audition Lick.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Rhythm X 2025 Audition Lick.png"},
-{"id": 376, "name": "Robinson's", "category": ["rolls", "accent tap"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Robinson's.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Robinson's.png"},
-{"id": 377, "name": "Ruffs - Triple Stroke Rolls", "category": ["juxtapositions", "hybrids", "natural-decays"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ruffs - Triple Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ruffs - Triple Stroke Rolls.png"},
-{"id": 378, "name": "Satellite", "category": ["exercises", "flams"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd15046a7b51e035c27e2.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978c34bae52f02c72a0.png"},
-{"id": 379, "name": "SCV 2025 Opener Snare Lick", "category": ["requests"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67d49c541c7cb7219d2b33f5.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67d49c505106d5764230fcbf.png"},
-{"id": 380, "name": "SCV Rolls", "category": ["rolls", "exercises"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/SCV Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/SCV Rolls.png"},
-{"id": 381, "name": "SCV Threes", "category": ["hybrids", "natural-decays"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a61c31440c5b4fe46fa542.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68a61c2c2e6d10c4e2ef080a.png"},
-{"id": 382, "name": "SCV Timing", "category": ["timing", "exercises"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/SCV Timing.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/SCV Timing.png"},
-{"id": 383, "name": "Shirley Murphy Builder", "category": ["natural-decays"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Shirley Murphy Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Shirley Murphy Builder.png"},
-{"id": 384, "name": "Shups", "category": ["one-handers"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Shups.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Shups.png"},
-{"id": 385, "name": "Single Backs", "category": ["rudiments"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs.png"},
-{"id": 386, "name": "Single Backs - Inverted Single Backs", "category": ["juxtapositions", "singles"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs - Inverted Single Backs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs - Inverted Single Backs.png"},
-{"id": 387, "name": "Single Backs - Single Stroke Ruffs", "category": ["juxtapositions", "singles"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs - Single Stroke Ruffs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs - Single Stroke Ruffs.png"},
-{"id": 388, "name": "Single Stroke Fives", "category": ["rudiments"], "originalTempo": 70, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68591f0e0bf9455482061ac0.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68591f0591351a174238f2d8.png"},
-{"id": 389, "name": "Single Stroke Fours - Single Stroke Roll", "category": ["rudiments"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Stroke Fours - Single Stroke Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Stroke Fours - Single Stroke Roll.png"},
-{"id": 390, "name": "Single Stroke Fours - Single Stroke Roll", "category": ["juxtapositions", "singles"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Stroke Fours - Single Stroke Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Stroke Fours - Single Stroke Roll.png"},
-{"id": 391, "name": "Singles - Single Backs", "category": ["juxtapositions", "singles"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Singles - Single Backs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Singles - Single Backs.png"},
-{"id": 392, "name": "Singles Builder", "category": ["singles"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Singles Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Singles Builder.png"},
-{"id": 393, "name": "Six Stroke Rolls - Slurred Six Stroke Rolls", "category": ["juxtapositions", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Six Stroke Rolls - Slurred Six Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Six Stroke Rolls - Slurred Six Stroke Rolls.png"},
-{"id": 394, "name": "Six Stroke Rolls - Stressed Six Stroke Rolls", "category": ["juxtapositions", "rolls"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Six Stroke Rolls - Stressed Six Stroke Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Six Stroke Rolls - Stressed Six Stroke Rolls.png"},
-{"id": 395, "name": "Slurred Tap Fives & Nines", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150689e40ffa3ef7202.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e31bf81c6df5c.png"},
-{"id": 396, "name": "Slurred Tap Nines", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150689e405071ef7204.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc9781b64963cc4358ea3.png"},
-{"id": 397, "name": "Snitchel Burger", "category": ["requests"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Snitchel Burger.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Snitchel Burger.png"},
-{"id": 398, "name": "Spanks", "category": ["exercises"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Spanks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Spanks.png"},
-{"id": 399, "name": "Spree 1", "category": ["instagram"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Spree 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Spree 1.png"},
-{"id": 400, "name": "Sterling", "category": ["exercises"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Sterling.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Sterling.png"},
-{"id": 401, "name": "Stick Control", "category": ["exercises"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Stick Control.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Stick Control.png"},
-{"id": 402, "name": "Straight Rhythms Etude #1", "category": ["etudes"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Straight Rhythms Etude 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Straight Rhythms Etude 1.png"},
-{"id": 403, "name": "Straight Rhythms Etude #2", "category": ["etudes"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Straight Rhythms Etude 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Straight Rhythms Etude 2.png"},
-{"id": 404, "name": "Sustain", "category": ["exercises"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Sustain.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Sustain.png"},
-{"id": 405, "name": "Swiss Army Triplets - Right Heavy Doubles", "category": ["juxtapositions", "flams", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Army Triplets - Right Heavy Doubles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Army Triplets - Right Heavy Doubles.png"},
-{"id": 406, "name": "Swiss Army Triplets - Same Hand Cheeses", "category": ["juxtapositions", "flams", "hybrids"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Army Triplets - Same Hand Cheeses.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Army Triplets - Same Hand Cheeses.png"},
-{"id": 407, "name": "Swiss Hitter", "category": ["flams"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Hitter.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Hitter.png"},
-{"id": 408, "name": "Swiss Huggadics", "category": ["accent-tap", "natural-decays"], "originalTempo": 90, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832cf3c5cd56427b0021e.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832c053bb95709eaba9d4.png"},
-{"id": 409, "name": "Swiss Mover", "category": ["flams", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Mover.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Mover.png"},
-{"id": 410, "name": "Swiss Taps", "category": ["flams", "natural-decays"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Taps.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Taps.png"},
-{"id": 411, "name": "Swiss Triplet Grid", "category": ["flams", "natural-decays"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Triplet Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Triplet Grid.png"},
-{"id": 412, "name": "Swung Bucks", "category": ["one-handers", "accent-tap"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swung Bucks.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swung Bucks.png"},
-{"id": 413, "name": "Syncopated Huggadics", "category": ["one-handers", "accent-tap", "natural-decays"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/syncopated_huggadics.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/syncopated_huggadics.png"},
-{"id": 414, "name": "Syncopated Rhythms Builder #1", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 1.png"},
-{"id": 415, "name": "Syncopated Rhythms Builder #2", "category": ["timing"], "originalTempo": 160, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 2.png"},
-{"id": 416, "name": "Syncopated Rhythms Builder #3", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 3.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 3.png"},
-{"id": 417, "name": "Tap Buzzes & Drags", "category": ["accent-tap", "hybrids"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Buzzes & Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Buzzes & Drags.png"},
-{"id": 418, "name": "Tap Diddle Interp Grid", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Diddle Interp Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Diddle Interp Grid.png"},
-{"id": 419, "name": "Tap Drags - Inverted Paradiddles", "category": ["juxtapositions", "paradiddles"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Inverted Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Inverted Paradiddles.png"},
-{"id": 420, "name": "Tap Drags - Same Diddle, Different Initiation #1", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Same Diddle, Different Initiation 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Same Diddle, Different Initiation 1.png"},
-{"id": 421, "name": "Tap Drags - Same Diddle, Different Initiation #2", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Same Diddle, Different Initiation 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Same Diddle, Different Initiation 2.png"},
-{"id": 422, "name": "Tap Drags - Slurred Tap Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Slurred Tap Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Slurred Tap Drags.png"},
-{"id": 423, "name": "Tap Drags - Tap Ruffs", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Tap Ruffs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Tap Ruffs.png"},
-{"id": 424, "name": "Tap Drags - Tight Tap Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Tight Tap Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Tight Tap Drags.png"},
-{"id": 425, "name": "Tap Fives - Choo Choos", "category": ["juxtapositions", "rolls", "flams"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Choo Choos.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Choo Choos.png"},
-{"id": 426, "name": "Tap Fives - Inverted Five Strokes", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Inverted Five Strokes.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Inverted Five Strokes.png"},
-{"id": 427, "name": "Tap Fives - Slurred Tap Fives", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Slurred Tap Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Slurred Tap Fives.png"},
-{"id": 428, "name": "Tap Fives - Tap Diddles Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tap Diddles Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tap Diddles Drags.png"},
-{"id": 429, "name": "Tap Fives - Tap Drag Diddles", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tap Drag Diddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tap Drag Diddles.png"},
-{"id": 430, "name": "Tap Fives - Tight Tap Fives", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tight Tap Fives.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tight Tap Fives.png"},
-{"id": 431, "name": "Tap Nines - Slurred Tap Nines", "category": ["juxtapositions", "rolls"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Nines - Slurred Tap Nines.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Nines - Slurred Tap Nines.png"},
-{"id": 432, "name": "Tap Pyramid", "category": ["exercises"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Pyramid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Pyramid.png"},
-{"id": 433, "name": "Tap Sevens - Inverted Sevens", "category": ["juxtapositions", "rolls"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Inverted Sevens.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Inverted Sevens.png"},
-{"id": 434, "name": "Tap Sevens - Slurred Sevens", "category": ["juxtapositions", "rolls"], "originalTempo": 70, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68c7018f5834dc6c73d2a39c.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/68c70188fbfa9ec43e548a3c.png"},
-{"id": 435, "name": "Tap Sevens - Upbeat Sevens", "category": ["juxtapositions", "rolls"], "originalTempo": 70, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Upbeat Sevens.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Upbeat Sevens.png"},
-{"id": 436, "name": "The Big Ten", "category": ["flams", "hybrids"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/The Big Ten.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/The Big Ten.png"},
-{"id": 437, "name": "The Big Three", "category": ["flams", "hybrids"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/The Big Three.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/The Big Three.png"},
-{"id": 438, "name": "Third Partial Drags - Paradiddles", "category": ["juxtapositions", "rolls", "paradiddles"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Third Partial Drags - Paradiddles.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Third Partial Drags - Paradiddles.png"},
-{"id": 439, "name": "Third Partial Drags - Upbeat Slurred Ruffs", "category": ["juxtapositions", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Third Partial Drags - Upbeat Slurred Ruffs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Third Partial Drags - Upbeat Slurred Ruffs.png"},
-{"id": 440, "name": "Thirteen", "category": ["accent-tap", "one-handers", "exercises"], "originalTempo": 60, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Thirteen.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Thirteen.png"},
-{"id": 441, "name": "Triplet - 16th", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th.png"},
-{"id": 442, "name": "Triplet - 16th 2 Note Timing Gauntlet", "category": ["timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th 2 Note Timing Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th 2 Note Timing Gauntlet.png"},
-{"id": 443, "name": "Triplet - 16th Roll", "category": ["timing", "rolls"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th Roll.png"},
-{"id": 444, "name": "Triplet - 5let", "category": ["timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 5let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 5let.png"},
-{"id": 445, "name": "Triplet - 6let", "category": ["timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 6let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 6let.png"},
-{"id": 446, "name": "Triplet - 8th 5let Roll", "category": ["timing", "rolls"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89e065c670b0fb48efea.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/66eb89ecc6a839421950a5df.png"},
-{"id": 447, "name": "Triplet - 8th 7let", "category": ["timing"], "originalTempo": 130, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 8th 7let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 8th 7let.png"},
-{"id": 448, "name": "Triplet - 9let", "category": ["timing"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 9let.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 9let.png"},
-{"id": 449, "name": "Triplet - Duple Roll", "category": ["timing", "rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Duple Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Duple Roll.png"},
-{"id": 450, "name": "Triplet - Duple Roll - Triplet Roll", "category": ["rolls", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Duple Roll - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Duple Roll - Triplet Roll.png"},
-{"id": 451, "name": "Triplet - Triplet Roll", "category": ["rolls", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Triplet Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Triplet Roll.png"},
-{"id": 452, "name": "Triplet 1 Accent Grid", "category": ["accent-tap"], "originalTempo": 150, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/662d5a89277a38a7437db7fc.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/662d5a892d01fa25a8a7bf9d.png"},
-{"id": 453, "name": "Triplet 1 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 1 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 1 Accent Grid Backwards.png"},
-{"id": 454, "name": "Triplet 1 Note", "category": ["timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 1 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 1 Note.png"},
-{"id": 455, "name": "Triplet 2 Accent Grid", "category": ["accent-tap"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Accent Grid.png"},
-{"id": 456, "name": "Triplet 2 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Accent Grid Backwards.png"},
-{"id": 457, "name": "Triplet 2 Note", "category": ["timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Note.png"},
-{"id": 458, "name": "Triplet 3 Accent Grid", "category": ["accent-tap"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Accent Grid.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Accent Grid.png"},
-{"id": 459, "name": "Triplet 3 Accent Grid Backwards", "category": ["accent-tap"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Accent Grid Backwards.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Accent Grid Backwards.png"},
-{"id": 460, "name": "Triplet 3 Note", "category": ["timing"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Note.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Note.png"},
-{"id": 461, "name": "Triplet Accent Interp", "category": ["timing", "accent-tap"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Accent Interp.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Accent Interp.png"},
-{"id": 462, "name": "Triplet Chicken & A Roll", "category": ["rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Chicken & A Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Chicken & A Roll.png"},
-{"id": 463, "name": "Triplet Diddle", "category": ["rolls"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/triplet_diddle.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/triplet_diddle.png"},
-{"id": 464, "name": "Triplet Diddle Interp Gauntlet", "category": ["timing", "rolls"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Diddle Interp Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Diddle Interp Gauntlet.png"},
-{"id": 465, "name": "Triplet Fives", "category": ["rolls", "accent-tap"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675977315f5b95430def6a1b.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67597736da8c390cd540a08d.png"},
-{"id": 466, "name": "Triplet Lead Hand Drags - Slurred Lead Hand Drags", "category": ["juxtapositions", "rolls"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Lead Hand Drags - Slurred Lead Hand Drags.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Lead Hand Drags - Slurred Lead Hand Drags.png"},
-{"id": 467, "name": "Triplet Off Hand Drags - Slurred Ruffs", "category": ["juxtapositions", "rolls"], "originalTempo": 50, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Off Hand Drags - Slurred Ruffs.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Off Hand Drags - Slurred Ruffs.png"},
-{"id": 468, "name": "Triplet Rhythms Etude #1", "category": ["etudes"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Rhythms Etude 1.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Rhythms Etude 1.png"},
-{"id": 469, "name": "Triplet Rhythms Etude #2", "category": ["etudes"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Rhythms Etude 2.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Rhythms Etude 2.png"},
-{"id": 470, "name": "Triplet Roll - 16th Roll", "category": ["rolls", "timing"], "originalTempo": 80, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Roll - 16th Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Roll - 16th Roll.png"},
-{"id": 471, "name": "Triplet Roll - 8th 5let Roll", "category": ["rolls", "timing"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Roll - 8th 5let Roll.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Roll - 8th 5let Roll.png"},
-{"id": 472, "name": "Triplet Sevens", "category": ["rolls", "accent-tap"], "originalTempo": 120, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/660de00d4c0c5a5dee77fb90.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/662d5a89277a3851927db7ff.png"},
-{"id": 473, "name": "Triplet Sevens Builder", "category": ["rolls", "accent-tap"], "originalTempo": 110, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/67355802353d3836b4aa30c0.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675d169afb63bc42225ce34e.png"},
-{"id": 474, "name": "Triplet Taps Gauntlet", "category": ["accent-tap"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Taps Gauntlet.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Taps Gauntlet.png"},
-{"id": 475, "name": "Triplets", "category": ["rhythms"], "originalTempo": 150, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplets.png"},
-{"id": 476, "name": "Tuchada Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd150f70e31fcdcc6e39d.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e314cd0c6df58.png"},
-{"id": 477, "name": "Tudacha Grid", "category": ["flams"], "originalTempo": 100, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dd15046a7b5684e5c27e5.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/673dc978f70e3100f1c6df56.png"},
-{"id": 478, "name": "Universal Grip", "category": ["timing", "one-handers", "accent-tap", "natural-decays", "hybrids"], "originalTempo": 90, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Universal Grip.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Universal Grip.png"},
-{"id": 479, "name": "Upbeat Triplet Builder", "category": ["timing"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Builder.png"},
-{"id": 480, "name": "Upbeat Triplet Roll Builder", "category": ["rolls", "timing"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Roll Builder.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Roll Builder.png"},
-{"id": 481, "name": "Upbeat Triplet Rolls", "category": ["rudiments"], "originalTempo": 100, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Rolls.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Rolls.png"},
-{"id": 482, "name": "Upbeat Triplets", "category": ["rudiments"], "originalTempo": 120, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplets.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplets.png"},
-{"id": 483, "name": "WD-40", "category": ["rolls", "accent-tap"], "originalTempo": 110, "audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/WD-40.mp3", "sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/WD-40.png"},
-{"id": 1, "name": "Wiggaduhs Grid", "category": ["natural-decays"], "originalTempo": 70, "audioSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832cf988a5fef59a39a78.mpeg", "sheetMusicSrc": "https://storage.googleapis.com/msgsndr/pFMv0RyoaIz90Z0Nbyos/media/675832c0070071baf0f456fb.png"}
+{
+"id": 2,
+"name": "2 Accent Bucks",
+"category": [
+"accent-tap",
+"one-handers"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/2 Accent Bucks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/2 Accent Bucks.png"
+},
+{
+"id": 3,
+"name": "3 Note Rhythm Groupings",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3 Note Rhythm Groupings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3 Note Rhythm Groupings.png"
+},
+{
+"id": 4,
+"name": "3 Note Stickings",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3 Note Stickings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3 Note Stickings.png"
+},
+{
+"id": 5,
+"name": "3/4 Double Beat",
+"category": [
+"one-handers",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/3_4 Double Beat.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/3_4 Double Beat.png"
+},
+{
+"id": 6,
+"name": "4 Note Rhythm Groupings",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4 Note Rhythm Groupings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4 Note Rhythm Groupings.png"
+},
+{
+"id": 7,
+"name": "4 Note Stickings",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4 Note Stickings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4 Note Stickings.png"
+},
+{
+"id": 8,
+"name": "4:3 Accents",
+"category": [
+"timing",
+"accent-tap"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4_3 Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4_3 Accents.png"
+},
+{
+"id": 9,
+"name": "4:3 Builder Doubles",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles + Doubles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles + Doubles.png"
+},
+{
+"id": 10,
+"name": "4:3 Builder Paradiddle",
+"category": [
+"timing",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddles.png"
+},
+{
+"id": 11,
+"name": "4:3 Builder Singles",
+"category": [
+"timing",
+"singles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles.png"
+},
+{
+"id": 12,
+"name": "4:3s",
+"category": [
+"rhythms"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4.3s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4.3s.png"
+},
+{
+"id": 13,
+"name": "4let Roll Builder",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/4let Roll Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/4let Roll Builder.png"
+},
+{
+"id": 14,
+"name": "5 Note Rhythm Groupings",
+"category": [
+"timing"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Note Rhythm Groupings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Note Rhythm Groupings.png"
+},
+{
+"id": 15,
+"name": "5 Note Stickings",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Note Stickings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Note Stickings.png"
+},
+{
+"id": 16,
+"name": "5 Stroke Roll Interp Gauntlet",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5 Stroke Roll Interp Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5 Stroke Roll Interp Gauntlet.png"
+},
+{
+"id": 17,
+"name": "5:3 Accents",
+"category": [
+"timing",
+"accent-tap"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_3 Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_3 Accents.png"
+},
+{
+"id": 18,
+"name": "5:3 Builder Paradiddle Tap",
+"category": [
+"timing",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_3 Paradiddle Tap Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_3 Paradiddle Tap Builder.png"
+},
+{
+"id": 19,
+"name": "5:3 Builder Singles",
+"category": [
+"timing",
+"singles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.6 Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.6 Builder.png"
+},
+{
+"id": 20,
+"name": "5:3 Builder Slurred Tap 5s",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_3 Slurred Tap 5s Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_3 Slurred Tap 5s Builder.png"
+},
+{
+"id": 21,
+"name": "5:3s",
+"category": [
+"rhythms"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.3s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.3s.png"
+},
+{
+"id": 22,
+"name": "5:6 Builder",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.6 Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.6 Builder.png"
+},
+{
+"id": 23,
+"name": "5:6s",
+"category": [
+"rhythms"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5.6s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5.6s.png"
+},
+{
+"id": 24,
+"name": "5/4 Double Beat",
+"category": [
+"one-handers",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5_4 Double Beat.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5_4 Double Beat.png"
+},
+{
+"id": 25,
+"name": "5let - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 16th Roll.png"
+},
+{
+"id": 26,
+"name": "5let - 6let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 6let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 6let.png"
+},
+{
+"id": 27,
+"name": "5let - 8th 5let Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 8th 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 8th 5let Roll.png"
+},
+{
+"id": 28,
+"name": "5let - 9let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - 9let.png"
+},
+{
+"id": 29,
+"name": "5let - Duple Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - Duple Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - Duple Roll.png"
+},
+{
+"id": 30,
+"name": "5let - Triplet Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let - Triplet Roll.png"
+},
+{
+"id": 31,
+"name": "5let 1 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Accent Grid.png"
+},
+{
+"id": 32,
+"name": "5let 1 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Accent Grid Backwards.png"
+},
+{
+"id": 33,
+"name": "5let 1 Note",
+"category": [
+"timing"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 1 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 1 Note.png"
+},
+{
+"id": 34,
+"name": "5let 2 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Accent Grid.png"
+},
+{
+"id": 35,
+"name": "5let 2 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Accent Grid Backwards.png"
+},
+{
+"id": 36,
+"name": "5let 2 Note",
+"category": [
+"timing"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 2 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 2 Note.png"
+},
+{
+"id": 37,
+"name": "5let 3 Note",
+"category": [
+"timing"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 3 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 3 Note.png"
+},
+{
+"id": 38,
+"name": "5let 4 Note",
+"category": [
+"timing"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let 4 note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let 4 note.png"
+},
+{
+"id": 39,
+"name": "5let Builder",
+"category": [
+"timing",
+"accent-tap"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let Builder.png"
+},
+{
+"id": 40,
+"name": "5let Ratamacues - Inverted Double Paradiddles",
+"category": [
+"juxtapositions"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5let Ratamacues - Inverted Double Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5let Ratamacues - Inverted Double Paradiddles.png"
+},
+{
+"id": 41,
+"name": "5lets",
+"category": [
+"rhythms"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/5lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/5lets.png"
+},
+{
+"id": 42,
+"name": "6 Note Rhythm Groupings",
+"category": [
+"timing"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6 Note Rhythm Groupings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6 Note Rhythm Groupings.png"
+},
+{
+"id": 43,
+"name": "6 Note Stickings",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6 Note Stickings.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6 Note Stickings.png"
+},
+{
+"id": 44,
+"name": "6lets",
+"category": [
+"rhythms"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/6lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/6lets.png"
+},
+{
+"id": 485,
+"name": "7-5-4 Double Beat",
+"category": [
+"exercises",
+"rolls",
+"timing",
+"one-handers"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7-5-4 Double Beat.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7-5-4 Double Beat.png"
+},
+{
+"id": 45,
+"name": "7:3 Builder Paradiddle Diddle Tap",
+"category": [
+"timing",
+"paradiddles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_3 Paradiddle Diddle Tap Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_3 Paradiddle Diddle Tap Builder.png"
+},
+{
+"id": 46,
+"name": "7:3 Builder Singles",
+"category": [
+"timing",
+"singles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles.png"
+},
+{
+"id": 47,
+"name": "7:3 Builder Slurred Tap Sevens",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Slurred Tap Sevens.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Slurred Tap Sevens.png"
+},
+{
+"id": 48,
+"name": "7:3s",
+"category": [
+"rhythms"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7.3s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7.3s.png"
+},
+{
+"id": 50,
+"name": "7:6s",
+"category": [
+"rhythms"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7.6s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7.6s.png"
+},
+{
+"id": 51,
+"name": "7/8 4let - 5let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let - 5let.png"
+},
+{
+"id": 52,
+"name": "7/8 4let - 8th",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let - 8th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let - 8th.png"
+},
+{
+"id": 53,
+"name": "7/8 4let - Triplet",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4let + Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4let + Triplet.png"
+},
+{
+"id": 54,
+"name": "7/8 4lets",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 4lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 4lets.png"
+},
+{
+"id": 55,
+"name": "7/8 5let - 4let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let + 4let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let + 4let.png"
+},
+{
+"id": 56,
+"name": "7/8 5let - 5:3",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let - 5.3.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let - 5.3.png"
+},
+{
+"id": 57,
+"name": "7/8 5let - 8th",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let - 8th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let - 8th.png"
+},
+{
+"id": 59,
+"name": "7/8 5let - Triplet",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5let + Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5let + Triplet.png"
+},
+{
+"id": 60,
+"name": "7/8 5lets",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 5lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 5lets.png"
+},
+{
+"id": 61,
+"name": "7/8 8th - 4let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 4let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 4let.png"
+},
+{
+"id": 62,
+"name": "7/8 8th - 5:3",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 5.3.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 5.3.png"
+},
+{
+"id": 63,
+"name": "7/8 8th - 5let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - 5let.png"
+},
+{
+"id": 64,
+"name": "7/8 8th - Deviled Eggs",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - Deviled Eggs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - Deviled Eggs.png"
+},
+{
+"id": 65,
+"name": "7/8 8th - Triplet",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 8th - Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 8th - Triplet.png"
+},
+{
+"id": 66,
+"name": "7/8 Blue Cheeses - Catapults",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Blue Cheeses + Catapults.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Blue Cheeses + Catapults.png"
+},
+{
+"id": 67,
+"name": "7/8 Blue Cheeses - Waterfalls",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Blue Cheeses - Waterfalls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Blue Cheeses - Waterfalls.png"
+},
+{
+"id": 68,
+"name": "7/8 Book Report Thing",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Book Report Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Book Report Thing.png"
+},
+{
+"id": 69,
+"name": "7/8 Cheeses",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Cheeses.png"
+},
+{
+"id": 70,
+"name": "7/8 Deviled Eggs - Waterfalls",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Deviled Eggs + Waterfalls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Deviled Eggs + Waterfalls.png"
+},
+{
+"id": 71,
+"name": "7/8 Drags",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Drags.png"
+},
+{
+"id": 72,
+"name": "7/8 Eggbeater Combo - Paradiddle Diddles",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Combo - Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Combo - Paradiddle Diddles.png"
+},
+{
+"id": 73,
+"name": "7/8 Eggbeater Combo - Shirley Murphys",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Combo - Shirley Murphys.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Combo - Shirley Murphys.png"
+},
+{
+"id": 74,
+"name": "7/8 Eggbeater Modulation",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Modulation.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Modulation.png"
+},
+{
+"id": 75,
+"name": "7/8 Eggbeater Turnaround",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Turnaround.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Turnaround.png"
+},
+{
+"id": 76,
+"name": "7/8 Flam Accents",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 170,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Accent.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Accent.png"
+},
+{
+"id": 77,
+"name": "7/8 Flam Drags",
+"category": [
+"78-grids"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Drags.png"
+},
+{
+"id": 78,
+"name": "7/8 Flam Drags - Double Flam Drags",
+"category": [
+"78-grids"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Drags - Double Flam Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Drags - Double Flam Drags.png"
+},
+{
+"id": 79,
+"name": "7/8 Flam Five Pataflaflas - Flam Fives",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Five Pataflaflas + Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Five Pataflaflas + Flam Fives.png"
+},
+{
+"id": 80,
+"name": "7/8 Flam Fives",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Fives.png"
+},
+{
+"id": 81,
+"name": "7/8 Flam Taps - Flam Accents",
+"category": [
+"78-grids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 170,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Flam Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Flam Accents.png"
+},
+{
+"id": 82,
+"name": "7/8 Flam Taps - Flam-Flam Taps",
+"category": [
+"78-grids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 170,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Flam Flam Taps.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Flam Flam Taps.png"
+},
+{
+"id": 83,
+"name": "7/8 Flam Taps - Swisses",
+"category": [
+"78-grids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 170,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Taps + Swisses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Taps + Swisses.png"
+},
+{
+"id": 84,
+"name": "7/8 Flamacues - Flam Accents",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flamacue + Flam Accent.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flamacue + Flam Accent.png"
+},
+{
+"id": 85,
+"name": "7/8 Flammed Doubles - Flammed Threes",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flammed Doubles + Flammed 3's.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flammed Doubles + Flammed 3's.png"
+},
+{
+"id": 86,
+"name": "7/8 Flammed Threes Thing",
+"category": [
+"78-grids",
+"hybrids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flammed 3 Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flammed 3 Thing.png"
+},
+{
+"id": 87,
+"name": "7/8 Floppy Flams - Flammed Threes",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Floppies + Flammed 3's.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Floppies + Flammed 3's.png"
+},
+{
+"id": 88,
+"name": "7/8 Herta Modulation",
+"category": [
+"78-grids",
+"hybrids",
+"singles"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Herta Modulation.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Herta Modulation.png"
+},
+{
+"id": 89,
+"name": "7/8 Herta Modulation w/ Accents",
+"category": [
+"78-grids",
+"singles"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Herta Modulation w Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Herta Modulation w Accents.png"
+},
+{
+"id": 90,
+"name": "7/8 Hertas",
+"category": [
+"78-grids",
+"singles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Hertas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Hertas.png"
+},
+{
+"id": 91,
+"name": "7/8 Invert Cheeses - Cheese Chutichuhs",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheese Chutichuhs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheese Chutichuhs.png"
+},
+{
+"id": 92,
+"name": "7/8 Invert Cheeses - Cheese Fubars",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheese Fubars.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheese Fubars.png"
+},
+{
+"id": 93,
+"name": "7/8 Invert Cheeses - Cheeses",
+"category": [
+"78-grids",
+"hybrids"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Cheeses + Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Cheeses + Cheeses.png"
+},
+{
+"id": 94,
+"name": "7/8 Invert Flam Taps - Chutichuhs",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Chutichuhs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Chutichuhs.png"
+},
+{
+"id": 95,
+"name": "7/8 Invert Flam Taps - Flam Accents",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Flam Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Flam Accents.png"
+},
+{
+"id": 96,
+"name": "7/8 Invert Flam Taps - Fubars",
+"category": [
+"78-grids",
+"flams"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Invert Flam Taps + Fubars.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Invert Flam Taps + Fubars.png"
+},
+{
+"id": 97,
+"name": "7/8 Legatos - Doubles",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Legatos + Doubles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Legatos + Doubles.png"
+},
+{
+"id": 98,
+"name": "7/8 Para-rolls - Grandmas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Para-roll + Grandma.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Para-roll + Grandma.png"
+},
+{
+"id": 99,
+"name": "7/8 Para-rolls - Inside Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Diddles.png"
+},
+{
+"id": 100,
+"name": "7/8 Para-rolls - Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Eggbeater Combo - Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Eggbeater Combo - Paradiddle Diddles.png"
+},
+{
+"id": 101,
+"name": "7/8 Para-rolls - Pudadas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Para-roll + Pudadas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Para-roll + Pudadas.png"
+},
+{
+"id": 102,
+"name": "7/8 Para-rolls - Shirley Murphys",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Para-roll + Shirley Murphys.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Para-roll + Shirley Murphys.png"
+},
+{
+"id": 103,
+"name": "7/8 Paradiddle",
+"category": [
+"paradiddles",
+"78-grids"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Paradiddle.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Paradiddle.png"
+},
+{
+"id": 104,
+"name": "7/8 Paradiddle Flam Thing",
+"category": [
+"78-grids",
+"hybrids",
+"paradiddles",
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddle Flam Things - Choo Choos.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddle Flam Things - Choo Choos.png"
+},
+{
+"id": 105,
+"name": "7/8 Paradiddle Modulation",
+"category": [
+"78-grids",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddle Modulation.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddle Modulation.png"
+},
+{
+"id": 106,
+"name": "7/8 Paradiddle Upstroke",
+"category": [
+"78-grids",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddle Upstroke.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddle Upstroke.png"
+},
+{
+"id": 107,
+"name": "7/8 Paradiddles - Fat Muffins",
+"category": [
+"78-grids",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles - Fat Muffins.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles - Fat Muffins.png"
+},
+{
+"id": 108,
+"name": "7/8 Paradiddles - Grandmas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Grandma.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Grandma.png"
+},
+{
+"id": 109,
+"name": "7/8 Paradiddles - Inside Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Inside PDD.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Inside PDD.png"
+},
+{
+"id": 110,
+"name": "7/8 Paradiddles - Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Diddles.png"
+},
+{
+"id": 111,
+"name": "7/8 Paradiddles - Pudadas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Pudadas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Pudadas.png"
+},
+{
+"id": 112,
+"name": "7/8 Paradiddles - Shirley Murphys",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Paradiddles + Shirley Murphys.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Paradiddles + Shirley Murphys.png"
+},
+{
+"id": 113,
+"name": "7/8 Shirley Temples - Eggbeaters",
+"category": [
+"78-grids",
+"hybrids",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Shirley Temples + Eggbeaters.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Shirley Temples + Eggbeaters.png"
+},
+{
+"id": 114,
+"name": "7/8 Single Stroke Fives",
+"category": [
+"78-grids",
+"singles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Single Stroke 5's.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Single Stroke 5's.png"
+},
+{
+"id": 115,
+"name": "7/8 Singles",
+"category": [
+"78-grids",
+"singles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles.png"
+},
+{
+"id": 116,
+"name": "7/8 Singles - Doubles",
+"category": [
+"78-grids",
+"singles",
+"rolls"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Singles + Doubles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Singles + Doubles.png"
+},
+{
+"id": 117,
+"name": "7/8 Slow Paradiddles - Grandmas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Slow Paradiddle + Grandma.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Slow Paradiddle + Grandma.png"
+},
+{
+"id": 118,
+"name": "7/8 Slow Paradiddles - Inside Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Slow Paradiddle + Inside PDD.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Slow Paradiddle + Inside PDD.png"
+},
+{
+"id": 119,
+"name": "7/8 Slow Paradiddles - Paradiddle Diddles",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Slow Paradiddle + Inside PDD.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Slow Paradiddle + Inside PDD.png"
+},
+{
+"id": 120,
+"name": "7/8 Slow Paradiddles - Pudadas",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Slow Paradiddle + Pudadas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Slow Paradiddle + Pudadas.png"
+},
+{
+"id": 121,
+"name": "7/8 Slow Paradiddles - Shirley Murphys",
+"category": [
+"78-grids",
+"paradiddles"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Slow Paradiddle + Shirley Murphys.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Slow Paradiddle + Shirley Murphys.png"
+},
+{
+"id": 122,
+"name": "7/8 Spree 1",
+"category": [
+"instagram"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Spree 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Spree 1.png"
+},
+{
+"id": 123,
+"name": "7/8 Spree 2",
+"category": [
+"instagram"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/78 Spree 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/78 Spree 2.png"
+},
+{
+"id": 124,
+"name": "7/8 Stock",
+"category": [
+"78-grids",
+"accent-tap"
+],
+"originalTempo": 220,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Stock.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Stock.png"
+},
+{
+"id": 125,
+"name": "7/8 Swiss Thing",
+"category": [
+"78-grids",
+"hybrids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Swiss Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Swiss Thing.png"
+},
+{
+"id": 126,
+"name": "7/8 Swiss Thing w/ Kick",
+"category": [
+"78-grids",
+"hybrids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Swiss Thing w Kick.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Swiss Thing w Kick.png"
+},
+{
+"id": 127,
+"name": "7/8 Tap Drags",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Tap Drag.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Tap Drag.png"
+},
+{
+"id": 128,
+"name": "7/8 Tap Fives",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Flam Fives.png"
+},
+{
+"id": 129,
+"name": "7/8 Tap Fives - Para-rolls",
+"category": [
+"78-grids",
+"rolls",
+"paradiddles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Tap 5s Para-roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Tap 5s Para-roll.png"
+},
+{
+"id": 130,
+"name": "7/8 Tap Fives - Tap Rolls",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Tap 5s Tap Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Tap 5s Tap Rolls.png"
+},
+{
+"id": 131,
+"name": "7/8 Tap Rolls",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Tap Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Tap Rolls.png"
+},
+{
+"id": 132,
+"name": "7/8 Triplet - 4let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 4let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet + 4let.png"
+},
+{
+"id": 133,
+"name": "7/8 Triplet - 5:3",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 5.3.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet + 5.3.png"
+},
+{
+"id": 134,
+"name": "7/8 Triplet - 5let",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet - 5let.png"
+},
+{
+"id": 135,
+"name": "7/8 Triplet - 8th",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet + 8th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet + 8th.png"
+},
+{
+"id": 136,
+"name": "7/8 Triplet Roll Combo",
+"category": [
+"78-grids",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplet Roll Combo.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplet Roll Combo.png"
+},
+{
+"id": 137,
+"name": "7/8 Triplets",
+"category": [
+"78-grids",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7_8 Triplets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7_8 Triplets.png"
+},
+{
+"id": 138,
+"name": "7let Builder",
+"category": [
+"timing",
+"accent-tap"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7let Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7let Builder.png"
+},
+{
+"id": 139,
+"name": "7lets",
+"category": [
+"rhythms"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/7lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/7lets.png"
+},
+{
+"id": 140,
+"name": "8:6s",
+"category": [
+"rhythms"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8.6s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8.6s.png"
+},
+{
+"id": 141,
+"name": "8th - 16th",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 16th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 16th.png"
+},
+{
+"id": 142,
+"name": "8th - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 16th Roll.png"
+},
+{
+"id": 143,
+"name": "8th - 5let",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 5let.png"
+},
+{
+"id": 144,
+"name": "8th - 6let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 6let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 6let.png"
+},
+{
+"id": 145,
+"name": "8th - 8th 5let",
+"category": [
+"timing"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 8th 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 8th 9let.png"
+},
+{
+"id": 146,
+"name": "8th - 8th 5let Roll",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 8th 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 8th 5let Roll.png"
+},
+{
+"id": 147,
+"name": "8th - 8th 9let",
+"category": [
+"timing"
+],
+"originalTempo": 200,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 8th 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 8th 9let.png"
+},
+{
+"id": 148,
+"name": "8th - Duple Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Duple Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Duple Roll.png"
+},
+{
+"id": 149,
+"name": "8th - Triplet",
+"category": [
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Triplet.png"
+},
+{
+"id": 150,
+"name": "8th - Triplet Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - Triplet Roll.png"
+},
+{
+"id": 151,
+"name": "8th 5let - 16th",
+"category": [
+"timing"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - 16ths.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - 16ths.png"
+},
+{
+"id": 152,
+"name": "8th 5let - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - 16th Roll.png"
+},
+{
+"id": 153,
+"name": "8th 5let - 5let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - 5let.png"
+},
+{
+"id": 154,
+"name": "8th 5let - Duple Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Duple Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Duple Roll.png"
+},
+{
+"id": 155,
+"name": "8th 5let - Triplet",
+"category": [
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Triplet.png"
+},
+{
+"id": 156,
+"name": "8th 5let - Triplet Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let - Triplet Roll.png"
+},
+{
+"id": 157,
+"name": "8th 5let Roll - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th 5let Roll - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th 5let Roll - 16th Roll.png"
+},
+{
+"id": 158,
+"name": "8th 5lets",
+"category": [
+"rhythms"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8th - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8th - 5let.png"
+},
+{
+"id": 159,
+"name": "8ths",
+"category": [
+"rhythms"
+],
+"originalTempo": 200,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/8ths.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/8ths.png"
+},
+{
+"id": 160,
+"name": "9let Builder",
+"category": [
+"timing"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/9let Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/9let Builder.png"
+},
+{
+"id": 161,
+"name": "9let Singles",
+"category": [
+"timing",
+"singles"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/9let Singles Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/9let Singles Grid.png"
+},
+{
+"id": 162,
+"name": "9lets",
+"category": [
+"rhythms"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/9lets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/9lets.png"
+},
+{
+"id": 163,
+"name": "16th - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 16th Roll.png"
+},
+{
+"id": 164,
+"name": "16th - 5let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 5let.png"
+},
+{
+"id": 165,
+"name": "16th - 6let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 6let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 6let.png"
+},
+{
+"id": 166,
+"name": "16th - 8th 5let Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 8th 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 8th 5let Roll.png"
+},
+{
+"id": 167,
+"name": "16th - 8th 7let",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 8th 7let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 8th 7let.png"
+},
+{
+"id": 168,
+"name": "16th - 9let",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - 9let.png"
+},
+{
+"id": 169,
+"name": "16th - Duple Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - Duple Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - Duple Roll.png"
+},
+{
+"id": 170,
+"name": "16th - Triplet Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th - Triplet Roll.png"
+},
+{
+"id": 171,
+"name": "16th 1 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 Accent Grid.png"
+},
+{
+"id": 172,
+"name": "16th 1 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 1 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 1 Accent Grid Backwards.png"
+},
+{
+"id": 173,
+"name": "16th 1 Note",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 1 note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 1 note.png"
+},
+{
+"id": 174,
+"name": "16th 2 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Accent Grid.png"
+},
+{
+"id": 175,
+"name": "16th 2 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Accent Grid Backwards.png"
+},
+{
+"id": 176,
+"name": "16th 2 Note",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 2 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 2 Note.png"
+},
+{
+"id": 178,
+"name": "16th 3 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 Accent Grid.png"
+},
+{
+"id": 179,
+"name": "16th 3 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 Accent Grid Backwards.png"
+},
+{
+"id": 180,
+"name": "16th 3 Note",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th 3 note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th 3 note.png"
+},
+{
+"id": 181,
+"name": "16th Diddles",
+"category": [
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th Diddles.png"
+},
+{
+"id": 182,
+"name": "16th Taps Gauntlet",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16th Taps Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16th Taps Gauntlet.png"
+},
+{
+"id": 183,
+"name": "16ths",
+"category": [
+"rhythms"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/16ths.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/16ths.png"
+},
+{
+"id": 184,
+"name": "32nds",
+"category": [
+"rhythms"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/32nds.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/32nds.png"
+},
+{
+"id": 185,
+"name": "A.R.C.E",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/A.R.C.E.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/A.R.C.E.png"
+},
+{
+"id": 186,
+"name": "Add A Decay",
+"category": [
+"one-handers",
+"natural-decays"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Decay.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Decay.png"
+},
+{
+"id": 187,
+"name": "Add A Flam",
+"category": [
+"flams"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Flam.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Flam.png"
+},
+{
+"id": 188,
+"name": "Add A Flam Tap",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Flam Tap.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Flam Tap.png"
+},
+{
+"id": 189,
+"name": "Add A Note",
+"category": [
+"one-handers"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Note.png"
+},
+{
+"id": 190,
+"name": "Add A Tap",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Add A Tap.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Add A Tap.png"
+},
+{
+"id": 191,
+"name": "Basic Rhythms Etude #1",
+"category": [
+"etudes"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Basic Rhythms Etude 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Basic Rhythms Etude 1.png"
+},
+{
+"id": 192,
+"name": "Basic Rhythms Etude #2",
+"category": [
+"etudes"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Basic Rhythms Etude 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Basic Rhythms Etude 2.png"
+},
+{
+"id": 193,
+"name": "BD Flams",
+"category": [
+"exercises"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/BD Flams.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/BD Flams.png"
+},
+{
+"id": 194,
+"name": "BD Triplet Partial",
+"category": [
+"exercises"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/BD Triplet Partials.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/BD Triplet Partials.png"
+},
+{
+"id": 195,
+"name": "Book Report Builder",
+"category": [
+"hybrids"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Book Report Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Book Report Builder.png"
+},
+{
+"id": 196,
+"name": "Bucks",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/bucks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/bucks.png"
+},
+{
+"id": 197,
+"name": "Bucks Filled In",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Bucks Filled In.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Bucks Filled In.png"
+},
+{
+"id": 198,
+"name": "Bucks Hugs",
+"category": [
+"one-handers",
+"accent-tap",
+"natural-decays"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Bucks Hugs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Bucks Hugs.png"
+},
+{
+"id": 199,
+"name": "Buzzed Bucks",
+"category": [
+"accent-tap",
+"one-handers"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Buzzed Bucks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Buzzed Bucks.png"
+},
+{
+"id": 200,
+"name": "Catapult Builder",
+"category": [
+"hybrids"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Catapult Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Catapult Builder.png"
+},
+{
+"id": 201,
+"name": "Cheese Chutichuh Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheese Chutichuh Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheese Chutichuh Grid.png"
+},
+{
+"id": 202,
+"name": "Cheese Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheese Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheese Grid.png"
+},
+{
+"id": 203,
+"name": "Cheeses - Bad Cheeses",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Bad Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Bad Cheeses.png"
+},
+{
+"id": 204,
+"name": "Cheeses - Flammed Mills",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Flammed Mills.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Flammed Mills.png"
+},
+{
+"id": 205,
+"name": "Cheeses - Slurred Cheeses",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Slurred Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Slurred Cheeses.png"
+},
+{
+"id": 206,
+"name": "Cheeses - Tight Cheeses",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheeses - Tight Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheeses - Tight Cheeses.png"
+},
+{
+"id": 207,
+"name": "Cheesy Poofs",
+"category": [
+"exercises"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cheesy Poofs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cheesy Poofs.png"
+},
+{
+"id": 208,
+"name": "Chicken & A Roll",
+"category": [
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/chicken_&_a_roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/chicken_&_a_roll.png"
+},
+{
+"id": 209,
+"name": "Choo Choos - Slurred Tap Fives",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Choo Choos - Slurred Tap Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Choo Choos - Slurred Tap Fives.png"
+},
+{
+"id": 210,
+"name": "Chuggada Swiss",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Chuguduh Swiss.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Chuguduh Swiss.png"
+},
+{
+"id": 211,
+"name": "Chutichuh Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Chutichuh Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Chutichuh Grid.png"
+},
+{
+"id": 212,
+"name": "Clean Attacks",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Clean Attacks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Clean Attacks.png"
+},
+{
+"id": 213,
+"name": "Cloned Single Strokes - Cloned Double Strokes",
+"category": [
+"juxtapositions",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cloned Single Strokes - Cloned Double Strokes.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cloned Single Strokes - Cloned Double Strokes.png"
+},
+{
+"id": 214,
+"name": "Cloned Six Stroke Rolls - Doublestop Huckgadics",
+"category": [
+"juxtapositions",
+"hybrids",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Cloned Six Stroke Rolls - Doublestop Huckgadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Cloned Six Stroke Rolls - Doublestop Huckgadics.png"
+},
+{
+"id": 215,
+"name": "Colt Forty Five",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Colt Forty Five.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Colt Forty Five.png"
+},
+{
+"id": 216,
+"name": "Crazy Fives",
+"category": [
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Crazy 3s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Crazy 3s.png"
+},
+{
+"id": 217,
+"name": "Crazy Threes",
+"category": [
+"accent-tap",
+"timing",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Crazy 3s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Crazy 3s.png"
+},
+{
+"id": 218,
+"name": "Diddle Diddle Five Nine",
+"category": [
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddle Diddle 5 9.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddle Diddle 5 9.png"
+},
+{
+"id": 219,
+"name": "Diddle Primer",
+"category": [
+"rolls",
+"natural-decays"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddle Primer.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddle Primer.png"
+},
+{
+"id": 220,
+"name": "Diddle Space Control",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddle Space Control.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddle Space Control.png"
+},
+{
+"id": 221,
+"name": "Diddles - Singles",
+"category": [
+"rolls",
+"singles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Diddles To Singles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Diddles To Singles.png"
+},
+{
+"id": 222,
+"name": "Dotted 8th - Quarter Triplet Interp Grid",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted 8th - Quarter Triplet Interp Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted 8th - Quarter Triplet Interp Grid.png"
+},
+{
+"id": 223,
+"name": "Dotted 8ths",
+"category": [
+"rhythms"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted 8ths.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted 8ths.png"
+},
+{
+"id": 224,
+"name": "Dotted Rhythms Builder #1",
+"category": [
+"timing"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Builder 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Builder 1.png"
+},
+{
+"id": 225,
+"name": "Dotted Rhythms Builder #2",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Builder 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Builder 2.png"
+},
+{
+"id": 226,
+"name": "Dotted Rhythms Etude #1",
+"category": [
+"etudes"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Etude 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Etude 1.png"
+},
+{
+"id": 227,
+"name": "Dotted Rhythms Etude #2",
+"category": [
+"etudes"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Dotted Rhythms Etude 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Dotted Rhythms Etude 2.png"
+},
+{
+"id": 228,
+"name": "Double Accent Paradiddles",
+"category": [
+"rudiments"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Accent Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Accent Paradiddles.png"
+},
+{
+"id": 229,
+"name": "Double Beat",
+"category": [
+"one-handers",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/double_beat.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/double_beat.png"
+},
+{
+"id": 230,
+"name": "Double Flammed Swisses - Eggbeaters",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Flammed Swisses - Eggbeaters.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Flammed Swisses - Eggbeaters.png"
+},
+{
+"id": 231,
+"name": "Double Paradiddle Builder",
+"category": [
+"paradiddles",
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Builder.png"
+},
+{
+"id": 232,
+"name": "Double Paradiddle Grid",
+"category": [
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Grid.png"
+},
+{
+"id": 233,
+"name": "Double Paradiddle Grid Backwards",
+"category": [
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddle Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddle Grid Backwards.png"
+},
+{
+"id": 234,
+"name": "Double Paradiddles - 5let Herta Thing",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - 5let Herta Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - 5let Herta Thing.png"
+},
+{
+"id": 235,
+"name": "Double Paradiddles - 5let Ruff Thing",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - 5let Ruff Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - 5let Ruff Thing.png"
+},
+{
+"id": 236,
+"name": "Double Paradiddles - Herta Thing #1",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Herta Thing 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Herta Thing 1.png"
+},
+{
+"id": 237,
+"name": "Double Paradiddles - Herta Thing #2",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Herta Thing 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Herta Thing 2.png"
+},
+{
+"id": 238,
+"name": "Double Paradiddles - Modified Ratamacues",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Paradiddles - Modified Ratamacues.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Paradiddles - Modified Ratamacues.png"
+},
+{
+"id": 239,
+"name": "Double Ratamacues - Slurred Double Ratamacues",
+"category": [
+"juxtapositions",
+"hybrids"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Double Ratamacues - Slurred Double Ratamacues.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Double Ratamacues - Slurred Double Ratamacues.png"
+},
+{
+"id": 240,
+"name": "Down Up",
+"category": [
+"one-handers"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/down_up.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/down_up.png"
+},
+{
+"id": 241,
+"name": "Downbeat Drags - Downbeat Slurred Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Downbeat Slurred Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Downbeat Slurred Drags.png"
+},
+{
+"id": 242,
+"name": "Downbeat Drags - Downbeat Tight Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Downbeat Tight Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Downbeat Tight Drags.png"
+},
+{
+"id": 243,
+"name": "Downbeat Drags - Mills",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Mills.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Mills.png"
+},
+{
+"id": 244,
+"name": "Downbeat Drags - Same Diddle, Different Release",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Downbeat Drags - Same Diddle, Different Release.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Downbeat Drags - Same Diddle, Different Release.png"
+},
+{
+"id": 245,
+"name": "Drag Paradiddles - Slurred Drag Paradiddles",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Drag Paradiddles - Slurred Drag Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Drag Paradiddles - Slurred Drag Paradiddles.png"
+},
+{
+"id": 246,
+"name": "Duple Lead Hand Drags - Slurred Lead Hand Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Lead Hand Drags - Slurred Lead Hand Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Lead Hand Drags - Slurred Lead Hand Drags.png"
+},
+{
+"id": 247,
+"name": "Duple Off Hand Drags - Slurred Ruffs",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Off Hand Drags - Slurred Ruffs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Off Hand Drags - Slurred Ruffs.png"
+},
+{
+"id": 248,
+"name": "Duple Roll - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - 16th Roll.png"
+},
+{
+"id": 249,
+"name": "Duple Roll - 8th 5let Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - 8th 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - 8th 5let Roll.png"
+},
+{
+"id": 250,
+"name": "Duple Roll - Triplet Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Duple Roll - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Duple Roll - Triplet Roll.png"
+},
+{
+"id": 251,
+"name": "Egg Beater Mission",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Eggbeater Mission.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Eggbeater Mission.png"
+},
+{
+"id": 252,
+"name": "Eights",
+"category": [
+"one-handers"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/eights.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/eights.png"
+},
+{
+"id": 253,
+"name": "Fat Rabbit",
+"category": [
+"one-handers",
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Fat Rabbit.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Fat Rabbit.png"
+},
+{
+"id": 254,
+"name": "Finger Yoga Double Beat",
+"category": [
+"one-handers",
+"rolls",
+"singles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Finger Yoga Double Beat.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Finger Yoga Double Beat.png"
+},
+{
+"id": 255,
+"name": "Five Stroke Pickups - Paradiddle Diddles",
+"category": [
+"juxtapositions",
+"hybrids",
+"rolls",
+"paradiddles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Pickups - Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Pickups - Paradiddle Diddles.png"
+},
+{
+"id": 256,
+"name": "Five Stroke Rolls - Slurred Five Stroke Rolls",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Rolls - Slurred Five Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Rolls - Slurred Five Stroke Rolls.png"
+},
+{
+"id": 257,
+"name": "Five Stroke Rolls - Tight Five Stroke Rolls",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Five Stroke Rolls - Tight Five Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Five Stroke Rolls - Tight Five Stroke Rolls.png"
+},
+{
+"id": 258,
+"name": "Flam Accent Builder",
+"category": [
+"flams"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Builder.png"
+},
+{
+"id": 259,
+"name": "Flam Accent Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Grid.png"
+},
+{
+"id": 260,
+"name": "Flam Accent Grid Backwards",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Grid Backwards.png"
+},
+{
+"id": 261,
+"name": "Flam Accent Timing Gauntlet",
+"category": [
+"flams",
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accent Interp Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accent Interp Gauntlet.png"
+},
+{
+"id": 262,
+"name": "Flam Accents",
+"category": [
+"rudiments"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents.png"
+},
+{
+"id": 263,
+"name": "Flam Accents - Flat Flam Accents",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Flat Flam Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Flat Flam Accents.png"
+},
+{
+"id": 264,
+"name": "Flam Accents - Modified Hertas",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Modified Hertas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Modified Hertas.png"
+},
+{
+"id": 265,
+"name": "Flam Accents - Shifted Paradiddles",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Accents - Shifted Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Accents - Shifted Paradiddles.png"
+},
+{
+"id": 266,
+"name": "Flam Drag Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drag Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drag Grid.png"
+},
+{
+"id": 267,
+"name": "Flam Drags - Inverted Flam Paradiddles",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Inverted Flam Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Inverted Flam Paradiddles.png"
+},
+{
+"id": 268,
+"name": "Flam Drags - Modified Paradiddles",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Modified Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Modified Paradiddles.png"
+},
+{
+"id": 269,
+"name": "Flam Drags - Slurred Flam Drags",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Slurred Flam Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Slurred Flam Drags.png"
+},
+{
+"id": 270,
+"name": "Flam Drags - Tight Flam Drags",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Drags - Tight Flam Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Drags - Tight Flam Drags.png"
+},
+{
+"id": 271,
+"name": "Flam Five Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Five Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Five Grid.png"
+},
+{
+"id": 272,
+"name": "Flam Fives - Bad Flam Fives",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Bad Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Bad Flam Fives.png"
+},
+{
+"id": 273,
+"name": "Flam Fives - Slurred Flam Fives",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Slurred Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Slurred Flam Fives.png"
+},
+{
+"id": 274,
+"name": "Flam Fives - Tight Flam Fives",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Fives - Tight Flam Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Fives - Tight Flam Fives.png"
+},
+{
+"id": 275,
+"name": "Flam Paradiddles - Not Shirley Murphys",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Paradiddles - Not Shirley Murphys.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Paradiddles - Not Shirley Murphys.png"
+},
+{
+"id": 276,
+"name": "Flam Tap Builder",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Tap Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Tap Builder.png"
+},
+{
+"id": 277,
+"name": "Flam Taps",
+"category": [
+"rudiments"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Taps.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Taps.png"
+},
+{
+"id": 278,
+"name": "Flam Taps - Triple Stroke Rolls",
+"category": [
+"juxtapositions",
+"flams",
+"natural-decays"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Taps - Triple Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Taps - Triple Stroke Rolls.png"
+},
+{
+"id": 279,
+"name": "Flammus",
+"category": [
+"flams",
+"exercises"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flammus.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flammus.png"
+},
+{
+"id": 280,
+"name": "Flams - Flam Taps",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Flam Taps.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Flam Taps.png"
+},
+{
+"id": 281,
+"name": "Flams - Flam Taps - Triple Stroke Rolls",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flam Taps - Triple Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flam Taps - Triple Stroke Rolls.png"
+},
+{
+"id": 282,
+"name": "Flams - Swisses",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Swisses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Swisses.png"
+},
+{
+"id": 283,
+"name": "Flams - Swung 16th Notes",
+"category": [
+"juxtapositions",
+"flams"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Flams - Swung 16th Notes.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Flams - Swung 16th Notes.png"
+},
+{
+"id": 284,
+"name": "Forte Piano Exercise",
+"category": [
+"accent-tap",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Forte Piano Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Forte Piano Grid.png"
+},
+{
+"id": 285,
+"name": "Four Stroke Rolls - Open Roll",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Four Stroke Rolls - Open Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Four Stroke Rolls - Open Roll.png"
+},
+{
+"id": 286,
+"name": "Fulcrum Freddie",
+"category": [
+"rolls",
+"singles",
+"flams"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Fulcrum Freddie.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Fulcrum Freddie.png"
+},
+{
+"id": 287,
+"name": "Gallop",
+"category": [
+"rolls"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/gallop.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/gallop.png"
+},
+{
+"id": 288,
+"name": "Genesis 2025 Part One",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Genesis 2025 Part One.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Genesis 2025 Part One.png"
+},
+{
+"id": 289,
+"name": "Genesis 2025 Part Two",
+"category": [
+"requests"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Genesis 2025 Part Two.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Genesis 2025 Part Two.png"
+},
+{
+"id": 290,
+"name": "Grandma Interp Grid",
+"category": [
+"timing",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Grandma Interp Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Grandma Interp Grid.png"
+},
+{
+"id": 291,
+"name": "Grandpa Interp Grid",
+"category": [
+"timing",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Grandpa Interp Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Grandpa Interp Grid.png"
+},
+{
+"id": 292,
+"name": "Herta 1 Accent Grid",
+"category": [
+"singles"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta 1 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta 1 Accent Grid.png"
+},
+{
+"id": 293,
+"name": "Herta 2 Accent Grid",
+"category": [
+"singles"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta 2 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta 2 Accent Grid.png"
+},
+{
+"id": 294,
+"name": "Herta Builder",
+"category": [
+"singles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Builder.png"
+},
+{
+"id": 295,
+"name": "Herta Builder Grid",
+"category": [
+"singles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Builder Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Builder Grid.png"
+},
+{
+"id": 296,
+"name": "Herta Diddles Slurred",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Diddles Slurred.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Diddles Slurred.png"
+},
+{
+"id": 297,
+"name": "Herta Diddles Straight",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Herta Diddles Straight.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Herta Diddles Straight.png"
+},
+{
+"id": 298,
+"name": "Hertas",
+"category": [
+"rudiments"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas.png"
+},
+{
+"id": 299,
+"name": "Hertas - Single Stroke Fours",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas - Single Stroke Fours.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas - Single Stroke Fours.png"
+},
+{
+"id": 300,
+"name": "Hertas - Slurred Hertas",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hertas - Slurred Hertas.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hertas - Slurred Hertas.png"
+},
+{
+"id": 301,
+"name": "Huckdigadics",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Huckdigadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Huckdigadics.png"
+},
+{
+"id": 302,
+"name": "Huckgadics",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/huckgadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/huckgadics.png"
+},
+{
+"id": 303,
+"name": "Huckgadics Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Huckgadics Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Huckgadics Roll.png"
+},
+{
+"id": 304,
+"name": "Huggadics",
+"category": [
+"one-handers",
+"accent-tap",
+"natural-decays"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/huggadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/huggadics.png"
+},
+{
+"id": 305,
+"name": "Huggadiddles",
+"category": [
+"one-handers",
+"hybrids"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Huggadiddle.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Huggadiddle.png"
+},
+{
+"id": 306,
+"name": "Inside Diddle Interp Gauntlet",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Roll Interp Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Roll Interp Gauntlet.png"
+},
+{
+"id": 307,
+"name": "Inside Paradiddle Diddles",
+"category": [
+"rudiments"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Diddles.png"
+},
+{
+"id": 308,
+"name": "Inside Paradiddle Filler",
+"category": [
+"paradiddles"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddle Filler.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddle Filler.png"
+},
+{
+"id": 309,
+"name": "Inside Paradiddles",
+"category": [
+"rudiments"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inside Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inside Paradiddles.png"
+},
+{
+"id": 310,
+"name": "Inverted Flam Taps - Triplet Accents",
+"category": [
+"juxtapositions",
+"flams"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Flam Taps - Triplet Accents.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Flam Taps - Triplet Accents.png"
+},
+{
+"id": 311,
+"name": "Inverted Flam Taps & Cheeses",
+"category": [
+"flams",
+"hybrids"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Flam Taps & Cheeses Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Flam Taps & Cheeses Builder.png"
+},
+{
+"id": 312,
+"name": "Inverted Huggadics",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Huggadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Huggadics.png"
+},
+{
+"id": 313,
+"name": "Inverted Huggadiddles",
+"category": [
+"one-handers",
+"hybrids"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Huggadiddle.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Huggadiddle.png"
+},
+{
+"id": 314,
+"name": "Inverted Roll Gauntlet",
+"category": [
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Roll Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Roll Gauntlet.png"
+},
+{
+"id": 315,
+"name": "Inverted Swiss Army Triplets - Cheese Inverts",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Inverted Swiss Army Triplets - Cheese Inverts.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Inverted Swiss Army Triplets - Cheese Inverts.png"
+},
+{
+"id": 316,
+"name": "Irish Spring",
+"category": [
+"one-handers"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Irish Spring.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Irish Spring.png"
+},
+{
+"id": 317,
+"name": "J.A.H",
+"category": [
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/J.A.H.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/J.A.H.png"
+},
+{
+"id": 318,
+"name": "Jedi 8's",
+"category": [
+"one-handers",
+"timing"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s.png"
+},
+{
+"id": 319,
+"name": "Jedi 8's 2 Note",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s 2 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s 2 Note.png"
+},
+{
+"id": 320,
+"name": "Jedi 8's Dotted Quarters",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s Dotted Quarters.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s Dotted Quarters.png"
+},
+{
+"id": 321,
+"name": "Jedi 8's Quarters",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jedi 8s Quarters.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jedi 8s Quarters.png"
+},
+{
+"id": 322,
+"name": "Jeepers Creepers",
+"category": [
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Jeepers Creepers.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Jeepers Creepers.png"
+},
+{
+"id": 323,
+"name": "Kicked Paradiddles",
+"category": [
+"rudiments"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Kicked Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Kicked Paradiddles.png"
+},
+{
+"id": 324,
+"name": "Kicked Swisses - Flams",
+"category": [
+"juxtapositions",
+"hybrids",
+"flams"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Kicked Swisses - Flams.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Kicked Swisses - Flams.png"
+},
+{
+"id": 325,
+"name": "Legato Pyramid",
+"category": [
+"natural-decays"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Legatos Pyramid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Legatos Pyramid.png"
+},
+{
+"id": 326,
+"name": "Mansfield HS 2025 Part One 1-13",
+"category": [
+"requests"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 1-13.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 1-13.png"
+},
+{
+"id": 327,
+"name": "Mansfield HS 2025 Part One 20-35",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 20-35.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 20-35.png"
+},
+{
+"id": 328,
+"name": "Mansfield HS 2025 Part One 45-55",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 45-55.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 45-55.png"
+},
+{
+"id": 329,
+"name": "Mansfield HS 2025 Part One 59-67",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 59-67.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 59-67.png"
+},
+{
+"id": 330,
+"name": "Mansfield HS 2025 Part One 70-85",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Mansfield HS 2025 Part One 70-85.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Mansfield HS 2025 Part One 70-85.png"
+},
+{
+"id": 331,
+"name": "Memphis Blues Paradiddle #1",
+"category": [
+"paradiddles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Memphis Blues Paradiddle #1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Memphis Blues Paradiddle #1.png"
+},
+{
+"id": 332,
+"name": "Memphis Blues Paradiddle #2",
+"category": [
+"paradiddles"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Memphis Blues Paradiddle #2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Memphis Blues Paradiddle #2.png"
+},
+{
+"id": 333,
+"name": "Modified Double Paradiddles - Ratamacues",
+"category": [
+"juxtapositions",
+"hybrids",
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Modified Double Paradiddles - Ratamacues.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Modified Double Paradiddles - Ratamacues.png"
+},
+{
+"id": 334,
+"name": "Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles",
+"category": [
+"juxtapositions",
+"rolls",
+"paradiddles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Modified Six Stroke Rolls - 2 Accent Paradiddle Diddles.png"
+},
+{
+"id": 335,
+"name": "Moeller Modulations",
+"category": [
+"exercises",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Moeller Modulations.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Moeller Modulations.png"
+},
+{
+"id": 336,
+"name": "Neo Metric",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Neo Metric.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Neo Metric.png"
+},
+{
+"id": 337,
+"name": "Nested 5let & 7let Builder",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested 5let & 7let Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested 5let & 7let Builder.png"
+},
+{
+"id": 338,
+"name": "Nested Triplet & 5let Builder",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested Triplet & 5let Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested Triplet & 5let Builder.png"
+},
+{
+"id": 339,
+"name": "Nested Triplet Builder",
+"category": [
+"timing"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Nested Triplet Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Nested Triplet Builder.png"
+},
+{
+"id": 340,
+"name": "North Texas Ram",
+"category": [
+"requests"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/North Texas Ram.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/North Texas Ram.png"
+},
+{
+"id": 341,
+"name": "Old School Pudadas",
+"category": [
+"accent-tap"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Old School Pududuhs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Old School Pududuhs.png"
+},
+{
+"id": 342,
+"name": "Pantera",
+"category": [
+"singles",
+"exercises"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pantera.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pantera.png"
+},
+{
+"id": 343,
+"name": "Para Pyramid",
+"category": [
+"paradiddles",
+"hybrids"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Para Pyramid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Para Pyramid.png"
+},
+{
+"id": 344,
+"name": "Paradiddle Builder",
+"category": [
+"paradiddles"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Builder.png"
+},
+{
+"id": 345,
+"name": "Paradiddle Diddle Builder",
+"category": [
+"paradiddles"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddle Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddle Builder.png"
+},
+{
+"id": 346,
+"name": "Paradiddle Diddle Filler",
+"category": [
+"paradiddles"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddle Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddle Builder.png"
+},
+{
+"id": 347,
+"name": "Paradiddle Diddle Pyramid",
+"category": [
+"paradiddles"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddle Pyramid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddle Pyramid.png"
+},
+{
+"id": 348,
+"name": "Paradiddle Diddles - 5let Drag Thing",
+"category": [
+"juxtapositions",
+"paradiddles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddles - 5let Drag Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddles - 5let Drag Thing.png"
+},
+{
+"id": 349,
+"name": "Paradiddle Diddles - 5let Ruff Thing",
+"category": [
+"juxtapositions",
+"paradiddles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Diddles - 5let Ruff Thing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Diddles - 5let Ruff Thing.png"
+},
+{
+"id": 350,
+"name": "Paradiddle Filler",
+"category": [
+"paradiddles"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Filler.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Filler.png"
+},
+{
+"id": 351,
+"name": "Paradiddle Interp Gauntlet",
+"category": [
+"paradiddles",
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Interp Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Interp Gauntlet.png"
+},
+{
+"id": 352,
+"name": "Paradiddle Pudada Filler",
+"category": [
+"paradiddles"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Pududuh Filler.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Pududuh Filler.png"
+},
+{
+"id": 353,
+"name": "Paradiddle Pyramid",
+"category": [
+"paradiddles"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddle Pyramid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddle Pyramid.png"
+},
+{
+"id": 354,
+"name": "Paradiddles",
+"category": [
+"rudiments"
+],
+"originalTempo": 140,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Paradiddles.png"
+},
+{
+"id": 355,
+"name": "Pataflaflas - Modified Paradiddle Diddles",
+"category": [
+"juxtapositions",
+"paradiddles",
+"flams"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pataflaflas - Modified Paradiddle Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pataflaflas - Modified Paradiddle Diddles.png"
+},
+{
+"id": 356,
+"name": "Pats",
+"category": [
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pats.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pats.png"
+},
+{
+"id": 357,
+"name": "PDD + PD",
+"category": [
+"paradiddles"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/PDD + PD.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/PDD + PD.png"
+},
+{
+"id": 484,
+"name": "Phantom Rolls",
+"category": [
+"exercises",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Phantom Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Phantom Rolls.png"
+},
+{
+"id": 358,
+"name": "Polyrhythm Breakdown",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Polyrhythm Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Polyrhythm Builder.png"
+},
+{
+"id": 359,
+"name": "Polyrhythm Builder #1",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Polyrhythms Builder 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Polyrhythms Builder 1.png"
+},
+{
+"id": 360,
+"name": "Polyrhythm Builder #2",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Polyrhythms Builder 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Polyrhythms Builder 2.png"
+},
+{
+"id": 361,
+"name": "Pudada Filler",
+"category": [
+"accent-tap",
+"paradiddles"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Pududuh Filler.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Pududuh Filler.png"
+},
+{
+"id": 362,
+"name": "Puhduhdiddle",
+"category": [
+"exercises"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Puhduhdiddle.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Puhduhdiddle.png"
+},
+{
+"id": 363,
+"name": "Quarter Triplet - 16th",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 16th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 16th.png"
+},
+{
+"id": 364,
+"name": "Quarter Triplet - 8th",
+"category": [
+"timing"
+],
+"originalTempo": 200,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 8th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 8th.png"
+},
+{
+"id": 365,
+"name": "Quarter Triplet - 9let",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - 9let.png"
+},
+{
+"id": 366,
+"name": "Quarter Triplet - Triplet",
+"category": [
+"timing"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplet - Triplet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplet - Triplet.png"
+},
+{
+"id": 367,
+"name": "Quarter Triplets",
+"category": [
+"rhythms"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarter Triplets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarter Triplets.png"
+},
+{
+"id": 368,
+"name": "Quarters",
+"category": [
+"rhythms"
+],
+"originalTempo": 200,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Quarters.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Quarters.png"
+},
+{
+"id": 369,
+"name": "Racketeer Interp Grid",
+"category": [
+"accent-tap",
+"paradiddles",
+"hybrids"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Racketeer Interp Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Racketeer Interp Grid.png"
+},
+{
+"id": 370,
+"name": "Ratio Rhythms Builder #1",
+"category": [
+"timing"
+],
+"originalTempo": 180,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 1.png"
+},
+{
+"id": 371,
+"name": "Ratio Rhythms Builder #2",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 2.png"
+},
+{
+"id": 372,
+"name": "Ratio Rhythms Builder #3",
+"category": [
+"timing"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Builder 3.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Builder 3.png"
+},
+{
+"id": 373,
+"name": "Ratio Rhythms Etude #1",
+"category": [
+"etudes"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Etude 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Etude 1.png"
+},
+{
+"id": 374,
+"name": "Ratio Rhythms Etude #2",
+"category": [
+"etudes"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ratio Rhythms Etude 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ratio Rhythms Etude 2.png"
+},
+{
+"id": 375,
+"name": "Rhythm X 2025 Audition Lick",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Rhythm X 2025 Audition Lick.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Rhythm X 2025 Audition Lick.png"
+},
+{
+"id": 376,
+"name": "Robinson's",
+"category": [
+"rolls",
+"accent tap"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Robinson's.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Robinson's.png"
+},
+{
+"id": 377,
+"name": "Ruffs - Triple Stroke Rolls",
+"category": [
+"juxtapositions",
+"hybrids",
+"natural-decays"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Ruffs - Triple Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Ruffs - Triple Stroke Rolls.png"
+},
+{
+"id": 378,
+"name": "Satellite",
+"category": [
+"exercises",
+"flams"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Chuggs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Chuggs.png"
+},
+{
+"id": 379,
+"name": "SCV 2025 Opener Snare Lick",
+"category": [
+"requests"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Hallucinations - SCV 2025.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Hallucinations - SCV 2025.png"
+},
+{
+"id": 380,
+"name": "SCV Rolls",
+"category": [
+"rolls",
+"exercises"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/SCV Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/SCV Rolls.png"
+},
+{
+"id": 381,
+"name": "SCV Threes",
+"category": [
+"hybrids",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/SCV Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/SCV Rolls.png"
+},
+{
+"id": 382,
+"name": "SCV Timing",
+"category": [
+"timing",
+"exercises"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/SCV Timing.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/SCV Timing.png"
+},
+{
+"id": 383,
+"name": "Shirley Murphy Builder",
+"category": [
+"natural-decays"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Shirley Murphy Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Shirley Murphy Builder.png"
+},
+{
+"id": 384,
+"name": "Shups",
+"category": [
+"one-handers"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Shups.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Shups.png"
+},
+{
+"id": 385,
+"name": "Single Backs",
+"category": [
+"rudiments"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs.png"
+},
+{
+"id": 386,
+"name": "Single Backs - Inverted Single Backs",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs - Inverted Single Backs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs - Inverted Single Backs.png"
+},
+{
+"id": 387,
+"name": "Single Backs - Single Stroke Ruffs",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Backs - Single Stroke Ruffs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Backs - Single Stroke Ruffs.png"
+},
+{
+"id": 388,
+"name": "Single Stroke Fives",
+"category": [
+"rudiments"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Stroke 5's.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Stroke 5's.png"
+},
+{
+"id": 389,
+"name": "Single Stroke Fours - Single Stroke Roll",
+"category": [
+"rudiments"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Stroke Fours - Single Stroke Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Stroke Fours - Single Stroke Roll.png"
+},
+{
+"id": 390,
+"name": "Single Stroke Fours - Single Stroke Roll",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Single Stroke Fours - Single Stroke Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Single Stroke Fours - Single Stroke Roll.png"
+},
+{
+"id": 391,
+"name": "Singles - Single Backs",
+"category": [
+"juxtapositions",
+"singles"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Singles - Single Backs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Singles - Single Backs.png"
+},
+{
+"id": 392,
+"name": "Singles Builder",
+"category": [
+"singles"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Singles Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Singles Builder.png"
+},
+{
+"id": 393,
+"name": "Six Stroke Rolls - Slurred Six Stroke Rolls",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Six Stroke Rolls - Slurred Six Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Six Stroke Rolls - Slurred Six Stroke Rolls.png"
+},
+{
+"id": 394,
+"name": "Six Stroke Rolls - Stressed Six Stroke Rolls",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Six Stroke Rolls - Stressed Six Stroke Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Six Stroke Rolls - Stressed Six Stroke Rolls.png"
+},
+{
+"id": 395,
+"name": "Slurred Tap Fives & Nines",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Slurred Tap 9s Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Slurred Tap 9s Builder.png"
+},
+{
+"id": 396,
+"name": "Slurred Tap Nines",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Nines - Slurred Tap Nines.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Nines - Slurred Tap Nines.png"
+},
+{
+"id": 397,
+"name": "Snitchel Burger",
+"category": [
+"requests"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Snitchel Burger.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Snitchel Burger.png"
+},
+{
+"id": 398,
+"name": "Spanks",
+"category": [
+"exercises"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Spanks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Spanks.png"
+},
+{
+"id": 399,
+"name": "Spree 1",
+"category": [
+"instagram"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Spree 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Spree 1.png"
+},
+{
+"id": 400,
+"name": "Sterling",
+"category": [
+"exercises"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Sterling.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Sterling.png"
+},
+{
+"id": 401,
+"name": "Stick Control",
+"category": [
+"exercises"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Stick Control.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Stick Control.png"
+},
+{
+"id": 402,
+"name": "Straight Rhythms Etude #1",
+"category": [
+"etudes"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Straight Rhythms Etude 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Straight Rhythms Etude 1.png"
+},
+{
+"id": 403,
+"name": "Straight Rhythms Etude #2",
+"category": [
+"etudes"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Straight Rhythms Etude 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Straight Rhythms Etude 2.png"
+},
+{
+"id": 404,
+"name": "Sustain",
+"category": [
+"exercises"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Sustain.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Sustain.png"
+},
+{
+"id": 405,
+"name": "Swiss Army Triplets - Right Heavy Doubles",
+"category": [
+"juxtapositions",
+"flams",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Army Triplets - Right Heavy Doubles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Army Triplets - Right Heavy Doubles.png"
+},
+{
+"id": 406,
+"name": "Swiss Army Triplets - Same Hand Cheeses",
+"category": [
+"juxtapositions",
+"flams",
+"hybrids"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Army Triplets - Same Hand Cheeses.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Army Triplets - Same Hand Cheeses.png"
+},
+{
+"id": 407,
+"name": "Swiss Hitter",
+"category": [
+"flams"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Hitter.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Hitter.png"
+},
+{
+"id": 408,
+"name": "Swiss Huggadics",
+"category": [
+"accent-tap",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Huggadics Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Huggadics Builder.png"
+},
+{
+"id": 409,
+"name": "Swiss Mover",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Mover.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Mover.png"
+},
+{
+"id": 410,
+"name": "Swiss Taps",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Taps.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Taps.png"
+},
+{
+"id": 411,
+"name": "Swiss Triplet Grid",
+"category": [
+"flams",
+"natural-decays"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swiss Triplet Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swiss Triplet Grid.png"
+},
+{
+"id": 412,
+"name": "Swung Bucks",
+"category": [
+"one-handers",
+"accent-tap"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Swung Bucks.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Swung Bucks.png"
+},
+{
+"id": 413,
+"name": "Syncopated Huggadics",
+"category": [
+"one-handers",
+"accent-tap",
+"natural-decays"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/syncopated_huggadics.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/syncopated_huggadics.png"
+},
+{
+"id": 414,
+"name": "Syncopated Rhythms Builder #1",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 1.png"
+},
+{
+"id": 415,
+"name": "Syncopated Rhythms Builder #2",
+"category": [
+"timing"
+],
+"originalTempo": 160,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 2.png"
+},
+{
+"id": 416,
+"name": "Syncopated Rhythms Builder #3",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Syncopated Rhythms Builder 3.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Syncopated Rhythms Builder 3.png"
+},
+{
+"id": 417,
+"name": "Tap Buzzes & Drags",
+"category": [
+"accent-tap",
+"hybrids"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Buzzes & Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Buzzes & Drags.png"
+},
+{
+"id": 418,
+"name": "Tap Diddle Interp Grid",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Diddle Interp Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Diddle Interp Grid.png"
+},
+{
+"id": 419,
+"name": "Tap Drags - Inverted Paradiddles",
+"category": [
+"juxtapositions",
+"paradiddles"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Inverted Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Inverted Paradiddles.png"
+},
+{
+"id": 420,
+"name": "Tap Drags - Same Diddle, Different Initiation #1",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Same Diddle, Different Initiation 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Same Diddle, Different Initiation 1.png"
+},
+{
+"id": 421,
+"name": "Tap Drags - Same Diddle, Different Initiation #2",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Same Diddle, Different Initiation 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Same Diddle, Different Initiation 2.png"
+},
+{
+"id": 422,
+"name": "Tap Drags - Slurred Tap Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Slurred Tap Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Slurred Tap Drags.png"
+},
+{
+"id": 423,
+"name": "Tap Drags - Tap Ruffs",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Tap Ruffs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Tap Ruffs.png"
+},
+{
+"id": 424,
+"name": "Tap Drags - Tight Tap Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Drags - Tight Tap Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Drags - Tight Tap Drags.png"
+},
+{
+"id": 425,
+"name": "Tap Fives - Choo Choos",
+"category": [
+"juxtapositions",
+"rolls",
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Choo Choos.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Choo Choos.png"
+},
+{
+"id": 426,
+"name": "Tap Fives - Inverted Five Strokes",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Inverted Five Strokes.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Inverted Five Strokes.png"
+},
+{
+"id": 427,
+"name": "Tap Fives - Slurred Tap Fives",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Slurred Tap Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Slurred Tap Fives.png"
+},
+{
+"id": 428,
+"name": "Tap Fives - Tap Diddles Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tap Diddles Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tap Diddles Drags.png"
+},
+{
+"id": 429,
+"name": "Tap Fives - Tap Drag Diddles",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tap Drag Diddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tap Drag Diddles.png"
+},
+{
+"id": 430,
+"name": "Tap Fives - Tight Tap Fives",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Fives - Tight Tap Fives.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Fives - Tight Tap Fives.png"
+},
+{
+"id": 431,
+"name": "Tap Nines - Slurred Tap Nines",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Nines - Slurred Tap Nines.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Nines - Slurred Tap Nines.png"
+},
+{
+"id": 432,
+"name": "Tap Pyramid",
+"category": [
+"exercises"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Pyramid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Pyramid.png"
+},
+{
+"id": 433,
+"name": "Tap Sevens - Inverted Sevens",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Inverted Sevens.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Inverted Sevens.png"
+},
+{
+"id": 434,
+"name": "Tap Sevens - Slurred Sevens",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Slurred Tap Sevens.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Slurred Tap Sevens.png"
+},
+{
+"id": 435,
+"name": "Tap Sevens - Upbeat Sevens",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tap Sevens - Upbeat Sevens.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tap Sevens - Upbeat Sevens.png"
+},
+{
+"id": 436,
+"name": "The Big Ten",
+"category": [
+"flams",
+"hybrids"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/The Big Ten.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/The Big Ten.png"
+},
+{
+"id": 437,
+"name": "The Big Three",
+"category": [
+"flams",
+"hybrids"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/The Big Three.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/The Big Three.png"
+},
+{
+"id": 438,
+"name": "Third Partial Drags - Paradiddles",
+"category": [
+"juxtapositions",
+"rolls",
+"paradiddles"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Third Partial Drags - Paradiddles.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Third Partial Drags - Paradiddles.png"
+},
+{
+"id": 439,
+"name": "Third Partial Drags - Upbeat Slurred Ruffs",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Third Partial Drags - Upbeat Slurred Ruffs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Third Partial Drags - Upbeat Slurred Ruffs.png"
+},
+{
+"id": 440,
+"name": "Thirteen",
+"category": [
+"accent-tap",
+"one-handers",
+"exercises"
+],
+"originalTempo": 60,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Thirteen.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Thirteen.png"
+},
+{
+"id": 441,
+"name": "Triplet - 16th",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th.png"
+},
+{
+"id": 442,
+"name": "Triplet - 16th 2 Note Timing Gauntlet",
+"category": [
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th 2 Note Timing Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th 2 Note Timing Gauntlet.png"
+},
+{
+"id": 443,
+"name": "Triplet - 16th Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 16th Roll.png"
+},
+{
+"id": 444,
+"name": "Triplet - 5let",
+"category": [
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 5let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 5let.png"
+},
+{
+"id": 445,
+"name": "Triplet - 6let",
+"category": [
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 6let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 6let.png"
+},
+{
+"id": 446,
+"name": "Triplet - 8th 5let Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 5let Roll.png"
+},
+{
+"id": 447,
+"name": "Triplet - 8th 7let",
+"category": [
+"timing"
+],
+"originalTempo": 130,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 8th 7let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 8th 7let.png"
+},
+{
+"id": 448,
+"name": "Triplet - 9let",
+"category": [
+"timing"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - 9let.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - 9let.png"
+},
+{
+"id": 449,
+"name": "Triplet - Duple Roll",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Duple Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Duple Roll.png"
+},
+{
+"id": 450,
+"name": "Triplet - Duple Roll - Triplet Roll",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Duple Roll - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Duple Roll - Triplet Roll.png"
+},
+{
+"id": 451,
+"name": "Triplet - Triplet Roll",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet - Triplet Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet - Triplet Roll.png"
+},
+{
+"id": 452,
+"name": "Triplet 1 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Accent Grid.png"
+},
+{
+"id": 453,
+"name": "Triplet 1 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 1 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 1 Accent Grid Backwards.png"
+},
+{
+"id": 454,
+"name": "Triplet 1 Note",
+"category": [
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 1 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 1 Note.png"
+},
+{
+"id": 455,
+"name": "Triplet 2 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Accent Grid.png"
+},
+{
+"id": 456,
+"name": "Triplet 2 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Accent Grid Backwards.png"
+},
+{
+"id": 457,
+"name": "Triplet 2 Note",
+"category": [
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 2 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 2 Note.png"
+},
+{
+"id": 458,
+"name": "Triplet 3 Accent Grid",
+"category": [
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Accent Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Accent Grid.png"
+},
+{
+"id": 459,
+"name": "Triplet 3 Accent Grid Backwards",
+"category": [
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Accent Grid Backwards.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Accent Grid Backwards.png"
+},
+{
+"id": 460,
+"name": "Triplet 3 Note",
+"category": [
+"timing"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 3 Note.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 3 Note.png"
+},
+{
+"id": 461,
+"name": "Triplet Accent Interp",
+"category": [
+"timing",
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Accent Interp.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Accent Interp.png"
+},
+{
+"id": 462,
+"name": "Triplet Chicken & A Roll",
+"category": [
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Chicken & A Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Chicken & A Roll.png"
+},
+{
+"id": 463,
+"name": "Triplet Diddle",
+"category": [
+"rolls"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/triplet_diddle.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/triplet_diddle.png"
+},
+{
+"id": 464,
+"name": "Triplet Diddle Interp Gauntlet",
+"category": [
+"timing",
+"rolls"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Diddle Interp Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Diddle Interp Gauntlet.png"
+},
+{
+"id": 465,
+"name": "Triplet Fives",
+"category": [
+"rolls",
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/triplet_7s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/triplet_7s.png"
+},
+{
+"id": 466,
+"name": "Triplet Lead Hand Drags - Slurred Lead Hand Drags",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Lead Hand Drags - Slurred Lead Hand Drags.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Lead Hand Drags - Slurred Lead Hand Drags.png"
+},
+{
+"id": 467,
+"name": "Triplet Off Hand Drags - Slurred Ruffs",
+"category": [
+"juxtapositions",
+"rolls"
+],
+"originalTempo": 50,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Off Hand Drags - Slurred Ruffs.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Off Hand Drags - Slurred Ruffs.png"
+},
+{
+"id": 468,
+"name": "Triplet Rhythms Etude #1",
+"category": [
+"etudes"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Rhythms Etude 1.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Rhythms Etude 1.png"
+},
+{
+"id": 469,
+"name": "Triplet Rhythms Etude #2",
+"category": [
+"etudes"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Rhythms Etude 2.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Rhythms Etude 2.png"
+},
+{
+"id": 470,
+"name": "Triplet Roll - 16th Roll",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 80,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Roll - 16th Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Roll - 16th Roll.png"
+},
+{
+"id": 471,
+"name": "Triplet Roll - 8th 5let Roll",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Roll - 8th 5let Roll.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Roll - 8th 5let Roll.png"
+},
+{
+"id": 472,
+"name": "Triplet Sevens",
+"category": [
+"rolls",
+"accent-tap"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/triplet_7s.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/triplet_7s.png"
+},
+{
+"id": 473,
+"name": "Triplet Sevens Builder",
+"category": [
+"rolls",
+"accent-tap"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet 7s Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet 7s Builder.png"
+},
+{
+"id": 474,
+"name": "Triplet Taps Gauntlet",
+"category": [
+"accent-tap"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplet Taps Gauntlet.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplet Taps Gauntlet.png"
+},
+{
+"id": 475,
+"name": "Triplets",
+"category": [
+"rhythms"
+],
+"originalTempo": 150,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Triplets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Triplets.png"
+},
+{
+"id": 476,
+"name": "Tuchada Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tuchuduh Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tuchuduh Grid.png"
+},
+{
+"id": 477,
+"name": "Tudacha Grid",
+"category": [
+"flams"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Tuduchuh Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Tuduchuh Grid.png"
+},
+{
+"id": 478,
+"name": "Universal Grip",
+"category": [
+"timing",
+"one-handers",
+"accent-tap",
+"natural-decays",
+"hybrids"
+],
+"originalTempo": 90,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Universal Grip.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Universal Grip.png"
+},
+{
+"id": 479,
+"name": "Upbeat Triplet Builder",
+"category": [
+"timing"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Builder.png"
+},
+{
+"id": 480,
+"name": "Upbeat Triplet Roll Builder",
+"category": [
+"rolls",
+"timing"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Roll Builder.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Roll Builder.png"
+},
+{
+"id": 481,
+"name": "Upbeat Triplet Rolls",
+"category": [
+"rudiments"
+],
+"originalTempo": 100,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplet Rolls.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplet Rolls.png"
+},
+{
+"id": 482,
+"name": "Upbeat Triplets",
+"category": [
+"rudiments"
+],
+"originalTempo": 120,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Upbeat Triplets.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Upbeat Triplets.png"
+},
+{
+"id": 483,
+"name": "WD-40",
+"category": [
+"rolls",
+"accent-tap"
+],
+"originalTempo": 110,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/WD-40.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/WD-40.png"
+},
+{
+"id": 1,
+"name": "Wiggaduhs Grid",
+"category": [
+"natural-decays"
+],
+"originalTempo": 70,
+"audioSrc": "https://AwesomeBOB20.github.io/Playalongs/audio/Waterfalls & Ripples Grid.mp3",
+"sheetMusicSrc": "https://AwesomeBOB20.github.io/Playalongs/sheet_music/Waterfalls & Ripples Grid.png"
+}
 ];
 
 window.PLAYLISTS = [
